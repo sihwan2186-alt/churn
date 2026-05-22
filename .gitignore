@@ -1,0 +1,27 @@
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+.env
+.env.*
+
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+catboost_info/
+
+# Private/source data and bulky local references
+Baza customer Telecom v2.csv
+*.pdf
+
+# Customer-level generated outputs
+processed/model_a_with_billing_zip/
+processed/model_b_without_billing_zip/
+processed/error_analysis_predictions.csv
+*.joblib
+
+*.tmp
+*.log
