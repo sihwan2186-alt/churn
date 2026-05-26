@@ -1,0 +1,141 @@
+{
+  "input_file": "Baza customer Telecom v2.csv",
+  "output_root": "processed\\column_split_datasets",
+  "original_shape": [
+    8453,
+    15
+  ],
+  "excluded_model_columns": [
+    "PID",
+    "KA_name"
+  ],
+  "target_column": "CHURN",
+  "categorical_columns": [
+    "CRM_PID_Value_Segment",
+    "EffectiveSegment",
+    "Billing_ZIP"
+  ],
+  "numeric_columns": [
+    "Active_subscribers",
+    "Not_Active_subscribers",
+    "Suspended_subscribers",
+    "Total_SUBs",
+    "AvgMobileRevenue",
+    "AvgFIXRevenue",
+    "TotalRevenue",
+    "ARPU"
+  ],
+  "target_distribution": {
+    "No": 7904,
+    "Yes": 549
+  },
+  "column_pair_files": [
+    {
+      "column": "CRM_PID_Value_Segment",
+      "rows": 8453,
+      "path": "processed\\column_split_datasets\\01_column_churn_pairs\\CRM_PID_Value_Segment_churn.csv"
+    },
+    {
+      "column": "EffectiveSegment",
+      "rows": 8453,
+      "path": "processed\\column_split_datasets\\01_column_churn_pairs\\EffectiveSegment_churn.csv"
+    },
+    {
+      "column": "Billing_ZIP",
+      "rows": 8453,
+      "path": "processed\\column_split_datasets\\01_column_churn_pairs\\Billing_ZIP_churn.csv"
+    },
+    {
+      "column": "Active_subscribers",
+      "rows": 8453,
+      "path": "processed\\column_split_datasets\\01_column_churn_pairs\\Active_subscribers_churn.csv"
+    },
+    {
+      "column": "Not_Active_subscribers",
+      "rows": 8453,
+      "path": "processed\\column_split_datasets\\01_column_churn_pairs\\Not_Active_subscribers_churn.csv"
+    },
+    {
+      "column": "Suspended_subscribers",
+      "rows": 8453,
+      "path": "processed\\column_split_datasets\\01_column_churn_pairs\\Suspended_subscribers_churn.csv"
+    },
+    {
+      "column": "Total_SUBs",
+      "rows": 8453,
+      "path": "processed\\column_split_datasets\\01_column_churn_pairs\\Total_SUBs_churn.csv"
+    },
+    {
+      "column": "AvgMobileRevenue",
+      "rows": 8453,
+      "path": "processed\\column_split_datasets\\01_column_churn_pairs\\AvgMobileRevenue_churn.csv"
+    },
+    {
+      "column": "AvgFIXRevenue",
+      "rows": 8453,
+      "path": "processed\\column_split_datasets\\01_column_churn_pairs\\AvgFIXRevenue_churn.csv"
+    },
+    {
+      "column": "TotalRevenue",
+      "rows": 8453,
+      "path": "processed\\column_split_datasets\\01_column_churn_pairs\\TotalRevenue_churn.csv"
+    },
+    {
+      "column": "ARPU",
+      "rows": 8453,
+      "path": "processed\\column_split_datasets\\01_column_churn_pairs\\ARPU_churn.csv"
+    }
+  ],
+  "preprocessed_column_files": [
+    {
+      "column": "CRM_PID_Value_Segment",
+      "path": "processed\\column_split_datasets\\04_column_preprocessed\\CRM_PID_Value_Segment_preprocessed.csv"
+    },
+    {
+      "column": "EffectiveSegment",
+      "path": "processed\\column_split_datasets\\04_column_preprocessed\\EffectiveSegment_preprocessed.csv"
+    },
+    {
+      "column": "Billing_ZIP",
+      "path": "processed\\column_split_datasets\\04_column_preprocessed\\Billing_ZIP_preprocessed.csv"
+    },
+    {
+      "column": "Active_subscribers",
+      "path": "processed\\column_split_datasets\\04_column_preprocessed\\Active_subscribers_preprocessed.csv"
+    },
+    {
+      "column": "Not_Active_subscribers",
+      "path": "processed\\column_split_datasets\\04_column_preprocessed\\Not_Active_subscribers_preprocessed.csv"
+    },
+    {
+      "column": "Suspended_subscribers",
+      "path": "processed\\column_split_datasets\\04_column_preprocessed\\Suspended_subscribers_preprocessed.csv"
+    },
+    {
+      "column": "Total_SUBs",
+      "path": "processed\\column_split_datasets\\04_column_preprocessed\\Total_SUBs_preprocessed.csv"
+    },
+    {
+      "column": "AvgMobileRevenue",
+      "path": "processed\\column_split_datasets\\04_column_preprocessed\\AvgMobileRevenue_preprocessed.csv"
+    },
+    {
+      "column": "AvgFIXRevenue",
+      "path": "processed\\column_split_datasets\\04_column_preprocessed\\AvgFIXRevenue_preprocessed.csv"
+    },
+    {
+      "column": "TotalRevenue",
+      "path": "processed\\column_split_datasets\\04_column_preprocessed\\TotalRevenue_preprocessed.csv"
+    },
+    {
+      "column": "ARPU",
+      "path": "processed\\column_split_datasets\\04_column_preprocessed\\ARPU_preprocessed.csv"
+    }
+  ],
+  "single_column_model_screening": true,
+  "korean_readable_outputs": {
+    "data_dictionary": "processed\\column_split_datasets\\00_data_dictionary_korean.csv",
+    "readable_root": "processed\\column_split_datasets\\07_korean_readable_summaries",
+    "original_csv_modified": false
+  }
+}

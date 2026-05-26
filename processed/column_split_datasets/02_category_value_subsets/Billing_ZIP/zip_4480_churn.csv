@@ -1,0 +1,3 @@
+﻿CRM_PID_Value_Segment,EffectiveSegment,Billing_ZIP,Active_subscribers,Not_Active_subscribers,Suspended_subscribers,Total_SUBs,AvgMobileRevenue,AvgFIXRevenue,TotalRevenue,ARPU,CHURN,churn_binary
+SME,SME,4480,3,,,3,321.0,0.0,321.0,107.0,No,0
+SE,SE,4480,23,1.0,,24,194.17,0.0,194.17,8.44,No,0

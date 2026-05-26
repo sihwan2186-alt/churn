@@ -1,0 +1,507 @@
+﻿column,column_ko,column_description,group_type,group,rows,yes_count,no_count,yes_rate,no_rate,yes_rate_percent,no_rate_percent,path
+ARPU,가입자당 평균 매출,가입자 1명당 평균 매출이다.,numeric_bin,"(21.83, 29.95]",1687,120,1567,0.07113218731475993,0.9288678126852401,7.1132187314759925,92.886781268524,
+ARPU,가입자당 평균 매출,가입자 1명당 평균 매출이다.,numeric_bin,"(-0.001, 13.17]",1697,118,1579,0.0695344725987036,0.9304655274012964,6.9534472598703605,93.04655274012964,
+ARPU,가입자당 평균 매출,가입자 1명당 평균 매출이다.,numeric_bin,"(29.95, 462.83]",1689,113,1576,0.06690349319123742,0.9330965068087625,6.690349319123742,93.30965068087626,
+ARPU,가입자당 평균 매출,가입자 1명당 평균 매출이다.,numeric_bin,"(13.17, 17.0]",1699,103,1596,0.06062389640965274,0.9393761035903473,6.062389640965274,93.93761035903474,
+ARPU,가입자당 평균 매출,가입자 1명당 평균 매출이다.,numeric_bin,"(17.0, 21.83]",1680,95,1585,0.05654761904761905,0.9434523809523809,5.654761904761905,94.34523809523809,
+ARPU,가입자당 평균 매출,가입자 1명당 평균 매출이다.,numeric_bin,missing,1,0,1,0.0,1.0,0.0,100.0,
+Active_subscribers,활성 가입자 수,현재 사용 중인 활성 가입자 수다.,numeric_bin,"(11.0, 110.0]",1587,150,1437,0.0945179584120983,0.9054820415879017,9.45179584120983,90.54820415879017,
+Active_subscribers,활성 가입자 수,현재 사용 중인 활성 가입자 수다.,numeric_bin,"(7.0, 11.0]",1452,94,1358,0.06473829201101929,0.9352617079889807,6.473829201101928,93.52617079889806,
+Active_subscribers,활성 가입자 수,현재 사용 중인 활성 가입자 수다.,numeric_bin,"(5.0, 7.0]",1437,92,1345,0.06402226861517049,0.9359777313848295,6.4022268615170494,93.59777313848295,
+Active_subscribers,활성 가입자 수,현재 사용 중인 활성 가입자 수다.,numeric_bin,"(3.0, 5.0]",2025,112,1913,0.055308641975308645,0.9446913580246914,5.530864197530865,94.46913580246914,
+Active_subscribers,활성 가입자 수,현재 사용 중인 활성 가입자 수다.,numeric_bin,"(0.999, 3.0]",1952,101,1851,0.051741803278688527,0.9482581967213115,5.174180327868853,94.82581967213115,
+AvgFIXRevenue,평균 유선 매출,평균 유선 서비스 매출이다. 번들/고착 효과 확인에 사용한다.,numeric_bin,"(-0.001, 480.5]",8453,549,7904,0.06494735596829528,0.9350526440317047,6.4947355968295275,93.50526440317047,
+AvgMobileRevenue,평균 모바일 매출,평균 모바일 서비스 매출이다.,numeric_bin,"(221.67, 499.83]",1687,151,1536,0.08950800237107291,0.9104919976289271,8.950800237107291,91.04919976289271,
+AvgMobileRevenue,평균 모바일 매출,평균 모바일 서비스 매출이다.,numeric_bin,"(138.17, 221.67]",1690,127,1563,0.07514792899408285,0.9248520710059172,7.514792899408285,92.48520710059171,
+AvgMobileRevenue,평균 모바일 매출,평균 모바일 서비스 매출이다.,numeric_bin,"(94.5, 138.17]",1693,120,1573,0.07088009450679268,0.9291199054932073,7.088009450679269,92.91199054932073,
+AvgMobileRevenue,평균 모바일 매출,평균 모바일 서비스 매출이다.,numeric_bin,"(64.67, 94.5]",1686,83,1603,0.04922894424673784,0.9507710557532622,4.9228944246737845,95.07710557532621,
+AvgMobileRevenue,평균 모바일 매출,평균 모바일 서비스 매출이다.,numeric_bin,"(-0.001, 64.67]",1697,68,1629,0.040070713022981735,0.9599292869770183,4.007071302298174,95.99292869770183,
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1619,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1619_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1784,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1784_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4417,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4417_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4618,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4618_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4630,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4630_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4638,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4638_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,5800,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_5800_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6170,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6170_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6264,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6264_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6353,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6353_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6670,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6670_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6673,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6673_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6845,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6845_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,7800,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_7800_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8643,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8643_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8800,1,1,0,1.0,0.0,100.0,0.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8800_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4018,3,2,1,0.6666666666666666,0.3333333333333333,66.66666666666666,33.33333333333333,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4018_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4750,3,2,1,0.6666666666666666,0.3333333333333333,66.66666666666666,33.33333333333333,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4750_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6884,4,2,2,0.5,0.5,50.0,50.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6884_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8000,4,2,2,0.5,0.5,50.0,50.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8000_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4251,2,1,1,0.5,0.5,50.0,50.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4251_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4363,2,1,1,0.5,0.5,50.0,50.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4363_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4632,2,1,1,0.5,0.5,50.0,50.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4632_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4944,2,1,1,0.5,0.5,50.0,50.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4944_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6053,2,1,1,0.5,0.5,50.0,50.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6053_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6097,2,1,1,0.5,0.5,50.0,50.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6097_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4201,3,1,2,0.3333333333333333,0.6666666666666666,33.33333333333333,66.66666666666666,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4201_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4212,3,1,2,0.3333333333333333,0.6666666666666666,33.33333333333333,66.66666666666666,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4212_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4250,3,1,2,0.3333333333333333,0.6666666666666666,33.33333333333333,66.66666666666666,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4250_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4601,3,1,2,0.3333333333333333,0.6666666666666666,33.33333333333333,66.66666666666666,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4601_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4602,3,1,2,0.3333333333333333,0.6666666666666666,33.33333333333333,66.66666666666666,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4602_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4644,3,1,2,0.3333333333333333,0.6666666666666666,33.33333333333333,66.66666666666666,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4644_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4830,3,1,2,0.3333333333333333,0.6666666666666666,33.33333333333333,66.66666666666666,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4830_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6050,3,1,2,0.3333333333333333,0.6666666666666666,33.33333333333333,66.66666666666666,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6050_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6160,3,1,2,0.3333333333333333,0.6666666666666666,33.33333333333333,66.66666666666666,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6160_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8200,3,1,2,0.3333333333333333,0.6666666666666666,33.33333333333333,66.66666666666666,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8200_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8600,3,1,2,0.3333333333333333,0.6666666666666666,33.33333333333333,66.66666666666666,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8600_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4109,7,2,5,0.2857142857142857,0.7142857142857143,28.57142857142857,71.42857142857143,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4109_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4701,12,3,9,0.25,0.75,25.0,75.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4701_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4160,4,1,3,0.25,0.75,25.0,75.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4160_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4406,4,1,3,0.25,0.75,25.0,75.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4406_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4703,4,1,3,0.25,0.75,25.0,75.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4703_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4831,4,1,3,0.25,0.75,25.0,75.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4831_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6158,4,1,3,0.25,0.75,25.0,75.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6158_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6250,4,1,3,0.25,0.75,25.0,75.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6250_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6343,4,1,3,0.25,0.75,25.0,75.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6343_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6560,4,1,3,0.25,0.75,25.0,75.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6560_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6900,23,5,18,0.21739130434782608,0.782608695652174,21.73913043478261,78.26086956521739,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6900_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4108,15,3,12,0.2,0.8,20.0,80.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4108_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4021,10,2,8,0.2,0.8,20.0,80.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4021_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4581,10,2,8,0.2,0.8,20.0,80.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4581_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4241,5,1,4,0.2,0.8,20.0,80.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4241_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4800,22,4,18,0.18181818181818182,0.8181818181818182,18.181818181818183,81.81818181818183,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4800_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4770,6,1,5,0.16666666666666666,0.8333333333333334,16.666666666666664,83.33333333333334,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4770_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6140,6,1,5,0.16666666666666666,0.8333333333333334,16.666666666666664,83.33333333333334,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6140_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4107,7,1,6,0.14285714285714285,0.8571428571428571,14.285714285714285,85.71428571428571,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4107_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4137,7,1,6,0.14285714285714285,0.8571428571428571,14.285714285714285,85.71428571428571,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4137_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6490,7,1,6,0.14285714285714285,0.8571428571428571,14.285714285714285,85.71428571428571,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6490_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6750,7,1,6,0.14285714285714285,0.8571428571428571,14.285714285714285,85.71428571428571,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6750_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4210,47,6,41,0.1276595744680851,0.8723404255319149,12.76595744680851,87.2340425531915,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4210_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4001,40,5,35,0.125,0.875,12.5,87.5,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4001_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4850,40,5,35,0.125,0.875,12.5,87.5,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4850_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4204,8,1,7,0.125,0.875,12.5,87.5,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4204_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4530,8,1,7,0.125,0.875,12.5,87.5,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4530_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6003,8,1,7,0.125,0.875,12.5,87.5,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6003_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4017,17,2,15,0.11764705882352941,0.8823529411764706,11.76470588235294,88.23529411764706,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4017_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4110,17,2,15,0.11764705882352941,0.8823529411764706,11.76470588235294,88.23529411764706,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4110_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4015,18,2,16,0.1111111111111111,0.8888888888888888,11.11111111111111,88.88888888888889,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4015_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4030,9,1,8,0.1111111111111111,0.8888888888888888,11.11111111111111,88.88888888888889,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4030_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6570,9,1,8,0.1111111111111111,0.8888888888888888,11.11111111111111,88.88888888888889,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6570_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4006,57,6,51,0.10526315789473684,0.8947368421052632,10.526315789473683,89.47368421052632,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4006_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4199,19,2,17,0.10526315789473684,0.8947368421052632,10.526315789473683,89.47368421052632,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4199_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4013,10,1,9,0.1,0.9,10.0,90.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4013_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4124,10,1,9,0.1,0.9,10.0,90.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4124_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4218,10,1,9,0.1,0.9,10.0,90.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4218_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4409,10,1,9,0.1,0.9,10.0,90.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4409_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4230,244,24,220,0.09836065573770492,0.9016393442622951,9.836065573770492,90.1639344262295,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4230_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4600,115,11,104,0.09565217391304348,0.9043478260869565,9.565217391304348,90.43478260869566,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4600_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6260,43,4,39,0.09302325581395349,0.9069767441860465,9.30232558139535,90.69767441860465,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6260_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4700,184,17,167,0.09239130434782608,0.907608695652174,9.239130434782608,90.76086956521739,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4700_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6800,33,3,30,0.09090909090909091,0.9090909090909091,9.090909090909092,90.9090909090909,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6800_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4224,11,1,10,0.09090909090909091,0.9090909090909091,9.090909090909092,90.9090909090909,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4224_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4579,11,1,10,0.09090909090909091,0.9090909090909091,9.090909090909092,90.9090909090909,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4579_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8900,11,1,10,0.09090909090909091,0.9090909090909091,9.090909090909092,90.9090909090909,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8900_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4330,23,2,21,0.08695652173913043,0.9130434782608695,8.695652173913043,91.30434782608695,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4330_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6450,85,7,78,0.08235294117647059,0.9176470588235294,8.235294117647058,91.76470588235294,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6450_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4580,13,1,12,0.07692307692307693,0.9230769230769231,7.6923076923076925,92.3076923076923,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4580_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4004,310,23,287,0.07419354838709677,0.9258064516129032,7.419354838709677,92.58064516129032,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4004_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6600,232,17,215,0.07327586206896551,0.9267241379310345,7.327586206896551,92.67241379310344,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6600_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4000,1606,113,1493,0.07036114570361146,0.9296388542963886,7.036114570361146,92.96388542963886,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4000_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4002,303,21,282,0.06930693069306931,0.9306930693069307,6.9306930693069315,93.06930693069307,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4002_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6300,338,23,315,0.06804733727810651,0.9319526627218935,6.804733727810651,93.19526627218934,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6300_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4180,30,2,28,0.06666666666666667,0.9333333333333333,6.666666666666667,93.33333333333333,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4180_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4400,467,29,438,0.06209850107066381,0.9379014989293362,6.209850107066381,93.79014989293361,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4400_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4003,400,23,377,0.0575,0.9425,5.75,94.25,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4003_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4150,71,4,67,0.056338028169014086,0.9436619718309859,5.633802816901409,94.36619718309859,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4150_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4470,18,1,17,0.05555555555555555,0.9444444444444444,5.555555555555555,94.44444444444444,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4470_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4500,94,5,89,0.05319148936170213,0.9468085106382979,5.319148936170213,94.68085106382979,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4500_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6000,1142,58,1084,0.050788091068301226,0.9492119089316988,5.078809106830122,94.92119089316988,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6000_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4640,21,1,20,0.047619047619047616,0.9523809523809523,4.761904761904762,95.23809523809523,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4640_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4300,132,6,126,0.045454545454545456,0.9545454545454546,4.545454545454546,95.45454545454545,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4300_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4101,22,1,21,0.045454545454545456,0.9545454545454546,4.545454545454546,95.45454545454545,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4101_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4220,26,1,25,0.038461538461538464,0.9615384615384616,3.8461538461538463,96.15384615384616,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4220_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4023,262,10,252,0.03816793893129771,0.9618320610687023,3.816793893129771,96.18320610687023,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4023_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6400,237,9,228,0.0379746835443038,0.9620253164556962,3.79746835443038,96.20253164556962,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6400_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6100,257,9,248,0.03501945525291829,0.9649805447470817,3.501945525291829,96.49805447470817,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6100_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6200,32,1,31,0.03125,0.96875,3.125,96.875,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6200_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4020,35,1,34,0.02857142857142857,0.9714285714285714,2.857142857142857,97.14285714285714,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4020_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4270,73,2,71,0.0273972602739726,0.9726027397260274,2.73972602739726,97.26027397260275,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4270_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6500,96,1,95,0.010416666666666666,0.9895833333333334,1.0416666666666665,98.95833333333334,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6500_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4550,46,0,46,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4550_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6550,23,0,23,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6550_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4190,21,0,21,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4190_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4980,21,0,21,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4980_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6280,21,0,21,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6280_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4490,19,0,19,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4490_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4016,16,0,16,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4016_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4147,15,0,15,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4147_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4225,15,0,15,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4225_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6304,13,0,13,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6304_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4960,10,0,10,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4960_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4027,8,0,8,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4027_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4130,8,0,8,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4130_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4172,8,0,8,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4172_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4360,8,0,8,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4360_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4407,8,0,8,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4407_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4990,8,0,8,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4990_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1000,7,0,7,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1000_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4112,7,0,7,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4112_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4135,7,0,7,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4135_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4142,7,0,7,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4142_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4197,7,0,7,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4197_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6001,7,0,7,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6001_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1505,6,0,6,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1505_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4173,6,0,6,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4173_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4824,6,0,6,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4824_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4900,6,0,6,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4900_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4940,6,0,6,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4940_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6180,6,0,6,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6180_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4260,5,0,5,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4260_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4285,5,0,5,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4285_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4340,5,0,5,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4340_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4370,5,0,5,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4370_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4412,5,0,5,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4412_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4492,5,0,5,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4492_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4820,5,0,5,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4820_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4987,5,0,5,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4987_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6010,5,0,5,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6010_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6138,5,0,5,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6138_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6155,5,0,5,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6155_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6770,5,0,5,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6770_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4121,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4121_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4122,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4122_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4140,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4140_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4223,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4223_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4349,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4349_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4442,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4442_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4455,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4455_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4870,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4870_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6014,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6014_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6060,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6060_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6065,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6065_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6163,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6163_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6199,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6199_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6362,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6362_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6489,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6489_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6850,4,0,4,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6850_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1404,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1404_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1421,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1421_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4008,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4008_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4019,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4019_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4113,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4113_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4134,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4134_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4144,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4144_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4202,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4202_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4228,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4228_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4231,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4231_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4271,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4271_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4288,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4288_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4364,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4364_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4469,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4469_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4522,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4522_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4641,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4641_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4702,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4702_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4710,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4710_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4835,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4835_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4872,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4872_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4985,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4985_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6002,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6002_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6004,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6004_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6006,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6006_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6062,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6062_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6142,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6142_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6159,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6159_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6190,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6190_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6301,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6301_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6363,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6363_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6437,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6437_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6563,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6563_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6690,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6690_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6701,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6701_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6890,3,0,3,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6890_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1142,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1142_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1618,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1618_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4009,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4009_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4111,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4111_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4114,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4114_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4120,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4120_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4127,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4127_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4131,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4131_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4151,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4151_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4170,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4170_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4178,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4178_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4198,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4198_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4200,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4200_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4203,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4203_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4205,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4205_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4221,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4221_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4252,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4252_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4262,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4262_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4290,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4290_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4337,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4337_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4405,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4405_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4419,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4419_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4450,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4450_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4465,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4465_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4474,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4474_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4480,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4480_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4484,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4484_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4523,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4523_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4538,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4538_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4582,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4582_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4855,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4855_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4950,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4950_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4997,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4997_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4998,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4998_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6008,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6008_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6058,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6058_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6063,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6063_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6070,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6070_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6137,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6137_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6139,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6139_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6151,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6151_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6162,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6162_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6165,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6165_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6167,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6167_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6175,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6175_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6220,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6220_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6230,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6230_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6290,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6290_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6368,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6368_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6404,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6404_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6420,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6420_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6558,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6558_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6647,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6647_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6649,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6649_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6771,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6771_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6898,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6898_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,9300,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_9300_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,missing,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_missing_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1164,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1164_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1202,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1202_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1233,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1233_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1303,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1303_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1309,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1309_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1330,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1330_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1335,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1335_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1345,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1345_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1407,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1407_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1504,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1504_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1528,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1528_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1680,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1680_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1700,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1700_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1712,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1712_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1715,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1715_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,1839,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_1839_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,2080,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_2080_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,2100,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_2100_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,2240,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_2240_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,2442,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_2442_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,2500,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_2500_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,2875,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_2875_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,3241,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_3241_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,3500,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_3500_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4007,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4007_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4024,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4024_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4026,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4026_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4028,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4028_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4133,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4133_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4136,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4136_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4141,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4141_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4161,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4161_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4174,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4174_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4175,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4175_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4179,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4179_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4187,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4187_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4191,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4191_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4192,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4192_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4193,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4193_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4207,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4207_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4208,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4208_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4213,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4213_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4219,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4219_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4222,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4222_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4227,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4227_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4239,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4239_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4240,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4240_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4243,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4243_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4249,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4249_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4254,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4254_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4264,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4264_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4269,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4269_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4281,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4281_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4282,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4282_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4283,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4283_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4295,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4295_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4297,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4297_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4301,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4301_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4302,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4302_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4339,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4339_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4341,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4341_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4343,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4343_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4348,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4348_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4350,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4350_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4357,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4357_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4358,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4358_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4368,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4368_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4404,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4404_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4408,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4408_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4410,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4410_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4411,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4411_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4414,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4414_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4415,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4415_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4418,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4418_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4420,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4420_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4421,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4421_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4428,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4428_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4441,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4441_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4444,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4444_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4451,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4451_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4452,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4452_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4463,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4463_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4468,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4468_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4477,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4477_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4481,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4481_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4491,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4491_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4493,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4493_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4535,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4535_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4583,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4583_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4584,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4584_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4587,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4587_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4590,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4590_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4642,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4642_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4645,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4645_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4743,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4743_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4752,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4752_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4794,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4794_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4801,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4801_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4825,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4825_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4834,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4834_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4836,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4836_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4877,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4877_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4889,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4889_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4890,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4890_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4935,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4935_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4942,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4942_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4948,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4948_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4958,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4958_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4970,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4970_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4974,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4974_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4976,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4976_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4983,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4983_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4994,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4994_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,4999,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_4999_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,5000,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_5000_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,5140,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_5140_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,5400,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_5400_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,5780,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_5780_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6045,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6045_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6049,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6049_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6052,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6052_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6056,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6056_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6057,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6057_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6059,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6059_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6061,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6061_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6064,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6064_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6091,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6091_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6102,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6102_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6103,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6103_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6141,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6141_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6145,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6145_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6148,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6148_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6149,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6149_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6150,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6150_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6152,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6152_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6153,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6153_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6171,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6171_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6172,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6172_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6215,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6215_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6218,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6218_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6238,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6238_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6258,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6258_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6266,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6266_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6269,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6269_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6270,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6270_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6272,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6272_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6275,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6275_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6279,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6279_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6285,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6285_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6292,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6292_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6310,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6310_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6372,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6372_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6380,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6380_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6430,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6430_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6432,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6432_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6440,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6440_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6442,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6442_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6460,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6460_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6465,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6465_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6480,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6480_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6530,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6530_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6568,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6568_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6607,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6607_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6631,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6631_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6641,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6641_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6826,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6826_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6830,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6830_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6858,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6858_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6860,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6860_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6861,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6861_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6865,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6865_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6870,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6870_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6872,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6872_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6875,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6875_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6880,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6880_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,6885,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_6885_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,7005,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_7005_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,7007,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_7007_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,7300,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_7300_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,7500,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_7500_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8005,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8005_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8241,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8241_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8260,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8260_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8444,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8444_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8470,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8470_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8631,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8631_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8875,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8875_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8881,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8881_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8919,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8919_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8939,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8939_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8947,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8947_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8948,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8948_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,8960,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_8960_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,9000,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_9000_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,9101,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_9101_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,9283,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_9283_churn.csv
+Billing_ZIP,청구 우편번호,고객 청구지 우편번호다. 지역별 이탈 신호를 확인하는 데 사용한다.,category_value,9644,1,0,1,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\Billing_ZIP\zip_9644_churn.csv
+CRM_PID_Value_Segment,CRM 고객가치 등급,"CRM 기준 고객가치 등급이다. Bronze, Silver, Gold, Platinum, SME 등으로 구분된다.",category_value,SME,284,25,259,0.0880281690140845,0.9119718309859155,8.80281690140845,91.19718309859155,processed\column_split_datasets\02_category_value_subsets\CRM_PID_Value_Segment\SME_churn.csv
+CRM_PID_Value_Segment,CRM 고객가치 등급,"CRM 기준 고객가치 등급이다. Bronze, Silver, Gold, Platinum, SME 등으로 구분된다.",category_value,Platinum,537,46,491,0.0856610800744879,0.9143389199255121,8.56610800744879,91.43389199255121,processed\column_split_datasets\02_category_value_subsets\CRM_PID_Value_Segment\Platinum_churn.csv
+CRM_PID_Value_Segment,CRM 고객가치 등급,"CRM 기준 고객가치 등급이다. Bronze, Silver, Gold, Platinum, SME 등으로 구분된다.",category_value,Gold,1453,117,1336,0.0805230557467309,0.9194769442532691,8.05230557467309,91.94769442532692,processed\column_split_datasets\02_category_value_subsets\CRM_PID_Value_Segment\Gold_churn.csv
+CRM_PID_Value_Segment,CRM 고객가치 등급,"CRM 기준 고객가치 등급이다. Bronze, Silver, Gold, Platinum, SME 등으로 구분된다.",category_value,Silver,2040,146,1894,0.07156862745098039,0.9284313725490196,7.156862745098039,92.84313725490196,processed\column_split_datasets\02_category_value_subsets\CRM_PID_Value_Segment\Silver_churn.csv
+CRM_PID_Value_Segment,CRM 고객가치 등급,"CRM 기준 고객가치 등급이다. Bronze, Silver, Gold, Platinum, SME 등으로 구분된다.",category_value,Bronze,3820,205,3615,0.05366492146596859,0.9463350785340314,5.366492146596859,94.63350785340315,processed\column_split_datasets\02_category_value_subsets\CRM_PID_Value_Segment\Bronze_churn.csv
+CRM_PID_Value_Segment,CRM 고객가치 등급,"CRM 기준 고객가치 등급이다. Bronze, Silver, Gold, Platinum, SME 등으로 구분된다.",category_value,Iron,246,9,237,0.036585365853658534,0.9634146341463414,3.6585365853658534,96.34146341463415,processed\column_split_datasets\02_category_value_subsets\CRM_PID_Value_Segment\Iron_churn.csv
+CRM_PID_Value_Segment,CRM 고객가치 등급,"CRM 기준 고객가치 등급이다. Bronze, Silver, Gold, Platinum, SME 등으로 구분된다.",category_value,SE,41,1,40,0.024390243902439025,0.975609756097561,2.4390243902439024,97.5609756097561,processed\column_split_datasets\02_category_value_subsets\CRM_PID_Value_Segment\SE_churn.csv
+CRM_PID_Value_Segment,CRM 고객가치 등급,"CRM 기준 고객가치 등급이다. Bronze, Silver, Gold, Platinum, SME 등으로 구분된다.",category_value,Lead,27,0,27,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\CRM_PID_Value_Segment\Lead_churn.csv
+CRM_PID_Value_Segment,CRM 고객가치 등급,"CRM 기준 고객가치 등급이다. Bronze, Silver, Gold, Platinum, SME 등으로 구분된다.",category_value,missing,5,0,5,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\CRM_PID_Value_Segment\missing_churn.csv
+EffectiveSegment,실질 비즈니스 세그먼트,"실제 사업 규모/유형 세그먼트다. SOHO, VSE, SME 등이 포함된다.",category_value,VSE,1795,159,1636,0.08857938718662953,0.9114206128133705,8.857938718662952,91.14206128133705,processed\column_split_datasets\02_category_value_subsets\EffectiveSegment\VSE_churn.csv
+EffectiveSegment,실질 비즈니스 세그먼트,"실제 사업 규모/유형 세그먼트다. SOHO, VSE, SME 등이 포함된다.",category_value,SME,284,25,259,0.0880281690140845,0.9119718309859155,8.80281690140845,91.19718309859155,processed\column_split_datasets\02_category_value_subsets\EffectiveSegment\SME_churn.csv
+EffectiveSegment,실질 비즈니스 세그먼트,"실제 사업 규모/유형 세그먼트다. SOHO, VSE, SME 등이 포함된다.",category_value,Other,29,2,27,0.06896551724137931,0.9310344827586207,6.896551724137931,93.10344827586206,processed\column_split_datasets\02_category_value_subsets\EffectiveSegment\Other_churn.csv
+EffectiveSegment,실질 비즈니스 세그먼트,"실제 사업 규모/유형 세그먼트다. SOHO, VSE, SME 등이 포함된다.",category_value,SOHO,6301,362,5939,0.057451198222504364,0.9425488017774957,5.7451198222504365,94.25488017774957,processed\column_split_datasets\02_category_value_subsets\EffectiveSegment\SOHO_churn.csv
+EffectiveSegment,실질 비즈니스 세그먼트,"실제 사업 규모/유형 세그먼트다. SOHO, VSE, SME 등이 포함된다.",category_value,SE,42,1,41,0.023809523809523808,0.9761904761904762,2.380952380952381,97.61904761904762,processed\column_split_datasets\02_category_value_subsets\EffectiveSegment\SE_churn.csv
+EffectiveSegment,실질 비즈니스 세그먼트,"실제 사업 규모/유형 세그먼트다. SOHO, VSE, SME 등이 포함된다.",category_value,LE,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\EffectiveSegment\LE_churn.csv
+Not_Active_subscribers,비활성 가입자 수,가입은 되어 있지만 활성 상태가 아닌 가입자 수다. 결측 자체도 의미가 있을 수 있다.,numeric_bin,"(5.0, 214.0]",724,59,665,0.08149171270718232,0.9185082872928176,8.149171270718233,91.85082872928176,
+Not_Active_subscribers,비활성 가입자 수,가입은 되어 있지만 활성 상태가 아닌 가입자 수다. 결측 자체도 의미가 있을 수 있다.,numeric_bin,"(2.0, 3.0]",497,39,458,0.07847082494969819,0.9215291750503019,7.847082494969819,92.15291750503019,
+Not_Active_subscribers,비활성 가입자 수,가입은 되어 있지만 활성 상태가 아닌 가입자 수다. 결측 자체도 의미가 있을 수 있다.,numeric_bin,"(3.0, 5.0]",541,41,500,0.07578558225508318,0.9242144177449169,7.578558225508318,92.42144177449168,
+Not_Active_subscribers,비활성 가입자 수,가입은 되어 있지만 활성 상태가 아닌 가입자 수다. 결측 자체도 의미가 있을 수 있다.,numeric_bin,"(0.999, 2.0]",2542,161,2381,0.06333595594020457,0.9366640440597954,6.333595594020457,93.66640440597955,
+Not_Active_subscribers,비활성 가입자 수,가입은 되어 있지만 활성 상태가 아닌 가입자 수다. 결측 자체도 의미가 있을 수 있다.,numeric_bin,missing,4149,249,3900,0.060014461315979754,0.9399855386840202,6.001446131597976,93.99855386840203,
+Suspended_subscribers,정지 가입자 수,정지 상태 가입자 수다. 결측률이 매우 높아 결측 여부를 별도 신호로 본다.,numeric_bin,"(0.999, 22.0]",352,31,321,0.08806818181818182,0.9119318181818182,8.806818181818182,91.19318181818183,
+Suspended_subscribers,정지 가입자 수,정지 상태 가입자 수다. 결측률이 매우 높아 결측 여부를 별도 신호로 본다.,numeric_bin,missing,8101,518,7583,0.0639427231206024,0.9360572768793977,6.39427231206024,93.60572768793976,
+TotalRevenue,총 매출,고객 단위 총 매출이다.,numeric_bin,"(222.33, 499.83]",1688,149,1539,0.08827014218009478,0.9117298578199052,8.827014218009479,91.17298578199052,
+TotalRevenue,총 매출,고객 단위 총 매출이다.,numeric_bin,"(138.534, 222.33]",1693,129,1564,0.07619610159480213,0.9238038984051978,7.619610159480213,92.38038984051978,
+TotalRevenue,총 매출,고객 단위 총 매출이다.,numeric_bin,"(94.67, 138.534]",1685,118,1567,0.07002967359050445,0.9299703264094955,7.002967359050445,92.99703264094956,
+TotalRevenue,총 매출,고객 단위 총 매출이다.,numeric_bin,"(64.83, 94.67]",1695,85,1610,0.05014749262536873,0.9498525073746312,5.014749262536873,94.98525073746312,
+TotalRevenue,총 매출,고객 단위 총 매출이다.,numeric_bin,"(4.669, 64.83]",1692,68,1624,0.04018912529550828,0.9598108747044918,4.0189125295508275,95.98108747044918,
+Total_SUBs,전체 가입자 수,고객이 보유한 전체 가입자 수다.,numeric_bin,"(14.0, 235.0]",1502,143,1359,0.0952063914780293,0.9047936085219707,9.52063914780293,90.47936085219706,
+Total_SUBs,전체 가입자 수,고객이 보유한 전체 가입자 수다.,numeric_bin,"(9.0, 14.0]",1467,104,1363,0.070892978868439,0.929107021131561,7.0892978868439,92.91070211315609,
+Total_SUBs,전체 가입자 수,고객이 보유한 전체 가입자 수다.,numeric_bin,"(4.0, 6.0]",1808,111,1697,0.06139380530973451,0.9386061946902655,6.139380530973451,93.86061946902655,
+Total_SUBs,전체 가입자 수,고객이 보유한 전체 가입자 수다.,numeric_bin,"(6.0, 9.0]",1669,96,1573,0.057519472738166565,0.9424805272618334,5.751947273816657,94.24805272618335,
+Total_SUBs,전체 가입자 수,고객이 보유한 전체 가입자 수다.,numeric_bin,"(0.999, 4.0]",2007,95,1912,0.04733432984554061,0.9526656701544594,4.733432984554061,95.26656701544593,

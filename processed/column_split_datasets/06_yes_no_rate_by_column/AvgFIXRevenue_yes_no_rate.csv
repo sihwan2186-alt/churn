@@ -1,0 +1,2 @@
+﻿column_ko,column_description,group,rows,yes_count,no_count,yes_rate,no_rate,yes_rate_percent,no_rate_percent,min,max
+평균 유선 매출,평균 유선 서비스 매출이다. 번들/고착 효과 확인에 사용한다.,"(-0.001, 480.5]",8453,549,7904,0.06494735596829528,0.9350526440317047,6.4947355968295275,93.50526440317047,0.0,480.5

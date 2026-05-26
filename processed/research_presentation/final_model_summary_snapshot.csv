@@ -1,0 +1,5 @@
+﻿selection_purpose,variant,model,train_data,threshold,f1,recall,precision,accuracy,balanced_accuracy,roc_auc,pr_auc,mcc,tp,fp,fn,tn,comment
+main_f1_model,without_billing_zip,LogisticRegression_SMOTE,resampled,0.50,0.1681,0.2661,0.1229,0.83,0.5675,0.5746,0.0879,0.0956,29.0,207.0,80.0,1372.0,Best overall F1 and recommended final report model
+recall_campaign_model,with_billing_zip,BalancedBagging_original,original,0.50,0.1526,0.5872,0.0877,0.5788,0.5827,0.5726,0.0871,0.082,64.0,666.0,45.0,913.0,Useful when catching more churners matters more than false positives
+native_catboost_recall_model,with_billing_zip,CatBoost_native_categorical,native_categorical,0.35,0.131,0.8349,0.0711,0.285,0.5409,0.5531,0.0789,0.047,91.0,1189.0,18.0,390.0,Highest recall operating point but many false positives
+paper_reference_best,external_paper,EasyEnsemble,SVMSMOTE,not_reported,0.129,0.382,0.077,0.664,0.533,0.551,0.079,0.034,,,,,Reference paper best model

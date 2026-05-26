@@ -1,0 +1,9 @@
+﻿CRM_PID_Value_Segment,EffectiveSegment,Billing_ZIP,Active_subscribers,Not_Active_subscribers,Suspended_subscribers,Total_SUBs,AvgMobileRevenue,AvgFIXRevenue,TotalRevenue,ARPU,CHURN,churn_binary
+Bronze,SOHO,4407,4,,,4,70.83,0.0,70.83,17.71,No,0
+Gold,VSE,4407,9,,,9,171.67,0.0,171.67,19.07,No,0
+Bronze,SOHO,4407,2,,,2,68.67,0.0,68.67,34.34,No,0
+Bronze,SOHO,4407,5,,,5,110.0,0.0,110.0,22.0,No,0
+Silver,SOHO,4407,7,,,7,184.0,0.0,184.0,26.29,No,0
+Silver,SOHO,4407,13,,,13,329.33,0.0,329.33,25.33,No,0
+Bronze,SOHO,4407,5,1.0,,6,48.83,0.0,48.83,9.77,No,0
+Bronze,SOHO,4407,3,,,3,51.33,0.0,51.33,17.11,No,0

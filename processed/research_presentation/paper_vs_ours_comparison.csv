@@ -1,0 +1,9 @@
+﻿comparison_item,paper_method,our_method,reason
+데이터 규모,"8,454 unique business accounts","원본 8,453행을 기준으로 분석하고 PID 중복/충돌을 별도 데이터 품질 이슈로 제시",동일 PID에 Yes/No가 섞인 사례가 있어 단순 unique 처리보다 중복 기준을 명확히 해야 함
+PID,중복 제거 키로 사용,원본은 보존하고 모델/분리 CSV에서는 제외,식별자는 예측 신호가 아니라 leakage 위험이 있으므로 학습 변수에서 제외
+KA_name,범주형 feature로 포함 후 label encoding,요청 기준에 따라 모델 데이터에서 제외,담당자명은 조직 변화에 취약하고 운영상 민감한 변수라 고객 행동 중심 모델을 우선 구성
+결측 처리,"비활성/정지 가입자 결측은 0, CRM 결측은 Unknown, ZIP/ARPU는 median",값 대체와 별도로 missing flag/exists flag를 보존,정지 가입자 수처럼 결측 자체가 이탈률 차이를 보이는 MNAR 신호일 수 있음
+범주형 처리,Billing_ZIP 등 고카디널리티도 label encoding 중심,"값별 이탈률 CSV, CatBoost native categorical, leakage-safe target encoding 후보로 분리",지역별 이탈률 차이가 크고 ordinal label 값 자체에는 순서 의미가 없기 때문
+로그 변환,매출 변수 중심 log transform,매출뿐 아니라 가입자 수 변수도 왜도/이상치를 보고 log1p 후보로 처리,가입자 수 변수도 강한 우측 왜곡과 이상치 이탈률 상승이 관찰됨
+피처 엔지니어링,"active subscriber rate, interaction terms 등 22개 feature","active_rate, missing flag, outlier flag, CRM x Segment, zip risk 등을 추가 후보로 제안",단일 변수 상관은 약하지만 구간/교차/결측에서 이탈 신호가 강하게 나타남
+모델 선택,EasyEnsembleClassifier + SVMSMOTE,"LogisticRegression_SMOTE, BalancedBagging, CatBoost, soft ensemble 비교",불균형 데이터라 F1형/Recall형 운영 목적별 모델을 분리해 비교해야 함

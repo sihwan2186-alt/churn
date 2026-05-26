@@ -1,0 +1,7 @@
+﻿한글컬럼명,간단설명,값_또는_구간,전체건수,이탈Yes수,잔류No수,이탈률,잔류율,이탈률_퍼센트,잔류율_퍼센트,파일경로
+실질 비즈니스 세그먼트,"실제 사업 규모/유형 세그먼트다. SOHO, VSE, SME 등이 포함된다.",VSE,1795,159,1636,0.08857938718662953,0.9114206128133705,8.857938718662952,91.14206128133705,processed\column_split_datasets\02_category_value_subsets\EffectiveSegment\VSE_churn.csv
+실질 비즈니스 세그먼트,"실제 사업 규모/유형 세그먼트다. SOHO, VSE, SME 등이 포함된다.",SME,284,25,259,0.0880281690140845,0.9119718309859155,8.80281690140845,91.19718309859155,processed\column_split_datasets\02_category_value_subsets\EffectiveSegment\SME_churn.csv
+실질 비즈니스 세그먼트,"실제 사업 규모/유형 세그먼트다. SOHO, VSE, SME 등이 포함된다.",Other,29,2,27,0.06896551724137931,0.9310344827586207,6.896551724137931,93.10344827586206,processed\column_split_datasets\02_category_value_subsets\EffectiveSegment\Other_churn.csv
+실질 비즈니스 세그먼트,"실제 사업 규모/유형 세그먼트다. SOHO, VSE, SME 등이 포함된다.",SOHO,6301,362,5939,0.057451198222504364,0.9425488017774957,5.7451198222504365,94.25488017774957,processed\column_split_datasets\02_category_value_subsets\EffectiveSegment\SOHO_churn.csv
+실질 비즈니스 세그먼트,"실제 사업 규모/유형 세그먼트다. SOHO, VSE, SME 등이 포함된다.",SE,42,1,41,0.023809523809523808,0.9761904761904762,2.380952380952381,97.61904761904762,processed\column_split_datasets\02_category_value_subsets\EffectiveSegment\SE_churn.csv
+실질 비즈니스 세그먼트,"실제 사업 규모/유형 세그먼트다. SOHO, VSE, SME 등이 포함된다.",LE,2,0,2,0.0,1.0,0.0,100.0,processed\column_split_datasets\02_category_value_subsets\EffectiveSegment\LE_churn.csv
