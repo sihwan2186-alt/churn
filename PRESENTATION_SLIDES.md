@@ -13,6 +13,7 @@
 - 통신사 고객 이탈은 매출 손실과 직접 연결된다.
 - 본 프로젝트는 CRM 기반 고객 데이터를 활용해 이탈 가능 고객을 사전에 탐지하는 모델을 만든다.
 - 데이터가 매우 불균형하므로 accuracy보다 F1, recall, precision을 중심으로 평가한다.
+- 최종 주제는 변경하지 않고 ChurnRadar로 유지하며, 낮은 성능은 데이터 한계와 운영 trade-off 관점에서 해석한다.
 
 발표 멘트:
 
@@ -152,6 +153,7 @@
 - 최종 모델은 `without_billing_zip + LogisticRegression_SMOTE`이다.
 - 운영 목적에 따라 recall 중심 모델을 별도로 선택할 수 있다.
 - 현재 데이터는 static CRM snapshot이라 시간 기반 행동 feature가 부족하다.
+- 따라서 성능 수치만 강조하기보다, class imbalance 처리와 모델별 운영 trade-off를 핵심 결과로 설명한다.
 
 향후 개선:
 
@@ -167,5 +169,4 @@
 
 ## 발표용 한 문장 결론
 
-> 본 프로젝트에서는 B2B 통신사 고객 이탈 예측을 위해 불균형 전처리, SVMSMOTE, ensemble 모델, CatBoost native categorical 처리, threshold tuning, 오류 분석을 수행하였다. 최종적으로 F1 기준 모델은 `LogisticRegression_SMOTE`이며, recall 중심 운영 목적에서는 `BalancedBagging_original`과 `CatBoost_native_categorical`이 보조 후보가 될 수 있다.
-
+> 본 프로젝트는 ChurnRadar 주제를 유지하여 B2B 통신사 고객 이탈 예측을 수행하였다. 불균형 전처리, SVMSMOTE, ensemble 모델, CatBoost native categorical 처리, threshold tuning, 오류 분석을 적용했고, 최종 F1 기준 모델은 `LogisticRegression_SMOTE`이다. recall 중심 운영 목적에서는 `BalancedBagging_original`과 `CatBoost_native_categorical`이 보조 후보가 될 수 있으며, 성능 한계는 정적 CRM snapshot과 시간 기반 행동 feature 부족으로 해석한다.

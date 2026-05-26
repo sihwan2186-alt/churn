@@ -6,6 +6,8 @@
 
 이탈 고객은 전체 고객 중 약 6.5%에 불과하므로 데이터가 매우 불균형하다. 따라서 단순 accuracy보다 F1, recall, precision, ROC-AUC, PR-AUC, MCC를 함께 사용하여 모델을 평가하였다.
 
+최종 프로젝트 주제는 변경하지 않고 ChurnRadar로 유지한다. 본 보고서는 높은 accuracy를 만드는 것보다, 심한 불균형 데이터에서 이탈 고객 탐지 모델을 어떻게 만들고 평가하며 한계를 해석하는지 보여주는 것을 목표로 한다.
+
 ## 2. 데이터 요약
 
 | 항목 | 값 |
@@ -144,9 +146,19 @@ Permutation importance 기준 주요 변수는 다음과 같다.
 - 요금제 변경 이력
 - 최근 n개월 active/inactive subscriber 변화
 
-향후 작업으로는 BalancedBagging 하이퍼파라미터 튜닝을 시도할 수 있지만, 가장 중요한 개선 방향은 시간 기반 고객 행동 feature를 추가하는 것이다.
+향후 작업으로는 BalancedBagging 하이퍼파라미터 튜닝을 소규모로 시도할 수 있지만, 가장 중요한 개선 방향은 시간 기반 고객 행동 feature를 추가하는 것이다.
 
-## 12. 최종 보고서용 문장
+## 12. 제출 전 보강 계획
+
+프로젝트를 변경하지 않고 현재 주제로 제출하기 위해, 남은 작업은 새 데이터 탐색이 아니라 결과 정리와 설명 보강에 집중한다.
+
+1. 최종 모델 선택 이유를 F1 기준으로 명확히 설명한다.
+2. recall 중심 운영 후보를 별도 시나리오로 제시한다.
+3. confusion matrix를 통해 false positive 증가를 해석한다.
+4. feature importance를 이용해 매출 규모와 가입자 활동성의 의미를 설명한다.
+5. 낮은 F1은 실패가 아니라 class imbalance와 정적 CRM snapshot의 한계로 해석한다.
+6. 향후 개선 방향은 “모델 추가”보다 “시간 기반 고객 행동 feature 확보”로 정리한다.
+
+## 13. 최종 보고서용 문장
 
 본 프로젝트에서는 B2B 통신사 고객 이탈 예측을 위해 불균형 데이터 전처리, SVMSMOTE, 다양한 ensemble 모델, CatBoost native categorical 처리, threshold tuning, 오류 분석을 수행하였다. 실험 결과 F1 기준 최종 모델은 Billing_ZIP을 제외한 `LogisticRegression_SMOTE`이며, recall 중심 운영 시나리오에서는 `BalancedBagging_original` 또는 `CatBoost_native_categorical`이 더 많은 이탈 고객을 탐지할 수 있었다. 다만 전체 precision이 낮고 F1 상승폭이 제한적인 것은 데이터가 정적인 CRM snapshot이며 시간 기반 행동 이력이 부족하기 때문으로 해석된다.
-

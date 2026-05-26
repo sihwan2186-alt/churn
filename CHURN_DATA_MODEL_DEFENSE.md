@@ -2,15 +2,16 @@
 
 ## 1. 문서 목적
 
-이 문서는 교수님께 프로젝트 변경을 말씀드리기 전에, 기존 통신사 고객 이탈 예측 프로젝트를 충분히 이해하고 실험했다는 것을 설명하기 위해 작성했습니다.
+이 문서는 ChurnRadar 프로젝트를 최종 주제로 유지하면서, 통신사 고객 이탈 예측 데이터와 모델 선택을 충분히 이해하고 실험했다는 것을 설명하기 위해 작성했습니다.
 
 핵심 목적은 다음과 같습니다.
 
 - 이 데이터가 어떤 데이터인지 알기 쉽게 설명한다.
 - 각 컬럼이 무엇을 의미하고 어떻게 처리했는지 정리한다.
 - 왜 해당 모델들을 사용했는지 설명한다.
-- 왜 일부 모델은 최종 모델로 쓰지 않았거나 추가로 사용하지 않았는지 설명한다.
+- 왜 일부 모델은 최종 모델로 쓰지 않았거나 보조 후보로만 남겼는지 설명한다.
 - F1, recall, precision이 낮은 이유가 단순한 실험 부족이 아니라 데이터 구조적 한계라는 점을 정리한다.
+- 성능이 낮아도 프로젝트를 유지할 때 어떤 분석 포인트를 강조해야 하는지 정리한다.
 
 ## 2. 데이터 개요
 
@@ -235,7 +236,7 @@ CatBoost threshold 0.35에서는 recall이 0.8349까지 올라갔지만 precisio
 - 최근 서비스 이용 빈도 변화
 - 회선 해지, 회선 변경, 상품 변경 이력
 
-하지만 현재 접근 가능한 범위에서는 이런 데이터를 추가로 확보하기 어려웠습니다. 그래서 기존 데이터에 모델만 더 추가하는 방식보다는, 현재 churn 프로젝트를 한계 분석까지 마무리하고 시간 기반 feature engineering이 가능한 새 프로젝트로 전환하는 것이 더 합리적이라고 판단했습니다.
+하지만 현재 접근 가능한 범위에서는 이런 데이터를 추가로 확보하기 어려웠습니다. 따라서 최종 보고서에서는 이 점을 프로젝트의 핵심 한계로 명확히 설명하고, 현재 데이터 안에서 가능한 전처리, 모델 비교, threshold tuning, 오류 분석을 충실히 수행했다는 점을 강조합니다.
 
 ## 11. 최종 모델을 Logistic Regression으로 선택한 이유
 
@@ -294,9 +295,9 @@ CatBoost threshold 0.35는 recall이 0.8349로 높지만 precision이 0.0711입�
 
 아닙니다. SMOTE는 train set에만 적용했습니다. test set은 실제 데이터 분포를 유지해야 하므로 resampling하지 않았습니다.
 
-### Q6. 이 프로젝트를 바꾸려는 이유는 실험을 덜 해서인가요?
+### Q6. 성능이 낮은데도 이 프로젝트를 유지하는 이유는 무엇인가요?
 
-아닙니다. Logistic Regression, Random Forest, Gradient Boosting, HistGradientBoosting, EasyEnsemble, RUSBoost, BalancedBagging, CatBoost, threshold tuning, feature engineering까지 수행했습니다. 그럼에도 성능이 제한적이었고, 원인은 모델보다 데이터 feature의 한계라고 판단했습니다.
+이 프로젝트는 단순히 높은 점수만 목표로 하는 것이 아니라, 불균형 데이터에서 모델을 어떻게 평가하고 해석하는지 보여주는 프로젝트입니다. Logistic Regression, Random Forest, Gradient Boosting, HistGradientBoosting, EasyEnsemble, RUSBoost, BalancedBagging, CatBoost, threshold tuning, feature engineering까지 수행했습니다. 그럼에도 성능이 제한적이었고, 원인은 모델보다 데이터 feature의 한계라고 판단했습니다. 따라서 이 한계를 숨기지 않고, class imbalance와 정적 CRM snapshot의 한계로 설명하는 방향이 더 설득력 있습니다.
 
 ### Q7. 그래도 기존 프로젝트에서 배운 점은 무엇인가요?
 
@@ -304,11 +305,11 @@ CatBoost threshold 0.35는 recall이 0.8349로 높지만 precision이 0.0711입�
 
 ## 14. 교수님께 말할 최종 요약
 
-> 기존 통신사 이탈 예측 프로젝트는 단순히 성능이 낮아서 포기하려는 것이 아닙니다. 원본 데이터 구조를 확인하고, 결측치 처리, 중복 제거, 파생변수 생성, SVMSMOTE, 여러 불균형 대응 모델, CatBoost native categorical 처리, threshold tuning까지 수행했습니다. 그 결과 F1 기준 최종 모델은 `without_billing_zip + LogisticRegression_SMOTE`였고 F1은 0.1681, recall은 0.2661이었습니다. recall을 높이는 모델도 있었지만 precision이 0.07~0.09 수준으로 낮아 실제 모델로 설명하기 어려웠습니다. 분석 결과 이 데이터는 정적인 CRM snapshot 중심이라 이탈 예측에 중요한 사용량 변화, 결제 실패, 불만 기록, 약정 종료 같은 시간 기반 행동 feature가 부족합니다. 따라서 같은 데이터에서 모델만 더 바꾸는 것보다, 시간 기반 feature를 만들 수 있는 다른 프로젝트로 전환하는 것이 더 타당하다고 판단했습니다.
+> 저희는 최종 프로젝트를 통신사 고객 이탈 예측으로 유지하기로 했습니다. 원본 데이터 구조를 확인하고, 결측치 처리, 중복 제거, 파생변수 생성, SVMSMOTE, 여러 불균형 대응 모델, CatBoost native categorical 처리, threshold tuning까지 수행했습니다. 그 결과 F1 기준 최종 모델은 `without_billing_zip + LogisticRegression_SMOTE`였고 F1은 0.1681, recall은 0.2661이었습니다. recall을 높이는 모델도 있었지만 precision이 0.07~0.09 수준으로 낮아 false positive가 많이 증가했습니다. 분석 결과 이 데이터는 정적인 CRM snapshot 중심이라 이탈 예측에 중요한 사용량 변화, 결제 실패, 불만 기록, 약정 종료 같은 시간 기반 행동 feature가 부족합니다. 따라서 최종 보고서에서는 모델별 trade-off와 데이터 한계를 명확히 설명하고, 목적에 따라 F1 기준 모델과 recall 중심 운영 후보를 구분해 제시하겠습니다.
 
 추가로 짧게 덧붙일 문장:
 
-> 성능 개선을 위해 필요한 시간 기반 고객 행동 데이터를 추가로 찾으려 했지만 확보하기 어려웠기 때문에, 기존 churn 데이터는 한계 분석으로 마무리하고 새 프로젝트로 진행하려고 합니다.
+> 성능 수치가 높지는 않지만, 이 프로젝트는 심한 class imbalance에서 어떤 지표를 보고 모델을 선택해야 하는지 보여주는 분석으로 정리하겠습니다.
 
 ## 15. 최종 결론
 
@@ -320,4 +321,4 @@ CatBoost threshold 0.35는 recall이 0.8349로 높지만 precision이 0.0711입�
 - 다양한 모델과 불균형 처리 방법을 적용했지만 F1과 recall 개선이 제한적이었습니다.
 - 성능 한계의 핵심 원인은 모델 부족이 아니라 시간 기반 행동 feature 부족입니다.
 - 성능 개선에 필요한 시간 기반 고객 행동 데이터를 추가로 확보하기 어려웠습니다.
-- 따라서 기존 프로젝트는 한계 분석까지 마무리하고, 더 적합한 데이터 구조를 가진 새 프로젝트로 변경하는 것이 합리적입니다.
+- 따라서 최종 프로젝트는 ChurnRadar로 유지하되, 보고서에서는 데이터 한계, 모델별 trade-off, 운영 목적별 모델 선택을 핵심 결론으로 제시합니다.
