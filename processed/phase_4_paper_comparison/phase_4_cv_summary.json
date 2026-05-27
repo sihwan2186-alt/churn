@@ -1,0 +1,270 @@
+{
+  "base_summary": {
+    "input_file": "Baza customer Telecom v2.csv",
+    "raw_shape": [
+      8453,
+      14
+    ],
+    "data_quality": {
+      "shape": [
+        8453,
+        14
+      ],
+      "dtypes": {
+        "PID": "str",
+        "CRM_PID_Value_Segment": "str",
+        "EffectiveSegment": "str",
+        "Billing_ZIP": "float64",
+        "KA_name": "str",
+        "Active_subscribers": "int64",
+        "Not_Active_subscribers": "float64",
+        "Suspended_subscribers": "float64",
+        "Total_SUBs": "int64",
+        "AvgMobileRevenue": "float64",
+        "AvgFIXRevenue": "float64",
+        "TotalRevenue": "float64",
+        "ARPU": "float64",
+        "CHURN": "str"
+      },
+      "missing_rate": {
+        "Suspended_subscribers": 0.9583579794155921,
+        "Not_Active_subscribers": 0.4908316573997397,
+        "CRM_PID_Value_Segment": 0.0005915059742103396,
+        "Billing_ZIP": 0.0002366023896841358,
+        "ARPU": 0.0001183011948420679,
+        "PID": 0.0,
+        "Active_subscribers": 0.0,
+        "KA_name": 0.0,
+        "EffectiveSegment": 0.0,
+        "Total_SUBs": 0.0,
+        "AvgMobileRevenue": 0.0,
+        "AvgFIXRevenue": 0.0,
+        "TotalRevenue": 0.0,
+        "CHURN": 0.0
+      },
+      "duplicate_pid_count": 17,
+      "target_distribution_raw": {
+        "No": 7904,
+        "Yes": 549
+      },
+      "numeric_ranges": {
+        "Billing_ZIP": {
+          "min": 1000.0,
+          "max": 9644.0,
+          "missing_rate": 0.0002366023896841358
+        },
+        "Active_subscribers": {
+          "min": 1.0,
+          "max": 110.0,
+          "missing_rate": 0.0
+        },
+        "Not_Active_subscribers": {
+          "min": 1.0,
+          "max": 214.0,
+          "missing_rate": 0.4908316573997397
+        },
+        "Suspended_subscribers": {
+          "min": 1.0,
+          "max": 22.0,
+          "missing_rate": 0.9583579794155921
+        },
+        "Total_SUBs": {
+          "min": 1.0,
+          "max": 235.0,
+          "missing_rate": 0.0
+        },
+        "AvgMobileRevenue": {
+          "min": 0.0,
+          "max": 499.83,
+          "missing_rate": 0.0
+        },
+        "AvgFIXRevenue": {
+          "min": 0.0,
+          "max": 480.5,
+          "missing_rate": 0.0
+        },
+        "TotalRevenue": {
+          "min": 4.67,
+          "max": 499.83,
+          "missing_rate": 0.0
+        },
+        "ARPU": {
+          "min": 0.0,
+          "max": 462.83,
+          "missing_rate": 0.0001183011948420679
+        }
+      }
+    },
+    "duplicate_pid_removed": 17,
+    "shape_after_pid_dedup": [
+      8436,
+      12
+    ],
+    "leakage_guardrails": [
+      "CHURN is removed from feature matrices before preprocessing.",
+      "Imputation and scaling values are fit on train split only.",
+      "No feature is derived from target labels."
+    ]
+  },
+  "cv_folds": 5,
+  "cv_strategy": "StratifiedKFold(shuffle=True, random_state=42)",
+  "leakage_guardrails": [
+    "Each fold fits imputation, encoding, scaling, and SVMSMOTE on the training fold only.",
+    "Validation folds are transformed with training-fold artifacts only.",
+    "No threshold tuning is applied inside this CV; predictions use each model's default threshold."
+  ],
+  "results": [
+    {
+      "variant": "with_billing_zip",
+      "model": "BalancedBagging_original",
+      "train_kind": "original",
+      "folds": 5,
+      "f1_mean": 0.14547466870247963,
+      "f1_sd": 0.01257680561768983,
+      "f1_ci95_low": 0.134450612520505,
+      "f1_ci95_high": 0.15649872488445427,
+      "recall_mean": 0.5247706422018348,
+      "recall_sd": 0.07604170930312697,
+      "recall_ci95_low": 0.45811714520002333,
+      "recall_ci95_high": 0.5914241392036462,
+      "precision_mean": 0.08452565619803407,
+      "precision_sd": 0.006895128400306614,
+      "precision_ci95_low": 0.07848180967789747,
+      "precision_ci95_high": 0.09056950271817066,
+      "accuracy_mean": 0.602777582685549,
+      "accuracy_sd": 0.029990201004494066,
+      "accuracy_ci95_low": 0.576490012468416,
+      "accuracy_ci95_high": 0.6290651529026821,
+      "balanced_accuracy_mean": 0.5664686197184666,
+      "balanced_accuracy_sd": 0.02692767840096955,
+      "balanced_accuracy_ci95_low": 0.5428654689211849,
+      "balanced_accuracy_ci95_high": 0.5900717705157483,
+      "roc_auc_mean": 0.5858681227759264,
+      "roc_auc_sd": 0.024686642189677165,
+      "roc_auc_ci95_low": 0.5642293268275721,
+      "roc_auc_ci95_high": 0.6075069187242806,
+      "pr_auc_mean": 0.09103678224520077,
+      "pr_auc_sd": 0.008343097928834373,
+      "pr_auc_ci95_low": 0.08372373447337073,
+      "pr_auc_ci95_high": 0.09834983001703082,
+      "mcc_mean": 0.06672817449863894,
+      "mcc_sd": 0.026348087617492296,
+      "mcc_ci95_low": 0.0436330574226243,
+      "mcc_ci95_high": 0.08982329157465357
+    },
+    {
+      "variant": "with_billing_zip",
+      "model": "EasyEnsemble_original",
+      "train_kind": "original",
+      "folds": 5,
+      "f1_mean": 0.14445780197667563,
+      "f1_sd": 0.011725897570322679,
+      "f1_ci95_low": 0.13417959958341472,
+      "f1_ci95_high": 0.15473600436993654,
+      "recall_mean": 0.5834862385321101,
+      "recall_sd": 0.05373046041961951,
+      "recall_ci95_low": 0.5363894134435427,
+      "recall_ci95_high": 0.6305830636206775,
+      "precision_mean": 0.08244122561556741,
+      "precision_sd": 0.006617064204595729,
+      "precision_ci95_low": 0.07664111310936841,
+      "precision_ci95_high": 0.0882413381217664,
+      "accuracy_mean": 0.5536984102012321,
+      "accuracy_sd": 0.012271015320613709,
+      "accuracy_ci95_low": 0.5429423910325774,
+      "accuracy_ci95_high": 0.5644544293698869,
+      "balanced_accuracy_mean": 0.56756403719152,
+      "balanced_accuracy_sd": 0.025976360370253148,
+      "balanced_accuracy_ci95_low": 0.5447947534139204,
+      "balanced_accuracy_ci95_high": 0.5903333209691197,
+      "roc_auc_mean": 0.5889310188809608,
+      "roc_auc_sd": 0.02407685115337745,
+      "roc_auc_ci95_low": 0.567826728342627,
+      "roc_auc_ci95_high": 0.6100353094192945,
+      "pr_auc_mean": 0.09065504508700456,
+      "pr_auc_sd": 0.007005369850371901,
+      "pr_auc_ci95_low": 0.0845145676753646,
+      "pr_auc_ci95_high": 0.09679552249864452,
+      "mcc_mean": 0.06668986392946379,
+      "mcc_sd": 0.02555796829003494,
+      "mcc_ci95_low": 0.044287316979849334,
+      "mcc_ci95_high": 0.08909241087907824
+    },
+    {
+      "variant": "without_billing_zip",
+      "model": "EasyEnsemble_original",
+      "train_kind": "original",
+      "folds": 5,
+      "f1_mean": 0.14082160303172392,
+      "f1_sd": 0.008136273530795426,
+      "f1_ci95_low": 0.13368984483795474,
+      "f1_ci95_high": 0.1479533612254931,
+      "recall_mean": 0.58348623853211,
+      "recall_sd": 0.058600805220812145,
+      "recall_ci95_low": 0.5321203680002055,
+      "recall_ci95_high": 0.6348521090640146,
+      "precision_mean": 0.08013012998946015,
+      "precision_sd": 0.004570318450635546,
+      "precision_ci95_low": 0.07612406923755866,
+      "precision_ci95_high": 0.08413619074136164,
+      "accuracy_mean": 0.5403041659526291,
+      "accuracy_sd": 0.03318931505854759,
+      "accuracy_ci95_low": 0.5112124486303817,
+      "accuracy_ci95_high": 0.5693958832748764,
+      "balanced_accuracy_mean": 0.560404318096394,
+      "balanced_accuracy_sd": 0.01876083710730111,
+      "balanced_accuracy_ci95_low": 0.5439597193183975,
+      "balanced_accuracy_ci95_high": 0.5768489168743905,
+      "roc_auc_mean": 0.5832022955622141,
+      "roc_auc_sd": 0.02335611437101319,
+      "roc_auc_ci95_low": 0.5627297586680668,
+      "roc_auc_ci95_high": 0.6036748324563614,
+      "pr_auc_mean": 0.08851958487952517,
+      "pr_auc_sd": 0.011395119886052275,
+      "pr_auc_ci95_low": 0.07853132191015194,
+      "pr_auc_ci95_high": 0.0985078478488984,
+      "mcc_mean": 0.059628192331564765,
+      "mcc_sd": 0.018384297981605728,
+      "mcc_ci95_low": 0.043513644649415595,
+      "mcc_ci95_high": 0.07574274001371394
+    },
+    {
+      "variant": "without_billing_zip",
+      "model": "LogisticRegression_SMOTE",
+      "train_kind": "resampled",
+      "folds": 5,
+      "f1_mean": 0.1308592161448176,
+      "f1_sd": 0.015372776009237595,
+      "f1_ci95_low": 0.1173843838582806,
+      "f1_ci95_high": 0.1443340484313546,
+      "recall_mean": 0.1743119266055046,
+      "recall_sd": 0.02338999776877424,
+      "recall_ci95_low": 0.15380968960372193,
+      "recall_ci95_high": 0.19481416360728726,
+      "precision_mean": 0.10531939146727301,
+      "precision_sd": 0.013637914848515315,
+      "precision_ci95_low": 0.09336523203560049,
+      "precision_ci95_high": 0.11727355089894553,
+      "accuracy_mean": 0.8502830398053698,
+      "accuracy_sd": 0.01352004685723999,
+      "accuracy_ci95_low": 0.8384321962233156,
+      "accuracy_ci95_high": 0.862133883387424,
+      "balanced_accuracy_mean": 0.535640749762553,
+      "balanced_accuracy_sd": 0.010734719868825942,
+      "balanced_accuracy_ci95_low": 0.526231352930877,
+      "balanced_accuracy_ci95_high": 0.5450501465942291,
+      "roc_auc_mean": 0.5810615752814752,
+      "roc_auc_sd": 0.01821588880380455,
+      "roc_auc_ci95_low": 0.5650946447522085,
+      "roc_auc_ci95_high": 0.5970285058107418,
+      "pr_auc_mean": 0.087622244944953,
+      "pr_auc_sd": 0.00987822700807643,
+      "pr_auc_ci95_low": 0.07896359720675757,
+      "pr_auc_ci95_high": 0.09628089268314845,
+      "mcc_mean": 0.05690425148241618,
+      "mcc_sd": 0.01775583410384709,
+      "mcc_ci95_low": 0.04134057667747901,
+      "mcc_ci95_high": 0.07246792628735335
+    }
+  ]
+}

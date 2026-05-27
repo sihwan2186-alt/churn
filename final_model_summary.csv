@@ -1,5 +1,8 @@
-selection_purpose,variant,model,train_data,threshold,f1,recall,precision,accuracy,balanced_accuracy,roc_auc,pr_auc,mcc,tp,fp,fn,tn,comment
-main_f1_model,without_billing_zip,LogisticRegression_SMOTE,resampled,0.50,0.1681,0.2661,0.1229,0.8300,0.5675,0.5746,0.0879,0.0956,29,207,80,1372,Best overall F1 and recommended final report model
-recall_campaign_model,with_billing_zip,BalancedBagging_original,original,0.50,0.1526,0.5872,0.0877,0.5788,0.5827,0.5726,0.0871,0.0820,64,666,45,913,Useful when catching more churners matters more than false positives
-native_catboost_recall_model,with_billing_zip,CatBoost_native_categorical,native_categorical,0.35,0.1310,0.8349,0.0711,0.2850,0.5409,0.5531,0.0789,0.0470,91,1189,18,390,Highest recall operating point but many false positives
-paper_reference_best,external_paper,EasyEnsemble,SVMSMOTE,not_reported,0.1290,0.3820,0.0770,0.6640,0.5330,0.5510,0.0790,0.0340,,,,,Reference paper best model
+selection_purpose,variant,model,train_data,threshold,f1,recall,precision,accuracy,balanced_accuracy,roc_auc,pr_auc,mcc,tp,fp,fn,tn,campaign_contacts,net_benefit,paper_multiple,comment
+main_f1_model,without_billing_zip,LogisticRegression_SMOTE,resampled,0.50,0.1681,0.2661,0.1229,0.8300,0.5675,0.5746,0.0879,0.0956,29,207,80,1372,236,69120,0.93,Hold-out F1 기준 최종 모델
+balanced_operation_model,with_billing_zip,BalancedBagging_original,original,0.50,0.1526,0.5872,0.0877,0.5788,0.5827,0.5726,0.0871,0.0820,64,666,45,913,730,127440,1.72,팀 역량 800건 이하 균형형 운영 후보
+core_recall_heavy_model,with_billing_zip,CatBoost_native_categorical,native_categorical,0.35,0.1310,0.8349,0.0711,0.2850,0.5409,0.5531,0.0789,0.0470,91,1189,18,390,1280,152160,2.05,핵심 3모델 중 매출 보호 우선 후보
+extended_recall_heavy_model,with_billing_zip,XGBoost_SMOTE,resampled,0.16,0.1253,0.9266,0.0672,0.1647,0.5194,0.5343,0.0791,0.0304,101,1402,8,177,1503,159000,2.14,XGBoost 포함 확장 recall-heavy 후보
+cost_optimized_operating_point,with_billing_zip,BalancedBagging_original,original,0.29,0.1225,1.0000,0.0653,0.0752,0.5057,,,0.0273,109,1561,0,18,1670,165840,2.24,논문 비용 기준 최대 순이익이나 거의 전체 고객 접촉
+paper_reference_best,external_paper,EasyEnsembleClassifier,SVMSMOTE,0.35,0.1290,0.3820,0.0770,0.6640,0.5330,0.5510,0.0790,0.0340,42,503,68,,545,74200,1.00,논문 보고 기준값
+paper_reproduction_model,with_billing_zip,EasyEnsemble_original,original,0.50,0.1284,0.5872,0.0721,0.4852,0.5327,0.5626,0.0845,0.0321,64,824,45,755,888,108480,1.46,"논문 EasyEnsemble F1 0.129 재현"

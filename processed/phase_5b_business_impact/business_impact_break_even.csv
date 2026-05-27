@@ -1,0 +1,7 @@
+﻿operating_point,model,tp,fp,break_even_fp_max,break_even_fp_margin,net_benefit_formula
+paper_easyensemble_reported,EasyEnsembleClassifier,42,503,1134.0,631.0,75720.0
+ours_lr_f1_best_fixed,LogisticRegression_SMOTE,29,207,783.0,576.0,69120.0
+ours_balancedbagging_balanced_fixed,BalancedBagging_original,64,666,1728.0,1062.0,127440.0
+ours_catboost_recall_heavy_threshold,CatBoost_native_categorical,91,1189,2457.0,1268.0,152160.0
+ours_xgboost_recall_extreme_threshold,XGBoost_SMOTE,101,1402,2727.0,1325.0,159000.0
+ours_balancedbagging_cost_optimized,BalancedBagging_original,109,1561,2943.0,1382.0,165840.0

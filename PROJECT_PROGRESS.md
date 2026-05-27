@@ -577,4 +577,143 @@
 - 어떤 검증을 실행했는지
 - 성능 수치가 좋아졌는지 나빠졌는지
 - 좋아지지 않았다면 왜 기본값에서 제외했는지
+
+## 2026-05-27 추가 모델 실험 및 운영 해석 정리
+
+요청 내용:
+
+- 추가 모델 실험을 최대한 진행하고, 현재 결과가 왜 이렇게 나왔는지와 실제 운영에서 어떻게 활용할 수 있는지 정리한다.
+
+생성/수정 파일:
+
+- `additional_model_experiments.py`
+- `ADDITIONAL_EXPERIMENTS_AND_OPERATION_SUMMARY.md`
+- `processed/additional_experiments/additional_model_results.csv`
+- `processed/additional_experiments/additional_top25_summary.csv`
+- `processed/additional_experiments/additional_threshold_sweep.csv`
+- `processed/additional_experiments/operating_budget_topk.csv`
+
+실험 내용:
+
+- Logistic Regression C값 조정
+- class-weight 기반 Logistic Regression
+- RidgeClassifier balanced
+- LinearSVC balanced
+- RandomForest balanced
+- ExtraTrees balanced
+- GradientBoosting + SMOTE
+- HistGradientBoosting balanced
+- EasyEnsemble
+- RUSBoost
+- BalancedBagging 하이퍼파라미터 조합
+- CatBoost encoded/native categorical 소규모 튜닝
+- validation 기준 threshold 선택
+- top-k 캠페인 예산 기준 운영 성능 확인
+
+결과:
+
+| 기준 | Variant | Model | Threshold | F1 | Recall | Precision |
+| --- | --- | --- | ---: | ---: | ---: | ---: |
+| 기존 최종 메인 | `without_billing_zip` | `LogisticRegression_SMOTE` | 0.50 | 0.1681 | 0.2661 | 0.1229 |
+| 추가 실험 best | `with_billing_zip` | `BalancedBagging_tree_depthnone_leaf25` | 0.51 | 0.1605 | 0.5138 | 0.0951 |
+| 기존 recall 후보 | `with_billing_zip` | `BalancedBagging_original` | 0.50 | 0.1526 | 0.5872 | 0.0877 |
+
+해석:
+
+- 추가 실험에서도 F1 기준 최종 1위는 기존 `LogisticRegression_SMOTE`가 유지된다.
+- tuned BalancedBagging은 기존 recall 후보보다 F1과 precision이 개선되어 recall 중심 운영 후보로 더 설득력 있게 제시할 수 있다.
+- 모델을 더 많이 바꿔도 성능 상한이 크게 움직이지 않는 이유는 class imbalance와 정적 CRM snapshot의 한계로 해석한다.
+- 실제 운영에서는 score 기준 상위 10%, 20%, 30% 고객을 캠페인 대상으로 삼는 top-k 방식이 적절하다.
+
+검증:
+
+```powershell
+.\.venv\Scripts\python.exe -m py_compile additional_model_experiments.py
+.\.venv\Scripts\python.exe -u additional_model_experiments.py
+```
+
+다음 작업:
+
+- `FINAL_REPORT.md`와 `PRESENTATION_SLIDES.md`에 추가 실험 best와 운영 해석을 반영한다.
 - 다음 사람이 이어서 볼 때 어떤 판단을 하면 되는지
+
+## 2026-05-27 Phase 3A-5B 통합 및 제출물 갱신
+
+목표:
+
+- 논문 재현 결과, 차별화 실험, CV 안정성, 해석 가능성, 비즈니스 임팩트를 최종 제출물에 반영한다.
+- 기존 문서의 오래된 “다음 작업”을 최신 상태에 맞게 정리한다.
+
+완료한 작업:
+
+- `FINAL_REPORT.md`를 최신 Phase 3A-5B 결과 기준으로 다시 작성했다.
+- `PRESENTATION_SLIDES.md`를 실제 PPT 제작용 11장 흐름으로 다시 구성했다.
+- `README.md`를 최신 모델/문서/산출물 안내 기준으로 갱신했다.
+- `final_model_summary.csv`에 LR, BalancedBagging, CatBoost, XGBoost, 비용 최적 운영점, 논문 기준, 논문 재현 행을 통합했다.
+
+현재 핵심 결론:
+
+| 목적 | 추천 운영점 | 핵심 수치 |
+| --- | --- | --- |
+| 논문 재현 | `EasyEnsemble_original` | F1 0.1284로 논문 0.129 재현 |
+| hold-out F1 최고 | `LogisticRegression_SMOTE` | F1 0.1681 |
+| CV 안정성 | `BalancedBagging_original` | 5-fold F1 0.1455 ± 0.0126 |
+| 핵심 3모델 recall-heavy | `CatBoost_native_categorical` | Recall 0.8349, 순이익 152,160 |
+| 확장 recall-heavy | `XGBoost_SMOTE` | Recall 0.9266, 순이익 159,000 |
+| 비용 최적 threshold | `BalancedBagging_original`, threshold 0.29 | 순이익 165,840 |
+
+주의해서 써야 할 주장:
+
+- `LR F1=0.1681`과 `CatBoost recall=0.8349`는 같은 모델의 성능이 아니다.
+- `LR F1=0.1681`은 hold-out 기준이며, CV 평균은 0.1309로 낮아진다.
+- 논문 대비 주장은 “압도적 성능 우위”가 아니라 “논문 baseline 재현 후 운영 목적별 모델 선택 프레임워크 제시”가 가장 안전하다.
+- 비용 최적 BalancedBagging threshold 0.29는 수치상 순이익이 가장 높지만, 1,688명 중 1,670명 접촉이므로 실제 운영에서는 고객 피로도와 팀 역량을 함께 고려해야 한다.
+
+남은 작업:
+
+- 실제 PPT 파일 제작
+- `processed/phase_5b_business_impact/business_impact_dashboard.png`를 핵심 슬라이드에 삽입
+- 발표 전 `CHURN_DATA_MODEL_DEFENSE.md`, `PHASE_4_PAPER_COMPARISON_FRAMEWORK.md`, `PHASE_5B_BUSINESS_IMPACT_ANALYSIS.md`의 예상 질문 문장 확인
+
+## 2026-05-27 Phase 6 추가 비교 실험
+
+목표:
+
+- 1시간 발표에 사용할 수 있도록 단일 모델 성능표를 넘어서는 비교 케이스를 추가한다.
+- 운영 예산, 비용 구조, 확률 보정, 고객 segment, 모델 합의도 관점에서 발표 소재를 확장한다.
+
+실행:
+
+```powershell
+.\.venv\Scripts\python.exe phase_6_extended_case_studies.py
+```
+
+생성 문서와 산출물:
+
+- `PHASE_6_EXTENDED_CASE_STUDIES.md`
+- `processed/phase_6_extended_case_studies/phase6_model_operating_metrics.csv`
+- `processed/phase_6_extended_case_studies/phase6_topk_budget_curve.csv`
+- `processed/phase_6_extended_case_studies/phase6_cost_threshold_best_by_model.csv`
+- `processed/phase_6_extended_case_studies/phase6_calibration_metrics.csv`
+- `processed/phase_6_extended_case_studies/phase6_segment_operating_metrics.csv`
+- `processed/phase_6_extended_case_studies/phase6_model_agreement_vote_groups.csv`
+- `processed/phase_6_extended_case_studies/phase6_topk_budget_curves.png`
+- `processed/phase_6_extended_case_studies/phase6_calibration_comparison.png`
+- `processed/phase_6_extended_case_studies/phase6_model_agreement.png`
+
+추가 실험 핵심 결과:
+
+| 실험 | 핵심 결과 |
+| --- | --- |
+| 운영점 8개 비교 | XGBoost recall 0.9266, CatBoost native recall 0.8349, LR F1 0.1681 |
+| Top-k 예산 | top 10%에서는 LR, top 40%에서는 BalancedBagging이 유리 |
+| 비용 threshold | 논문 비용 기준은 낮은 threshold와 recall 극대화가 유리 |
+| 보수적 캠페인 비용 | FP cost가 커지면 LR threshold 0.53이 최선 |
+| Calibration | raw score는 churn 확률을 과대평가, Platt 보정 후 평균 score가 실제 churn rate와 일치 |
+| Segment ROI | low/mid/high value별로 강한 모델이 다름 |
+| 모델 합의도 | 8개 모델 모두가 경고한 고객군의 이탈률은 12.43%로 전체 평균의 약 1.9배 |
+
+발표 활용:
+
+- 기존 11장 슬라이드 뒤에 Slide 12-16으로 추가 케이스를 붙이면 1시간 발표 분량을 만들 수 있다.
+- `PRESENTATION_SLIDES.md`에 Phase 6 케이스를 이미 반영했다.

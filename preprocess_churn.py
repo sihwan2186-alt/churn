@@ -37,6 +37,7 @@ from sklearn.metrics import (
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.tree import DecisionTreeClassifier
+from xgboost import XGBClassifier
 
 
 INPUT_FILE = Path("Baza customer Telecom v2.csv")
@@ -52,13 +53,17 @@ RANDOM_STATE = 42
 TEST_SIZE = 0.2
 THRESHOLD_VALIDATION_SIZE = 0.25
 THRESHOLD_GRID = tuple(float(x) for x in np.round(np.arange(0.05, 0.501, 0.01), 2))
+MIN_RECALL_CONSTRAINT = 0.30
 PERMUTATION_REPEATS = 3
 ENABLE_FN_TARGET_FEATURES_DEFAULT = False
 THRESHOLD_TUNING_MODELS = {
     "BalancedBagging_original",
+    "EasyEnsemble_original",
+    "EasyEnsemble_n50_original",
     "CatBoost_native_categorical",
     "CatBoost_original_balanced",
     "LogisticRegression_SMOTE",
+    "XGBoost_SMOTE",
 }
 ANALYSIS_OPERATING_POINTS = [
     {
@@ -502,6 +507,15 @@ def build_comparison_models() -> list[tuple[str, Any, str]]:
             "original",
         ),
         (
+            "EasyEnsemble_n50_original",
+            EasyEnsembleClassifier(
+                n_estimators=50,
+                random_state=RANDOM_STATE,
+                n_jobs=1,
+            ),
+            "original",
+        ),
+        (
             "RUSBoost_original",
             RUSBoostClassifier(
                 n_estimators=100,
@@ -546,6 +560,22 @@ def build_comparison_models() -> list[tuple[str, Any, str]]:
                 min_samples_leaf=3,
                 random_state=RANDOM_STATE,
                 n_jobs=1,
+            ),
+            "resampled",
+        ),
+        (
+            "XGBoost_SMOTE",
+            XGBClassifier(
+                n_estimators=300,
+                learning_rate=0.05,
+                max_depth=4,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                scale_pos_weight=14,
+                eval_metric="logloss",
+                random_state=RANDOM_STATE,
+                n_jobs=1,
+                verbosity=0,
             ),
             "resampled",
         ),
@@ -759,10 +789,20 @@ def tune_threshold_for_model(
         )
         for threshold in THRESHOLD_GRID
     ]
-    sweep_table = pd.DataFrame(sweep_rows).sort_values(
+    sweep_table = pd.DataFrame(sweep_rows)
+    f1_sorted_sweep = sweep_table.sort_values(
         ["f1", "recall", "precision"], ascending=[False, False, False]
     )
-    best_validation = sweep_table.iloc[0].to_dict()
+    unconstrained_best = f1_sorted_sweep.iloc[0].to_dict()
+    feasible_sweep = f1_sorted_sweep[
+        f1_sorted_sweep["recall"] >= MIN_RECALL_CONSTRAINT
+    ]
+    if feasible_sweep.empty:
+        best_validation = unconstrained_best
+        selection_strategy = "max_f1_fallback_no_threshold_met_min_recall"
+    else:
+        best_validation = feasible_sweep.iloc[0].to_dict()
+        selection_strategy = "max_f1_with_min_recall_constraint"
     selected_threshold = float(best_validation["threshold"])
 
     final_model = clone(model)
@@ -781,6 +821,15 @@ def tune_threshold_for_model(
         "model": model_name,
         "train_data": train_kind,
         "selected_threshold": selected_threshold,
+        "threshold_selection_strategy": selection_strategy,
+        "min_recall_constraint": MIN_RECALL_CONSTRAINT,
+        "validation_recall_constraint_met": bool(
+            best_validation["recall"] >= MIN_RECALL_CONSTRAINT
+        ),
+        "unconstrained_selected_threshold": float(unconstrained_best["threshold"]),
+        "unconstrained_validation_f1": float(unconstrained_best["f1"]),
+        "unconstrained_validation_recall": float(unconstrained_best["recall"]),
+        "unconstrained_validation_precision": float(unconstrained_best["precision"]),
     }
     metric_names = [
         "f1",
@@ -1277,6 +1326,11 @@ def main() -> None:
         help="Only write preprocessing outputs and skip model metric comparison.",
     )
     parser.add_argument(
+        "--skip-error-analysis",
+        action="store_true",
+        help="Run preprocessing, comparison, and threshold tuning without permutation/error analysis.",
+    )
+    parser.add_argument(
         "--enable-fn-target-features",
         action="store_true",
         help="Enable experimental low-revenue high-dormancy features from FN analysis.",
@@ -1306,9 +1360,10 @@ def main() -> None:
     if not args.skip_model_comparison:
         comparison_table = run_model_comparison(args.output_root)
         threshold_best_table, _ = run_threshold_tuning(args.output_root)
-        _, error_summary_table, _, feature_importance_top_table = (
-            run_error_and_feature_analysis(args.output_root, threshold_best_table)
-        )
+        if not args.skip_error_analysis:
+            _, error_summary_table, _, feature_importance_top_table = (
+                run_error_and_feature_analysis(args.output_root, threshold_best_table)
+            )
         for summary in summaries:
             comparison_variant = (
                 "with_billing_zip"

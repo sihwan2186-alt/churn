@@ -1,0 +1,37 @@
+﻿case_label,model,caught_churners,unique_churners_caught_only_by_this_model
+LR_no_zip_f1,LogisticRegression_SMOTE,29,0.0
+LR_with_zip_recall_constraint,LogisticRegression_SMOTE,33,0.0
+BalancedBagging_with_zip,BalancedBagging_original,64,0.0
+BalancedBagging_no_zip,BalancedBagging_original,77,0.0
+EasyEnsemble_with_zip,EasyEnsemble_original,64,0.0
+CatBoost_native_with_zip,CatBoost_native_categorical,91,2.0
+CatBoost_balanced_with_zip,CatBoost_original_balanced,87,0.0
+XGBoost_with_zip,XGBoost_SMOTE,101,4.0
+LR_no_zip_f1 & LR_with_zip_recall_constraint,pairwise_overlap,25,
+LR_no_zip_f1 & BalancedBagging_with_zip,pairwise_overlap,26,
+LR_no_zip_f1 & BalancedBagging_no_zip,pairwise_overlap,28,
+LR_no_zip_f1 & EasyEnsemble_with_zip,pairwise_overlap,27,
+LR_no_zip_f1 & CatBoost_native_with_zip,pairwise_overlap,28,
+LR_no_zip_f1 & CatBoost_balanced_with_zip,pairwise_overlap,26,
+LR_no_zip_f1 & XGBoost_with_zip,pairwise_overlap,29,
+LR_with_zip_recall_constraint & BalancedBagging_with_zip,pairwise_overlap,32,
+LR_with_zip_recall_constraint & BalancedBagging_no_zip,pairwise_overlap,32,
+LR_with_zip_recall_constraint & EasyEnsemble_with_zip,pairwise_overlap,32,
+LR_with_zip_recall_constraint & CatBoost_native_with_zip,pairwise_overlap,32,
+LR_with_zip_recall_constraint & CatBoost_balanced_with_zip,pairwise_overlap,31,
+LR_with_zip_recall_constraint & XGBoost_with_zip,pairwise_overlap,33,
+BalancedBagging_with_zip & BalancedBagging_no_zip,pairwise_overlap,64,
+BalancedBagging_with_zip & EasyEnsemble_with_zip,pairwise_overlap,58,
+BalancedBagging_with_zip & CatBoost_native_with_zip,pairwise_overlap,60,
+BalancedBagging_with_zip & CatBoost_balanced_with_zip,pairwise_overlap,58,
+BalancedBagging_with_zip & XGBoost_with_zip,pairwise_overlap,63,
+BalancedBagging_no_zip & EasyEnsemble_with_zip,pairwise_overlap,62,
+BalancedBagging_no_zip & CatBoost_native_with_zip,pairwise_overlap,71,
+BalancedBagging_no_zip & CatBoost_balanced_with_zip,pairwise_overlap,68,
+BalancedBagging_no_zip & XGBoost_with_zip,pairwise_overlap,76,
+EasyEnsemble_with_zip & CatBoost_native_with_zip,pairwise_overlap,60,
+EasyEnsemble_with_zip & CatBoost_balanced_with_zip,pairwise_overlap,58,
+EasyEnsemble_with_zip & XGBoost_with_zip,pairwise_overlap,63,
+CatBoost_native_with_zip & CatBoost_balanced_with_zip,pairwise_overlap,83,
+CatBoost_native_with_zip & XGBoost_with_zip,pairwise_overlap,89,
+CatBoost_balanced_with_zip & XGBoost_with_zip,pairwise_overlap,86,

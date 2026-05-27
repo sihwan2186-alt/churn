@@ -1,0 +1,10 @@
+﻿variant,zip_mode,ka_mode,transform_mode,include_extended_interactions,feature_count,X_train_rows,X_test_rows,X_train_resampled_rows,y_train_positive,y_test_positive,y_train_resampled_positive
+paper_core_zip_log,encoded,label,log_revenue,False,20,6748,1688,9980,436,109,3668
+paper_core_no_zip_log,drop,label,log_revenue,False,19,6748,1688,9980,436,109,3668
+paper_core_zip_top50_log,top_n,label,log_revenue,False,20,6748,1688,9980,436,109,3668
+extended_zip_log_sqrt_interactions,encoded,label,log_revenue_sqrt_subscribers,True,25,6748,1688,9980,436,109,3668
+extended_no_zip_log_sqrt_interactions,drop,label,log_revenue_sqrt_subscribers,True,24,6748,1688,9980,436,109,3668
+extended_zip_top50_log_sqrt_interactions,top_n,label,log_revenue_sqrt_subscribers,True,25,6748,1688,9980,436,109,3668
+paper_core_zip_log_ka_abstract,encoded,abstract,log_revenue,False,21,6748,1688,9980,436,109,3668
+extended_zip_top50_log_sqrt_ka_abstract,top_n,abstract,log_revenue_sqrt_subscribers,True,26,6748,1688,9980,436,109,3668
+extended_zip_top50_log_sqrt_ka_research,top_n,research_full,log_revenue_sqrt_subscribers,True,29,6748,1688,9980,436,109,3668

@@ -1,0 +1,324 @@
+{
+  "input_file": "Baza customer Telecom v2.csv",
+  "raw_shape": [
+    8453,
+    14
+  ],
+  "duplicate_pid_removed": 17,
+  "shape_after_pid_dedup": [
+    8436,
+    14
+  ],
+  "actual_columns": [
+    "PID",
+    "CRM_PID_Value_Segment",
+    "EffectiveSegment",
+    "Billing_ZIP",
+    "KA_name",
+    "Active_subscribers",
+    "Not_Active_subscribers",
+    "Suspended_subscribers",
+    "Total_SUBs",
+    "AvgMobileRevenue",
+    "AvgFIXRevenue",
+    "TotalRevenue",
+    "ARPU",
+    "CHURN"
+  ],
+  "actual_input_feature_count_excluding_target": 13,
+  "actual_model_feature_count_excluding_pid_and_target": 12,
+  "target_distribution_after_dedup": {
+    "0": 7891,
+    "1": 545
+  },
+  "variant": "extended_zip_top50_log_sqrt_ka_abstract",
+  "config": {
+    "name": "extended_zip_top50_log_sqrt_ka_abstract",
+    "zip_mode": "top_n",
+    "transform_mode": "log_revenue_sqrt_subscribers",
+    "include_extended_interactions": true,
+    "ka_mode": "abstract",
+    "zip_top_n": 50
+  },
+  "feature_count": 26,
+  "feature_count_note": "The paper describes 22 final features, but this CSV has 12 usable input columns after excluding PID and CHURN. With the 8 traced engineered features, the reproducible paper-aligned core is 20 features with ZIP, or 19 without ZIP.",
+  "feature_columns": [
+    "CRM_PID_Value_Segment",
+    "EffectiveSegment",
+    "Billing_ZIP",
+    "Active_subscribers",
+    "Not_Active_subscribers",
+    "Suspended_subscribers",
+    "Total_SUBs",
+    "AvgMobileRevenue",
+    "AvgFIXRevenue",
+    "TotalRevenue",
+    "ARPU",
+    "active_rate",
+    "inactive_rate",
+    "suspended_rate",
+    "risk_score",
+    "mobile_revenue_ratio",
+    "fixed_revenue_ratio",
+    "revenue_per_subscriber",
+    "revenue_x_active_rate",
+    "revenue_x_risk",
+    "inactive_x_fixed_ratio",
+    "suspended_x_mobile_ratio",
+    "arpu_per_active",
+    "total_rev_rank_by_segment",
+    "KA_is_code_type",
+    "KA_type_x_premium"
+  ],
+  "categorical_columns_label_encoded": [
+    "CRM_PID_Value_Segment",
+    "EffectiveSegment",
+    "Billing_ZIP"
+  ],
+  "imputation_values": {
+    "Not_Active_subscribers_fill": 0.0,
+    "Suspended_subscribers_fill": 0.0,
+    "ARPU_median": 19.26,
+    "Billing_ZIP_median": 4400.0
+  },
+  "zip_metadata": {
+    "zip_mode": "top_n",
+    "zip_top_n": 50,
+    "zip_top_values": [
+      "4000",
+      "6000",
+      "4400",
+      "4003",
+      "6300",
+      "4004",
+      "4002",
+      "4023",
+      "6100",
+      "4230",
+      "6600",
+      "6400",
+      "4700",
+      "4300",
+      "4600",
+      "6500",
+      "4500",
+      "6450",
+      "4270",
+      "4150",
+      "4006",
+      "6260",
+      "4550",
+      "4210",
+      "4850",
+      "4001",
+      "4020",
+      "6200",
+      "6800",
+      "4180",
+      "6900",
+      "4220",
+      "4800",
+      "4330",
+      "4980",
+      "4470",
+      "6550",
+      "6280",
+      "4101",
+      "4015",
+      "4490",
+      "4110",
+      "4640",
+      "4199",
+      "4190",
+      "4016",
+      "4017",
+      "4108",
+      "6304",
+      "4701"
+    ]
+  },
+  "ka_metadata": {
+    "ka_mode": "abstract",
+    "code_type_kas": [
+      "AD",
+      "AD?",
+      "DI",
+      "MT",
+      "RJ",
+      "VM",
+      "VT",
+      "VU"
+    ],
+    "premium_segments": [
+      "Gold",
+      "Platinum",
+      "SME"
+    ],
+    "raw_ka_name_in_final_features": false,
+    "features": [
+      "KA_is_code_type",
+      "KA_type_x_premium"
+    ],
+    "target_dependent": false
+  },
+  "transformed_columns": [
+    "log1p:TotalRevenue",
+    "log1p:ARPU",
+    "log1p:AvgMobileRevenue",
+    "log1p:AvgFIXRevenue",
+    "sqrt:Not_Active_subscribers",
+    "sqrt:Suspended_subscribers",
+    "sqrt:Total_SUBs"
+  ],
+  "encoder_summary": {
+    "CRM_PID_Value_Segment": {
+      "classes": [
+        "Bronze",
+        "Gold",
+        "Iron",
+        "Lead",
+        "Other",
+        "Platinum",
+        "SE",
+        "SME",
+        "Silver",
+        "Unknown"
+      ],
+      "unseen_test_values_mapped_to": "Unknown"
+    },
+    "EffectiveSegment": {
+      "classes": [
+        "LE",
+        "Other",
+        "SE",
+        "SME",
+        "SOHO",
+        "Unknown",
+        "VSE"
+      ],
+      "unseen_test_values_mapped_to": "Unknown"
+    },
+    "Billing_ZIP": {
+      "classes": [
+        "4000",
+        "4001",
+        "4002",
+        "4003",
+        "4004",
+        "4006",
+        "4015",
+        "4016",
+        "4017",
+        "4020",
+        "4023",
+        "4101",
+        "4108",
+        "4110",
+        "4150",
+        "4180",
+        "4190",
+        "4199",
+        "4210",
+        "4220",
+        "4230",
+        "4270",
+        "4300",
+        "4330",
+        "4400",
+        "4470",
+        "4490",
+        "4500",
+        "4550",
+        "4600",
+        "4640",
+        "4700",
+        "4701",
+        "4800",
+        "4850",
+        "4980",
+        "6000",
+        "6100",
+        "6200",
+        "6260",
+        "6280",
+        "6300",
+        "6304",
+        "6400",
+        "6450",
+        "6500",
+        "6550",
+        "6600",
+        "6800",
+        "6900",
+        "Other",
+        "Unknown"
+      ],
+      "unseen_test_values_mapped_to": "Unknown"
+    }
+  },
+  "scaler_summary": {
+    "scaled_columns": [
+      "CRM_PID_Value_Segment",
+      "EffectiveSegment",
+      "Billing_ZIP",
+      "Active_subscribers",
+      "Not_Active_subscribers",
+      "Suspended_subscribers",
+      "Total_SUBs",
+      "AvgMobileRevenue",
+      "AvgFIXRevenue",
+      "TotalRevenue",
+      "ARPU",
+      "active_rate",
+      "inactive_rate",
+      "suspended_rate",
+      "risk_score",
+      "mobile_revenue_ratio",
+      "fixed_revenue_ratio",
+      "revenue_per_subscriber",
+      "revenue_x_active_rate",
+      "revenue_x_risk",
+      "inactive_x_fixed_ratio",
+      "suspended_x_mobile_ratio",
+      "arpu_per_active",
+      "total_rev_rank_by_segment",
+      "KA_is_code_type",
+      "KA_type_x_premium"
+    ],
+    "fit_scope": "train_only"
+  },
+  "leakage_guardrails": [
+    "PID duplicates are removed before the stratified split.",
+    "CHURN and PID are excluded from feature matrices.",
+    "Median imputation values are fit on X_train only.",
+    "Label encoders are fit on X_train only; unseen test categories map to Unknown.",
+    "Segment revenue ranks use empirical distributions fit on X_train only.",
+    "KA target encodings, when enabled, are fit from X_train and y_train only.",
+    "StandardScaler is fit on X_train only.",
+    "SVMSMOTE is fit and applied to X_train only."
+  ],
+  "X_train_shape": [
+    6748,
+    26
+  ],
+  "X_test_shape": [
+    1688,
+    26
+  ],
+  "X_train_resampled_shape": [
+    9980,
+    26
+  ],
+  "y_train_distribution": {
+    "0": 6312,
+    "1": 436
+  },
+  "y_test_distribution": {
+    "0": 1579,
+    "1": 109
+  },
+  "y_train_resampled_distribution": {
+    "0": 6312,
+    "1": 3668
+  }
+}
