@@ -1,0 +1,34 @@
+services:
+  churn-runner:
+    build:
+      context: ..
+      dockerfile: n8n_automation/Dockerfile.runner
+    container_name: churnradar-runner
+    environment:
+      CHURN_WORKSPACE: /workspace
+      CHURN_STEP_TIMEOUT_SEC: 1800
+    ports:
+      - "8000:8000"
+    volumes:
+      - ..:/workspace
+      - ./churn_runner.py:/runner/churn_runner.py:ro
+    working_dir: /workspace
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: churnradar-n8n
+    depends_on:
+      - churn-runner
+    environment:
+      GENERIC_TIMEZONE: Asia/Seoul
+      TZ: Asia/Seoul
+      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
+      N8N_RUNNERS_ENABLED: "true"
+    ports:
+      - "8082:5678"
+    volumes:
+      - churnradar_n8n_data:/home/node/.n8n
+      - ./churnradar_n8n_workflow.json:/files/import/churnradar_n8n_workflow.json:ro
+
+volumes:
+  churnradar_n8n_data:

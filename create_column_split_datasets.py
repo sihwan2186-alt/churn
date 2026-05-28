@@ -342,11 +342,6 @@ def write_category_value_subsets(df: pd.DataFrame, output_root: Path) -> pd.Data
         ["column", "rows", "churn_rate"], ascending=[True, False, False]
     )
     summary.to_csv(
-        output_root / "03_profiles" / "category_value_churn_summary.csv",
-        index=False,
-        encoding="utf-8-sig",
-    )
-    summary.to_csv(
         output_root / "03_profiles" / "category_value_yes_no_rate_summary.csv",
         index=False,
         encoding="utf-8-sig",
@@ -518,8 +513,11 @@ def write_numeric_bins(df: pd.DataFrame, output_root: Path) -> pd.DataFrame:
             )
 
     summary = pd.DataFrame(rows)
-    summary.to_csv(output_root / "03_profiles" / "numeric_bins_churn_summary.csv", index=False, encoding="utf-8-sig")
-    summary.to_csv(output_root / "03_profiles" / "numeric_bins_yes_no_rate_summary.csv", index=False, encoding="utf-8-sig")
+    summary.to_csv(
+        output_root / "03_profiles" / "numeric_bins_yes_no_rate_summary.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
     readable_root = output_root / "07_korean_readable_summaries"
     readable_root.mkdir(parents=True, exist_ok=True)
     write_korean_header_copy(

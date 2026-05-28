@@ -11,6 +11,10 @@
 - CV 안정성: `with_billing_zip + BalancedBagging_original` 및 EasyEnsemble 계열이 더 안정적
 - 비용-편익 기준: 예산/팀 역량/매출 보호 목표에 따라 최적 모델이 달라짐
 - 1시간 발표용 추가 케이스: top-k 예산, 비용 threshold, calibration, segment ROI, 모델 합의도 분석 완료
+- 추가 진행 후보 점검 결과: tuned BalancedBagging과 paper-ablation variant는 최종 결론을 바꿀 정도는 아님
+- 통계 검정 보강: bootstrap CI와 McNemar paired test로 모델별 trade-off 신뢰도 확인
+- 최종 PPT 생성 완료: `ChurnRadar_Final_Presentation.pptx`
+- n8n Docker 자동화 추가: `ChurnRadar Docker Reproduction Pipeline` workflow로 재현 실행 가능
 
 ## 핵심 모델 요약
 
@@ -25,19 +29,17 @@
 
 ## 지금 남은 일
 
-1. `PRESENTATION_SLIDES.md`를 기반으로 실제 PPT 제작
-2. 발표에 `processed/phase_5b_business_impact/business_impact_dashboard.png` 삽입
-3. 1시간 발표에서는 `PHASE_6_EXTENDED_CASE_STUDIES.md`의 추가 케이스 5장을 뒤에 배치
-4. 교수님 질문 대비용으로 `CHURN_DATA_MODEL_DEFENSE.md`와 Phase 4/5/6 문서 확인
-5. 최종 제출 전 주요 스크립트 문법 확인
+1. `ChurnRadar_Final_Presentation.pptx`를 열어서 학교 양식/이름/제출 형식만 최종 확인
+2. n8n UI에서 `ChurnRadar Docker Reproduction Pipeline`을 한 번 수동 실행해 Docker 재현 결과를 확인
+3. 교수님 질문 대비용으로 `CHURN_DATA_MODEL_DEFENSE.md`와 Phase 4/5/6/8 문서 확인
+4. 제출 폴더를 만들 경우 `archive/`, `n8n_automation/`, 대량 `processed/` 산출물을 포함할지 결정
 
 ```powershell
-.\.venv\Scripts\python.exe -m py_compile preprocess_churn.py
-.\.venv\Scripts\python.exe -m py_compile phase_3b_differentiation_experiments.py
-.\.venv\Scripts\python.exe -m py_compile phase_4_cross_validation.py
-.\.venv\Scripts\python.exe -m py_compile phase_5a_interpretability.py
-.\.venv\Scripts\python.exe -m py_compile phase_5b_business_impact.py
+$files = Get-ChildItem -Recurse -Filter *.py | Where-Object { $_.FullName -notmatch '\\.venv\\|\\__pycache__\\|\\.git\\' } | ForEach-Object { $_.FullName }
+.\.venv\Scripts\python.exe -m py_compile @files
 ```
+
+n8n import와 Docker 실행 명령어는 `N8N_DOCKER_WORKFLOW_GUIDE.md`에 정리했다.
 
 ## 주요 문서
 
@@ -51,6 +53,10 @@
 | `PHASE_5A_FEATURE_IMPORTANCE_AND_SHAP_ALTERNATIVES.md` | LR 계수 기반 설명가능성 분석 |
 | `PHASE_5B_BUSINESS_IMPACT_ANALYSIS.md` | 비용-편익 및 운영 시나리오 분석 |
 | `PHASE_6_EXTENDED_CASE_STUDIES.md` | 1시간 발표용 추가 비교 실험 케이스 |
+| `PHASE_7_NEXT_EXPERIMENTS.md` | 추가 진행 후보 실험 점검 및 결론 유지 근거 |
+| `PHASE_8_STATISTICAL_VALIDATION.md` | bootstrap CI와 McNemar paired test |
+| `PROJECT_FILE_SUMMARY.md` | 전체 파일과 산출물 역할 요약 |
+| `N8N_DOCKER_WORKFLOW_GUIDE.md` | n8n Docker workflow import와 실행 명령어 |
 | `CHURN_DATA_MODEL_DEFENSE.md` | 예상 질문 방어 자료 |
 
 ## 주요 산출물 폴더
@@ -64,6 +70,9 @@
 | `processed/phase_5a_interpretability/` | 계수/기여도/해석 가능성 결과 |
 | `processed/phase_5b_business_impact/` | 비용-편익 표와 발표용 이미지 |
 | `processed/phase_6_extended_case_studies/` | top-k, calibration, segment, 모델 합의도 추가 실험 |
+| `processed/phase_7_next_experiments/` | tuned BalancedBagging CV와 paper-ablation variant 벤치마크 |
+| `processed/phase_8_statistical_validation/` | bootstrap CI와 McNemar paired test 결과 |
+| `archive/` | 이전 의사결정/추가실험 보조 문서 보관 |
 
 ## 최종 메시지
 

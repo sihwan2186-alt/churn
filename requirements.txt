@@ -4,3 +4,6 @@ scikit-learn
 imbalanced-learn
 catboost
 xgboost
+matplotlib
+joblib
+python-pptx

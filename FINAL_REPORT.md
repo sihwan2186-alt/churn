@@ -215,7 +215,7 @@ LR에서 표준화된 feature의 계수는 feature가 churn log-odds에 미치�
 | 한계 | 설명 | 향후 개선 |
 | --- | --- | --- |
 | 정적 CRM snapshot | 이탈 직전 행동 변화가 없음 | 월별 사용량/매출 추세 추가 |
-| 확률 보정 미적용 | threshold 점수는 calibrated probability가 아님 | Isotonic/Platt calibration |
+| 배포용 확률 보정 미반영 | Phase 6에서 raw/Platt/isotonic 진단은 수행했지만 최종 운영 threshold에는 calibrated probability를 직접 적용하지 않음 | 배포 전 calibrated probability 기반 threshold 재설계 |
 | SHAP 직접 비교 미실시 | 논문과 동일한 SHAP plot은 없음 | Tree-SHAP 적용 |
 | 비용 가정 고정 | 논문 비용 파라미터에 의존 | 고객별 ARPU 기반 individualized value |
 | 단일 데이터셋 | 외부 검증 데이터 없음 | 기간별 hold-out 또는 다른 시장 데이터 |

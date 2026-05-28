@@ -537,9 +537,6 @@ def write_presentation_markdown(
     Path("RESEARCH_PRESENTATION_MATERIAL_KIM_SIHWAN.md").write_text(
         "\n".join(lines), encoding="utf-8"
     )
-    (OUTPUT_ROOT / "research_presentation_material.md").write_text(
-        "\n".join(lines), encoding="utf-8"
-    )
 
 
 def write_slide_outline() -> None:

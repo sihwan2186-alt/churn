@@ -198,7 +198,7 @@
 | 한계 | 향후 개선 |
 | --- | --- |
 | 정적 CRM snapshot | 월별 사용량/매출 추세 추가 |
-| 확률 보정 미적용 | Isotonic/Platt calibration |
+| 배포용 확률 보정 미반영 | calibrated probability 기반 threshold 재설계 |
 | SHAP 직접 비교 미실시 | Tree-SHAP 적용 |
 | 비용 가정 고정 | 고객별 ARPU 기반 individualized value |
 | 외부 검증 없음 | 기간별 hold-out 또는 다른 시장 데이터 |

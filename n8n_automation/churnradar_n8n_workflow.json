@@ -1,0 +1,131 @@
+{
+  "id": "ChurnRadarDockerReproductionPipeline",
+  "name": "ChurnRadar Docker Reproduction Pipeline",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "638516a1-61d6-4a33-8897-e8a5c4903df7",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -760,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "http://host.docker.internal:8000/health",
+        "authentication": "none",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "1a078706-13e1-48a8-9298-14c5e11de648",
+      "name": "Runner Health Check",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -520,
+        0
+      ],
+      "notes": "Checks whether the ChurnRadar Python runner container can see /workspace and the project scripts."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8000/run/full-reproduction",
+        "authentication": "none",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"requested_by\": \"n8n\",\n  \"job\": \"full-reproduction\"\n}",
+        "options": {
+          "timeout": 3600000
+        }
+      },
+      "id": "6dd98f29-0382-4cf8-95c6-ad311407c65f",
+      "name": "Run Full Reproduction",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -280,
+        0
+      ],
+      "notes": "Runs preprocess, Phase 3B-8, presentation assets, and final PPT generation in order."
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "http://host.docker.internal:8000/summary",
+        "authentication": "none",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "5d85a5a3-8464-4514-9b96-57c5e25b690c",
+      "name": "Collect Final Summary",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -40,
+        0
+      ],
+      "notes": "Returns file counts, key output status, PPT size, and PPT slide count."
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Runner Health Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Runner Health Check": {
+      "main": [
+        [
+          {
+            "node": "Run Full Reproduction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Full Reproduction": {
+      "main": [
+        [
+          {
+            "node": "Collect Final Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0c9596c8-f5e9-4fa4-aa77-365ac856203f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "churnradar-local"
+  },
+  "tags": [
+    {
+      "name": "ChurnRadar"
+    },
+    {
+      "name": "Docker"
+    }
+  ]
+}

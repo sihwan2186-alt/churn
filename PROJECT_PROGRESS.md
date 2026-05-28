@@ -717,3 +717,163 @@
 
 - 기존 11장 슬라이드 뒤에 Slide 12-16으로 추가 케이스를 붙이면 1시간 발표 분량을 만들 수 있다.
 - `PRESENTATION_SLIDES.md`에 Phase 6 케이스를 이미 반영했다.
+
+## 2026-05-28 Phase 7 추가 진행 후보 실험 점검
+
+목표:
+
+- 전체 파일과 산출물을 확인한 뒤, 실제로 더 진행할 만한 실험이 남아 있는지 확인한다.
+- 추가 실험 best였던 tuned BalancedBagging의 CV 안정성을 검증한다.
+- 이미 생성된 paper-ablation/KA/ZIP variant를 실제 모델 성능으로 벤치마크한다.
+
+실행:
+
+```powershell
+.\.venv\Scripts\python.exe -m py_compile phase_7_next_experiments.py
+.\.venv\Scripts\python.exe -u phase_7_next_experiments.py
+```
+
+생성 문서와 산출물:
+
+- `phase_7_next_experiments.py`
+- `PHASE_7_NEXT_EXPERIMENTS.md`
+- `processed/phase_7_next_experiments/tuned_candidate_cv_summary.csv`
+- `processed/phase_7_next_experiments/tuned_candidate_cv_fold_results.csv`
+- `processed/phase_7_next_experiments/paper_ablation_benchmark.csv`
+- `processed/phase_7_next_experiments/paper_ablation_best_by_variant.csv`
+- `processed/phase_7_next_experiments/paper_ablation_top30.csv`
+- `processed/phase_7_next_experiments/phase_7_next_experiments_summary.json`
+
+핵심 결과:
+
+| 실험 | 핵심 결과 |
+| --- | --- |
+| tuned BalancedBagging CV | hold-out F1 0.1605였던 `BalancedBagging_tree_depthnone_leaf25`는 5-fold CV F1 0.1418로 기존 `BalancedBagging_original` 0.1455보다 낮았다. |
+| paper-ablation benchmark | 최고 variant는 `paper_core_zip_log_ka_abstract + BalancedBagging_original`, F1 0.1561이었다. |
+| KA research encoding | `extended_zip_top50_log_sqrt_ka_research + LogisticRegression_SMOTE`는 F1 0.1412로 최종 모델 교체 근거는 부족했다. |
+
+결론:
+
+- 최종 F1 모델은 여전히 `without_billing_zip + LogisticRegression_SMOTE`로 유지한다.
+- CV 안정성 주장은 기존처럼 `BalancedBagging_original`/`EasyEnsemble_original` 중심이 안전하다.
+- paper-ablation/KA 추상화 결과는 성능 개선보다 발표에서 "추가 검토했지만 결론은 유지"하는 보조 근거로 사용한다.
+- 여기서 더 한다면 새 모델 추가보다 paired bootstrap CI, McNemar test 같은 통계 검정이 더 가치 있다.
+
+## 2026-05-28 정리, 통계 검정, 최종 PPT 제작
+
+목표:
+
+- 중복 산출물을 정리하고, 중복이 다시 생성되지 않도록 스크립트를 수정한다.
+- 보조 문서는 `archive/`로 이동해 제출 루트 폴더를 정리한다.
+- bootstrap CI와 McNemar test로 모델 차이의 통계적 근거를 보강한다.
+- 최종 발표용 PowerPoint 파일을 생성한다.
+- 전체 파일 구조를 한 문서로 요약한다.
+
+수정/생성 파일:
+
+- `make_final_ppt.py`
+- `phase_8_statistical_validation.py`
+- `PHASE_8_STATISTICAL_VALIDATION.md`
+- `PROJECT_FILE_SUMMARY.md`
+- `ChurnRadar_Final_Presentation.pptx`
+- `processed/phase_8_statistical_validation/`
+- `archive/PROJECT_CHANGE_PROPOSAL.md`
+- `archive/TEAM_PROJECT_SWITCH_REPORT.md`
+- `archive/ADDITIONAL_EXPERIMENTS_AND_OPERATION_SUMMARY.md`
+
+중복 정리:
+
+- `processed/research_presentation/research_presentation_material.md` 삭제
+- `processed/column_split_datasets/03_profiles/category_value_churn_summary.csv` 삭제
+- `processed/column_split_datasets/03_profiles/numeric_bins_churn_summary.csv` 삭제
+- `make_research_presentation_materials.py`에서 중복 발표 문서 생성을 제거
+- `create_column_split_datasets.py`에서 중복 churn summary alias 생성을 제거
+
+통계 검정 핵심 결과:
+
+| Case | F1 | F1 95% CI | Recall | Recall 95% CI |
+| --- | ---: | ---: | ---: | ---: |
+| `LR_no_zip_f1` | 0.1681 | [0.1155, 0.2229] | 0.2661 | [0.1818, 0.3524] |
+| `BalancedBagging_with_zip` | 0.1526 | [0.1200, 0.1862] | 0.5872 | [0.4947, 0.6814] |
+| `CatBoost_native_with_zip` | 0.1310 | [0.1072, 0.1557] | 0.8349 | [0.7624, 0.9000] |
+| `XGBoost_with_zip` | 0.1253 | [0.1031, 0.1468] | 0.9266 | [0.8759, 0.9717] |
+
+최종 재현 점검:
+
+아래 체인을 순서대로 실행했고 모두 정상 종료했다.
+
+```powershell
+.\.venv\Scripts\python.exe -u preprocess_churn.py
+.\.venv\Scripts\python.exe -u phase_3b_differentiation_experiments.py
+.\.venv\Scripts\python.exe -u phase_4_cross_validation.py
+.\.venv\Scripts\python.exe -u phase_5a_interpretability.py
+.\.venv\Scripts\python.exe -u phase_5b_business_impact.py
+.\.venv\Scripts\python.exe -u phase_6_extended_case_studies.py
+.\.venv\Scripts\python.exe -u phase_7_next_experiments.py
+.\.venv\Scripts\python.exe -u phase_8_statistical_validation.py
+.\.venv\Scripts\python.exe -u make_presentation_assets.py
+.\.venv\Scripts\python.exe -u make_final_ppt.py
+```
+
+주의:
+
+- `phase_5b_business_impact.py` 실행 중 `tight_layout` 관련 matplotlib warning이 한 번 출력되었지만, 파일 생성은 정상 완료되었다.
+- `ChurnRadar_Final_Presentation.pptx`는 17장으로 생성되었고 `python-pptx`로 열어 slide count 검증을 통과했다.
+
+## 2026-05-28 n8n Docker 자동화 추가
+
+목표:
+
+- n8n에서 import 가능한 workflow JSON을 만들어 프로젝트 재현 실행을 버튼화한다.
+- n8n 컨테이너에 무거운 Python ML 의존성을 직접 설치하지 않고, 별도 Python runner 컨테이너에서 프로젝트 스크립트를 실행한다.
+- Docker 실행, import, runner 테스트 명령어를 문서화한다.
+
+생성/수정 파일:
+
+- `n8n_automation/churnradar_n8n_workflow.json`
+- `n8n_automation/churn_runner.py`
+- `n8n_automation/Dockerfile.runner`
+- `n8n_automation/docker-compose.yml`
+- `n8n_automation/requirements.runner.txt`
+- `.dockerignore`
+- `N8N_DOCKER_WORKFLOW_GUIDE.md`
+- `README.md`
+- `PROJECT_FILE_SUMMARY.md`
+
+workflow 구조:
+
+```text
+Manual Trigger
+-> Runner Health Check
+-> Run Full Reproduction
+-> Collect Final Summary
+```
+
+정리한 점:
+
+- `/run/full-reproduction` 안에 Phase 8 통계 검정과 PPT 생성이 이미 포함되어 있어 n8n workflow의 중복 Phase 8/PPT 재실행 노드를 제거했다.
+- `POST /run/statistical-validation`, `POST /run/ppt` endpoint는 단독 재실행용으로 runner에 유지했다.
+- `/summary`가 `.venv`까지 순회하지 않도록 파일 카운트 로직을 `os.walk` pruning 방식으로 수정했다.
+- runner 코드 변경이 빠르게 반영되도록 `churn_runner.py`를 compose volume으로도 마운트했다.
+
+검증:
+
+```powershell
+.\.venv\Scripts\python.exe -m json.tool .\n8n_automation\churnradar_n8n_workflow.json
+.\.venv\Scripts\python.exe -m py_compile .\n8n_automation\churn_runner.py
+docker compose -f .\n8n_automation\docker-compose.yml config
+docker compose -f .\n8n_automation\docker-compose.yml up -d --build churn-runner
+Invoke-RestMethod http://localhost:8000/health
+Invoke-RestMethod -Method Post http://localhost:8000/run/ppt -Body '{}' -ContentType 'application/json'
+```
+
+확인 결과:
+
+- workflow JSON 문법 검사 통과
+- n8n 2.12.3 임시 컨테이너 CLI import 통과
+- 기존 `edurisk-n8n` 컨테이너 workflow import 통과
+- Docker compose config 통과
+- `churnradar-runner` build 및 `/health` 통과
+- 기존 `edurisk-n8n` 컨테이너에서 `http://host.docker.internal:8000/health` 접근 통과
+- runner의 `POST /run/ppt` 통과, PPT 17장 확인
+- runner의 `GET /summary` 통과, `.venv` 제외 파일 카운트 정상 반환

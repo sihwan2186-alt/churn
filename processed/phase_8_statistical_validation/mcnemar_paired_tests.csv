@@ -1,0 +1,6 @@
+﻿left_case,right_case,left_only_correct_b,right_only_correct_c,discordant_pairs,mcnemar_chi2_continuity,approx_p_value,interpretation
+LR_no_zip_f1,BalancedBagging_with_zip,489,65,554,322.9765342960289,3.2550439146786407e-72,different_error_pattern
+LR_no_zip_f1,EasyEnsemble_with_zip,629,47,676,499.35059171597635,1.316038551910516e-110,different_error_pattern
+BalancedBagging_with_zip,EasyEnsemble_with_zip,189,31,220,112.0409090909091,3.5001298860682453e-26,different_error_pattern
+CatBoost_native_with_zip,XGBoost_with_zip,268,65,333,122.53453453453453,1.76319363678693e-28,different_error_pattern
+BalancedBagging_with_zip,CatBoost_native_with_zip,571,75,646,379.29566563467495,1.7713577106345126e-84,different_error_pattern

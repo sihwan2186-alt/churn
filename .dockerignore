@@ -1,0 +1,8 @@
+**
+!requirements.txt
+!n8n_automation/
+!n8n_automation/churn_runner.py
+!n8n_automation/requirements.runner.txt
+!n8n_automation/Dockerfile.runner
+!n8n_automation/docker-compose.yml
+!n8n_automation/churnradar_n8n_workflow.json

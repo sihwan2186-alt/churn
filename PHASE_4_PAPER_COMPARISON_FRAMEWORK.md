@@ -28,7 +28,7 @@ Makokha et al. (2026)과의 비교는 세 층으로 분리한다.
 | 모델 범위 | EasyEnsemble, RUSBoost, XGBoost, LightGBM, CatBoost, HistGB, BalancedBagging, MLP, Voting, Stacking 등 | CatBoost, EasyEnsemble, RUSBoost, BalancedBagging, GradientBoosting, HistGB, RandomForest, XGBoost, LR_SMOTE 등 | 논문은 breadth, 우리는 ZIP/threshold/segment/feature ablation의 depth |
 | Threshold | F1 최대화 + recall 제약, 단일 운영 threshold | validation F1 + `recall >= 0.30`, 추가 cost-sensitive sweep | 추가 기여: business scenario별 threshold 민감도 |
 | 교차검증 | 5-fold Stratified CV, EasyEnsemble F1 `0.121 ± 0.018` | Phase 4에서 5-fold CV 실행. key model 4개 비교 | 공정 비교 보강 완료 |
-| 확률 보정 | Isotonic calibration | 미적용 | 한계. cost threshold 결과도 probability가 아니라 score sweep으로 해석해야 함 |
+| 확률 보정 | Isotonic calibration | Phase 4 시점 미적용, Phase 6에서 raw/Platt/isotonic 진단 보강 | cost threshold 결과는 여전히 probability가 아니라 score sweep으로 해석 |
 | 평가 지표 | Acc, Bal.Acc, Precision, Recall, F1, ROC-AUC, PR-AUC, MCC | 동일 지표 대부분 보고. `mcc`는 CSV에 포함 | MCC 미보고 한계는 해소됨 |
 | 비용 분석 | 단일 비용 가정 기반 revenue protection | Phase 3-B에서 6개 비용 scenario sensitivity 구현 | 단일 추정은 아직 논문보다 약하지만 민감도 분석은 확장 |
 | Explainability | SHAP, LIME, permutation FI | Permutation FI + feature group ablation. SHAP/LIME 미구현 | 설명가능성은 부분 구현 |
@@ -42,7 +42,7 @@ Makokha et al. (2026)과의 비교는 세 층으로 분리한다.
 | 재현 비교 | with ZIP `EasyEnsemble_original` | 0.1284 | 0.5872 | 0.0721 | 0.0845 | 0.0321 | F1 거의 동일, recall은 더 높고 precision은 낮음 |
 | 우리 F1-best hold-out | without ZIP `LogisticRegression_SMOTE` | 0.1681 | 0.2661 | 0.1229 | 0.0879 | 0.0956 | precision/F1은 높지만 recall 30% 미만 |
 | 우리 business-balanced | with ZIP `BalancedBagging_original` | 0.1526 | 0.5872 | 0.0877 | 0.0871 | 0.0820 | recall 제약과 F1 균형에서 가장 실무적 |
-| 우리 recall-heavy | with ZIP `CatBoost_native_categorical`, threshold 0.35 | 0.1310 | 0.8349 | 0.0711 | 0.0789 | 확인 필요 | 고재현율 운영점. FP 비용 큼 |
+| 우리 recall-heavy | with ZIP `CatBoost_native_categorical`, threshold 0.35 | 0.1310 | 0.8349 | 0.0711 | 0.0789 | 0.0470 | 고재현율 운영점. FP 비용 큼 |
 
 해석:
 
@@ -149,7 +149,7 @@ Test set의 churn positive는 109명이다. TP 몇 명 차이로 F1이 크게 �
 
 | 한계 | 현재 상태 | 향후 작업 |
 | --- | --- | --- |
-| 확률 보정 | 미적용 | Isotonic/Platt calibration, Brier score, ECE 보고 |
+| 확률 보정 | Phase 6에서 raw/Platt/isotonic 진단 수행 | 배포용 threshold에는 calibrated probability 적용 검토 |
 | SHAP/LIME | 미구현 | Tree-SHAP으로 ZIP, interaction, segment 효과 시각화 |
 | 배포 | 미구현 | Streamlit 또는 FastAPI scoring prototype |
 | 통계 검정 | 독립 CV 요약만 있음 | 동일 fold paired 비교, bootstrap CI, McNemar/paired t-test |
@@ -159,4 +159,3 @@ Test set의 churn positive는 109명이다. TP 몇 명 차이로 F1이 크게 �
 ## 9. 최종 결론
 
 > 본 프로젝트는 논문 결과를 재현하는 데 성공했고, ZIP ablation, feature group ablation, CRM segment 분석, cost-sensitive threshold sensitivity를 통해 논문이 다루지 않은 운영적 질문을 확장했다. 단일 hold-out 최고 성능은 논문보다 높았지만 CV에서는 그 차이가 완화되었으므로, 최종 주장은 “논문 대비 압도적 성능 우위”가 아니라 “재현 가능한 baseline 위에서 운영 목적별 모델 선택 프레임워크를 제시했다”로 정리하는 것이 가장 탄탄하다.
-
