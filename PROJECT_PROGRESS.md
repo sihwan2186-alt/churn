@@ -16,8 +16,13 @@
 4. `CHURN_DATA_MODEL_DEFENSE.md`로 교수님 예상 질문 답변 준비하기
 5. `README.md`, `PROJECT_CHANGE_PROPOSAL.md`, `TEAM_PROJECT_SWITCH_REPORT.md`의 현재 유지 결정 내용을 확인하기
 6. 최종 제출 전 전처리/모델링과 발표 이미지 생성 명령을 다시 실행해 결과 재현 확인하기
+7. **(완료)** 주요 전처리 로직에 대한 데이터 무결성 테스트(`tests/test_data_integrity.py`) 추가
+8. **(완료)** 실제 운영을 가정하여 MLOps 로드맵(`MLOPS_ROADMAP.md`) 작성 및 Docker 리눅스 호환 가이드 추가
+9. **(완료)** MLOps 실천: 드리프트 감지 스크립트(`scripts/monitor_drift.py`) 및 Runner API 보안 추가
+10. **(완료)** 엔지니어링 고도화: 영속적 로깅 시스템 및 인자 기반 드리프트 감지 구현
+11. 최종 제출 패키지 구성 및 압축
 
-추가 성능 개선을 계속 한다면 다음 후보는 **BalancedBagging 하이퍼파라미터 튜닝**입니다. 다만 기대 상승폭은 크지 않을 가능성이 높으므로, 새 프로젝트 탐색보다 보고서/발표 완성의 우선순위가 더 높습니다.
+추가 성능 개선을 계속한다면 다음 후보는 **BalancedBagging 하이퍼파라미터 튜닝**입니다. 다만 기대 상승폭은 크지 않을 가능성이 높으므로, 새 프로젝트 탐색보다 보고서/발표 완성의 우선순위가 더 높습니다.
 
 ## 현재 결론
 
@@ -659,7 +664,7 @@
 | hold-out F1 최고 | `LogisticRegression_SMOTE` | F1 0.1681 |
 | CV 안정성 | `BalancedBagging_original` | 5-fold F1 0.1455 ± 0.0126 |
 | 핵심 3모델 recall-heavy | `CatBoost_native_categorical` | Recall 0.8349, 순이익 152,160 |
-| 확장 recall-heavy | `XGBoost_SMOTE` | Recall 0.9266, 순이익 159,000 |
+| 확장 recall-heavy | `XGBoost_SMOTE` | Recall 0.9266, 순이익 157,200 |
 | 비용 최적 threshold | `BalancedBagging_original`, threshold 0.29 | 순이익 165,840 |
 
 주의해서 써야 할 주장:
@@ -796,7 +801,7 @@
 | `LR_no_zip_f1` | 0.1681 | [0.1155, 0.2229] | 0.2661 | [0.1818, 0.3524] |
 | `BalancedBagging_with_zip` | 0.1526 | [0.1200, 0.1862] | 0.5872 | [0.4947, 0.6814] |
 | `CatBoost_native_with_zip` | 0.1310 | [0.1072, 0.1557] | 0.8349 | [0.7624, 0.9000] |
-| `XGBoost_with_zip` | 0.1253 | [0.1031, 0.1468] | 0.9266 | [0.8759, 0.9717] |
+| `XGBoost_with_zip` | 0.1242 | [0.1020, 0.1455] | 0.9266 | [0.8739, 0.9717] |
 
 최종 재현 점검:
 
