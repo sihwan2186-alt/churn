@@ -1,28 +1,45 @@
 # ChurnRadar 프로젝트 진행 기록
 
-마지막 업데이트: 2026-05-26
+마지막 업데이트: 2026-06-01
 
 이 문서는 `Baza customer Telecom v2.csv`를 사용한 통신사 고객 이탈 예측 프로젝트에서 지금까지 무엇을 했는지, 왜 했는지, 결과가 어땠는지, 다음에 무엇을 하면 좋은지를 한글 주석 형태로 정리한 기록입니다.
 
 ## 다음에 진행할 것
 
-현재 결정은 **프로젝트 변경이 아니라 ChurnRadar를 계속 진행하는 것**입니다. 따라서 다음 작업은 새 주제를 찾는 것이 아니라, 이미 만든 전처리/모델링/분석 결과를 최종 보고서와 발표 자료로 완성하는 것입니다.
+현재 결정은 **프로젝트 변경이 아니라 ChurnRadar를 계속 진행하는 것**입니다. 최종 보고서, 요약 발표본, 상세 발표본, 제출 패키지, 방어 문서는 모두 준비된 상태이며, 남은 일은 제출 전 사람이 직접 확인해야 하는 양식/이름/제출 지침 점검입니다.
 
 추천 순서:
 
-1. `FINAL_REPORT.md`를 최종 제출용 문장으로 다듬기
-2. `PRESENTATION_SLIDES.md`를 기반으로 실제 PPT 또는 발표용 PDF 만들기
-3. `presentation_assets/`의 PNG 5개를 슬라이드에 넣기
+1. `ChurnRadar_Final_Presentation.pptx` 17장 요약본과 `ChurnRadar_Detailed_Presentation.pptx` 36장 상세본을 열어 학교 양식/이름/표 잘림 여부 확인
+2. 제출 지침에 따라 요약본만 낼지, 상세본을 보조 발표 자료로 함께 낼지 결정
+3. `submission_package_20260531/` 안의 제출 패키지 구성을 최종 확인
 4. `CHURN_DATA_MODEL_DEFENSE.md`로 교수님 예상 질문 답변 준비하기
-5. `README.md`, `PROJECT_CHANGE_PROPOSAL.md`, `TEAM_PROJECT_SWITCH_REPORT.md`의 현재 유지 결정 내용을 확인하기
-6. 최종 제출 전 전처리/모델링과 발표 이미지 생성 명령을 다시 실행해 결과 재현 확인하기
+5. n8n UI에서 `ChurnRadar Docker Reproduction Pipeline`을 한 번 수동 실행해 재현 자동화 확인
+6. 원본 CSV 제출 가능 여부를 교수님/제출 지침에 맞춰 결정
 7. **(완료)** 주요 전처리 로직에 대한 데이터 무결성 테스트(`tests/test_data_integrity.py`) 추가
 8. **(완료)** 실제 운영을 가정하여 MLOps 로드맵(`MLOPS_ROADMAP.md`) 작성 및 Docker 리눅스 호환 가이드 추가
-9. **(완료)** MLOps 실천: 드리프트 감지 스크립트(`scripts/monitor_drift.py`) 및 Runner API 보안 추가
-10. **(완료)** 엔지니어링 고도화: 영속적 로깅 시스템 및 인자 기반 드리프트 감지 구현
-11. 최종 제출 패키지 구성 및 압축
 
-추가 성능 개선을 계속한다면 다음 후보는 **BalancedBagging 하이퍼파라미터 튜닝**입니다. 다만 기대 상승폭은 크지 않을 가능성이 높으므로, 새 프로젝트 탐색보다 보고서/발표 완성의 우선순위가 더 높습니다.
+## 2026-06-01 상세 발표본과 통합 문서 추가
+
+목표:
+
+- 발표에 데이터 사용/제외/수정, 전처리, 논문 비교, 실험, 하이퍼파라미터 튜닝, 컬럼별 해석을 더 세세하게 포함한다.
+- 여러 Markdown 문서의 중복 내용을 하나의 마스터 요약으로 통합한다.
+- 새 상세 PPT가 생긴 뒤 오래된 "PPT 17장 하나" 문구를 현재 상태에 맞게 수정한다.
+
+생성/수정 파일:
+
+- `make_detailed_ppt.py`
+- `ChurnRadar_Detailed_Presentation.pptx`
+- `submission_package_20260531/ChurnRadar_Detailed_Presentation.pptx`
+- `CHURNRADAR_MASTER_SUMMARY.md`
+- README, 상태 문서, 파일 요약, 발표 리허설/큐카드, 제출 패키지 안내 문서
+
+검증:
+
+- `make_detailed_ppt.py` 문법 검사 통과
+- 상세 발표본 생성 통과
+- PowerPoint COM export 기준 상세 발표본 36장 확인
 
 ## 현재 결론
 
@@ -880,5 +897,5 @@ Invoke-RestMethod -Method Post http://localhost:8000/run/ppt -Body '{}' -Content
 - Docker compose config 통과
 - `churnradar-runner` build 및 `/health` 통과
 - 기존 `edurisk-n8n` 컨테이너에서 `http://host.docker.internal:8000/health` 접근 통과
-- runner의 `POST /run/ppt` 통과, PPT 17장 확인
+- runner의 `POST /run/ppt` 통과, 요약 PPT 17장 확인
 - runner의 `GET /summary` 통과, `.venv` 제외 파일 카운트 정상 반환

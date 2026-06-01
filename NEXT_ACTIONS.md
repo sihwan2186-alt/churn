@@ -1,6 +1,6 @@
 # ChurnRadar 앞으로 해야 할 일
 
-마지막 업데이트: 2026-05-30
+마지막 업데이트: 2026-06-01
 
 ## 제출 전 반드시 할 일
 
@@ -11,10 +11,11 @@
 .\.venv\Scripts\python.exe -m pytest -q tests\test_data_integrity.py
 ```
 
-1. 최종 PPT 육안 확인
+1. 최종 PPT 2종 육안 확인
 
-- `ChurnRadar_Final_Presentation.pptx`를 열어 학교 양식, 팀원 이름, 제출용 제목, 표/그래프 잘림 여부를 확인한다.
-- 특히 17장 전체에서 숫자와 결론 문장이 서로 충돌하지 않는지 확인한다.
+- `ChurnRadar_Final_Presentation.pptx`는 요약 발표본 17장이다. 학교 양식, 팀원 이름, 제출용 제목, 표/그래프 잘림 여부를 확인한다.
+- `ChurnRadar_Detailed_Presentation.pptx`는 상세 발표본 36장이다. 데이터 사용/제외/수정, 전처리, 논문 비교, 실험, 튜닝, 컬럼별 해석이 빠지지 않았는지 확인한다.
+- 특히 두 PPT 전체에서 숫자와 결론 문장이 서로 충돌하지 않는지 확인한다.
 
 1. n8n 수동 실행 확인
 
@@ -26,7 +27,7 @@ n8n UI에서 `ChurnRadar Docker Reproduction Pipeline`을 열고 `Execute Workfl
 
 1. 최종 제출 패키지 결정
 
-- 반드시 포함: `README.md`, `FINAL_REPORT.md`, `PRESENTATION_SLIDES.md`, `ChurnRadar_Final_Presentation.pptx`, 핵심 Python 스크립트, 핵심 CSV 요약표
+- 반드시 포함: `README.md`, `FINAL_REPORT.md`, `PRESENTATION_SLIDES.md`, `ChurnRadar_Final_Presentation.pptx`, `ChurnRadar_Detailed_Presentation.pptx`, 핵심 Python 스크립트, 핵심 CSV 요약표
 - 상황에 따라 포함: `processed/` 전체 산출물, `n8n_automation/`, `archive/`
 - 개인정보/원본 데이터 제출 제한이 있으면 `Baza customer Telecom v2.csv` 포함 여부를 교수님 지침에 맞춘다.
 

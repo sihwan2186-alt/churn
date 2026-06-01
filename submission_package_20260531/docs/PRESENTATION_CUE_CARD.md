@@ -19,7 +19,7 @@ ChurnRadar는 B2B 통신 고객 이탈을 예측하는 데서 끝나지 않고, 
 | XGBoost recall | 0.9266 |
 | XGBoost FP | 1,417 |
 | BalancedBagging cost-opt net benefit | 165,840 |
-| PPT 장수 | 17장 |
+| PPT 장수 | 요약 17장 / 상세 36장 |
 
 ## 핵심 주장
 

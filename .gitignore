@@ -25,3 +25,6 @@ processed/error_analysis_predictions.csv
 
 *.tmp
 *.log
+
+# Office temporary lock files
+~$*

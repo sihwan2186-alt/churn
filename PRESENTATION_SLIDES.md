@@ -2,6 +2,8 @@
 
 발표 핵심 흐름은 다음 한 문장으로 잡는다.
 
+이 문서는 `ChurnRadar_Final_Presentation.pptx` 요약 17장 발표본 기준이다. 세부 방어와 긴 발표에는 `ChurnRadar_Detailed_Presentation.pptx` 36장 상세본을 함께 사용한다.
+
 ## 발표 시간 배분 (총 60분)
 
 1. **도입 및 문제 정의** (10분): 왜 Churn 예측이 어렵고 중요한가?

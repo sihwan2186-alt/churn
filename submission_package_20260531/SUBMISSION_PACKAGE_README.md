@@ -6,7 +6,8 @@
 
 | 위치 | 내용 |
 | --- | --- |
-| `ChurnRadar_Final_Presentation.pptx` | 최종 발표 PPT, 17장 |
+| `ChurnRadar_Final_Presentation.pptx` | 요약 발표 PPT, 17장 |
+| `ChurnRadar_Detailed_Presentation.pptx` | 상세 발표 PPT, 36장 |
 | `final_model_summary.csv` | 최종 운영점 요약표 |
 | `requirements.txt` | 로컬 실행 의존성 |
 | `docs/` | 최종 보고서, 발표 구성, 방어 문서, Phase별 실험 문서 |
@@ -21,6 +22,8 @@
 - 원본 `Baza customer Telecom v2.csv`: 개인정보/원본 데이터 제출 제한 가능성 때문에 제외
 - 전체 `processed/`: 대량 중간 산출물과 train/test split 전체는 제외하고 핵심 요약만 포함
 - `.venv`, Docker volume, cache, log 파일
+
+상세 발표본은 프로젝트 루트의 `make_detailed_ppt.py`로 생성한 산출물이며, 이 제출 패키지에는 완성된 PPT 파일을 포함했다.
 
 원본 데이터 제출이 허용된 경우에만 `Baza customer Telecom v2.csv`를 별도로 추가한다.
 

@@ -1,6 +1,6 @@
 # ChurnRadar n8n Docker 실행 가이드
 
-마지막 업데이트: 2026-05-29
+마지막 업데이트: 2026-06-01
 
 ## 목적
 
@@ -31,7 +31,7 @@
 2. 전체 재현 실행: `POST /run/full-reproduction`
 3. 최종 파일 요약 수집: `GET /summary`
 
-`/run/full-reproduction` 안에 Phase 8 통계 검정, 발표 이미지 생성, 최종 PPT 생성이 이미 포함되어 있다. 그래서 n8n workflow에서는 중복 실행을 제거했다. 단독 재실행이 필요할 때만 아래의 runner 직접 테스트 명령어로 `/run/statistical-validation` 또는 `/run/ppt`를 호출하면 된다.
+`/run/full-reproduction` 안에 Phase 8 통계 검정, 발표 이미지 생성, 요약 17장 PPT 생성이 이미 포함되어 있다. 그래서 n8n workflow에서는 중복 실행을 제거했다. 단독 재실행이 필요할 때만 아래의 runner 직접 테스트 명령어로 `/run/statistical-validation` 또는 `/run/ppt`를 호출하면 된다. 상세 36장 PPT는 현재 `make_detailed_ppt.py`로 별도 생성한다.
 
 전체 재현 실행에는 아래 스크립트가 순서대로 포함된다.
 
@@ -171,7 +171,7 @@ Invoke-RestMethod http://localhost:8000/summary -Headers $headers
 - `churnradar-runner` build 및 실행: 통과
 - 기존 n8n 컨테이너 `edurisk-n8n`에서 `http://host.docker.internal:8000/health` 접근: 통과
 - 기존 n8n 컨테이너 `edurisk-n8n`에 workflow CLI import: 통과
-- runner의 `POST /run/ppt`: 통과, PPT 17장 확인
+- runner의 `POST /run/ppt`: 통과, 요약 PPT 17장 확인
 - n8n workflow 중복 단계 제거: `Health -> Full Reproduction -> Summary` 구조로 단순화
 - runner의 `GET /summary`: 통과, `.venv` 제외 파일 카운트 정상 반환
 - API 키 인증 추가 후 workflow JSON의 HTTP Request 노드에 `X-API-KEY` 헤더 반영
@@ -215,7 +215,7 @@ docker compose -f .\n8n_automation\docker-compose.yml down
         - churn-net
   ```
 
-- runner는 프로젝트 루트를 `/workspace`로 마운트한다. 따라서 실행 결과는 현재 프로젝트 폴더의 `processed/`, `presentation_assets/`, `ChurnRadar_Final_Presentation.pptx`에 바로 반영된다.
+- runner는 프로젝트 루트를 `/workspace`로 마운트한다. 따라서 실행 결과는 현재 프로젝트 폴더의 `processed/`, `presentation_assets/`, `ChurnRadar_Final_Presentation.pptx`에 바로 반영된다. `ChurnRadar_Detailed_Presentation.pptx`는 별도 상세 발표 생성 스크립트 산출물이다.
 - **데이터 검증:** 실행 전 `python -m pytest -q tests/test_data_integrity.py`를 수행하여 입력 데이터의 스키마가 일치하는지 반드시 확인해야 한다.
 - **API 키:** runner의 `/health`는 상태 확인용으로 열어두었고, `/summary` 및 `/run/*` endpoint는 `X-API-KEY` 헤더가 필요하다.
 - 전체 재현은 시간이 걸릴 수 있다. workflow의 HTTP timeout은 긴 실행을 고려해 최대 1시간으로 설정했다.

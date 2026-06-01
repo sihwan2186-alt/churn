@@ -1,6 +1,6 @@
 # ChurnRadar 현재 진행 현황
 
-마지막 업데이트: 2026-05-30
+마지막 업데이트: 2026-06-01
 
 ## 한 줄 결론
 
@@ -16,7 +16,7 @@
 | 논문 재현 | 참고 논문 EasyEnsemble F1 0.129를 우리 EasyEnsemble F1 0.128 수준으로 재현 |
 | 추가 실험 | ZIP ablation, feature group ablation, segment 분석, threshold/cost/top-k/calibration/model agreement 완료 |
 | 통계 검정 | bootstrap confidence interval, McNemar paired test 완료 |
-| 발표 자료 | `ChurnRadar_Final_Presentation.pptx` 17장 생성 완료 |
+| 발표 자료 | `ChurnRadar_Final_Presentation.pptx` 요약 17장, `ChurnRadar_Detailed_Presentation.pptx` 상세 36장 생성 완료 |
 | 자동화 | n8n workflow JSON, Docker runner, runner API, 로그, API 키 인증 구성 완료 |
 | 품질 점검 | 데이터 무결성 테스트와 드리프트 점검 스크립트 추가 |
 
@@ -37,6 +37,8 @@
 - Docker compose에 `CHURN_RUNNER_API_KEY` 환경 변수 연결
 - `monitor_drift.py`의 JSON 중복 출력과 취약한 PSI 계산 로직 정리
 - 문서의 드리프트 스크립트 경로를 실제 위치인 `monitor_drift.py` 기준으로 정리
+- 상세 발표본 `ChurnRadar_Detailed_Presentation.pptx` 36장을 추가 생성하고 제출 패키지에도 포함
+- Markdown 전체 내용을 합친 `CHURNRADAR_MASTER_SUMMARY.md` 생성
 
 ## 방금 통과한 검증
 
@@ -50,8 +52,17 @@ $files = rg --files -g "*.py" -g "!.venv/**" -g "!__pycache__/**"
 docker compose -f .\n8n_automation\docker-compose.yml config
 ```
 
+추가 확인(프로젝트 루트에서 수행):
+
+```powershell
+.\.venv\Scripts\python.exe -m py_compile make_detailed_ppt.py
+.\.venv\Scripts\python.exe -u make_detailed_ppt.py
+```
+
+`ChurnRadar_Detailed_Presentation.pptx`는 PowerPoint COM export 기준 36장으로 확인했다.
+
 ## 남아 있는 확인 사항
 
 - 전체 재현 체인 전체 재실행은 시간이 오래 걸려 이번 빠른 점검에서는 수행하지 않았다.
 - n8n UI에서 실제 `Execute Workflow` 버튼 클릭 검증은 별도 확인이 필요하다.
-- PPT 파일은 생성과 slide count는 확인되어 있지만, 학교 양식/이름/제출 포맷은 사람이 한 번 열어서 최종 확인해야 한다.
+- PPT 파일 2종은 생성과 slide count는 확인되어 있지만, 학교 양식/이름/제출 포맷은 사람이 한 번 열어서 최종 확인해야 한다.

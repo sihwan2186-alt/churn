@@ -1,6 +1,8 @@
 # ChurnRadar 전체 파일 요약
 
-마지막 업데이트: 2026-05-29
+마지막 업데이트: 2026-06-01
+
+이 문서는 제출 패키지만이 아니라 원본 프로젝트 루트 전체를 기준으로 정리한 파일 요약이다.
 
 ## 1. 현재 상태 한 줄 요약
 
@@ -8,7 +10,8 @@
 
 최종 발표 파일:
 
-- `ChurnRadar_Final_Presentation.pptx`
+- `ChurnRadar_Final_Presentation.pptx` - 요약 발표본 17장
+- `ChurnRadar_Detailed_Presentation.pptx` - 상세 발표본 36장
 
 핵심 제출/발표 문서:
 
@@ -20,21 +23,22 @@
 
 ## 2. 파일 규모
 
-`.venv`, `.git`, `__pycache__`를 제외한 현재 산출물 유형은 대략 다음과 같다.
+`.venv`, `.git`, `__pycache__`, PowerPoint 임시 잠금 파일(`~$*.pptx`)을 제외한 현재 산출물 유형은 다음과 같다.
 
 | 확장자 | 개수 | 의미 |
 | --- | ---: | --- |
-| `.csv` | 661 | 전처리 데이터, 모델 결과, 실험별 요약표 |
-| `.json` | 31 | 실험 summary, feature column metadata, n8n workflow JSON |
-| `.md` | 26 | 보고서, 발표 구성, phase별 실험 문서, archive 문서, n8n 실행 가이드, MLOps 로드맵 |
-| `.png` | 17 | 발표용 그래프와 dashboard 이미지 |
-| `.py` | 16 | 전처리, 실험, 분석, PPT 생성, n8n runner, 데이터 무결성 테스트 스크립트 |
-| `.pptx` | 1 | 최종 발표 PowerPoint |
+| `.csv` | 697 | 전처리 데이터, 모델 결과, 실험별 요약표 |
+| `.md` | 53 | 보고서, 발표 구성, phase별 실험 문서, archive 문서, 제출 패키지 문서, 통합 요약 |
+| `.json` | 39 | 실험 summary, feature column metadata, n8n workflow JSON |
+| `.py` | 35 | 전처리, 실험, 분석, PPT 생성, n8n runner, 데이터 무결성 테스트 스크립트 |
+| `.png` | 33 | 발표용 그래프와 dashboard 이미지 |
+| `.txt` | 4 | requirements 계열 의존성 파일 |
+| `.pptx` | 4 | 루트/제출 패키지의 요약 17장 PPT와 상세 36장 PPT |
 | `.pdf` | 2 | 참고 논문/자료 |
-| `.txt` | 2 | requirements 계열 의존성 파일 |
 | `.joblib` | 2 | 전처리/모델 artifact |
-| `.yml` | 1 | n8n Docker Compose 구성 |
-| `.runner` | 1 | Docker runner 이미지 정의 |
+| `.yml` | 2 | n8n Docker Compose 구성 |
+| `.runner` | 2 | Docker runner 이미지 정의 |
+| `.ini` | 2 | pytest 설정 |
 | `.dockerignore` | 1 | Docker build context 제외 규칙 |
 | `.gitignore` | 1 | Git 추적 제외 규칙 |
 
@@ -44,8 +48,9 @@
 | --- | --- |
 | `README.md` | 프로젝트 현재 결론, 주요 문서/산출물 안내 |
 | `FINAL_REPORT.md` | 제출용 최종 보고서 본문 |
-| `PRESENTATION_SLIDES.md` | PPT 제작용 17장 발표 흐름과 멘트 |
-| `ChurnRadar_Final_Presentation.pptx` | 실제 생성된 최종 발표 자료 |
+| `PRESENTATION_SLIDES.md` | 요약 17장 발표 흐름과 멘트 |
+| `ChurnRadar_Final_Presentation.pptx` | 실제 생성된 요약 발표 자료 17장 |
+| `ChurnRadar_Detailed_Presentation.pptx` | 데이터/전처리/실험/논문 비교를 세세히 담은 상세 발표 자료 36장 |
 | `final_model_summary.csv` | 핵심 운영점 요약표 |
 | `requirements.txt` | 실행 의존성 목록 |
 | `PROJECT_PROGRESS.md` | 날짜별 작업 이력과 검증 기록 |
@@ -70,7 +75,8 @@
 | `phase_6_extended_case_studies.py` | top-k, calibration, segment ROI, 모델 합의도 추가 케이스 |
 | `phase_7_next_experiments.py` | 추가 진행 후보 점검: tuned BalancedBagging CV, paper-ablation benchmark |
 | `phase_8_statistical_validation.py` | bootstrap CI와 McNemar paired test |
-| `make_final_ppt.py` | 최종 17장 PowerPoint 자동 생성 |
+| `make_final_ppt.py` | 요약 17장 PowerPoint 자동 생성 |
+| `make_detailed_ppt.py` | 프로젝트 루트에서 상세 36장 PowerPoint 자동 생성 |
 | `n8n_automation/churn_runner.py` | n8n에서 HTTP로 호출하는 Docker runner |
 | `tests/test_data_integrity.py` | 원본 데이터 파일 존재, 필수 컬럼, target 값, 빈 데이터 여부 검사 |
 
@@ -116,7 +122,8 @@
 | `presentation_assets/05_paper_comparison.png` | 논문 baseline 대비 비교 |
 | `processed/phase_5b_business_impact/business_impact_dashboard.png` | 비즈니스 임팩트 dashboard |
 | `processed/phase_6_extended_case_studies/*.png` | top-k, cost, calibration, segment, agreement 그래프 |
-| `ChurnRadar_Final_Presentation.pptx` | 위 이미지와 표를 통합한 최종 PPT |
+| `ChurnRadar_Final_Presentation.pptx` | 위 이미지와 표를 통합한 요약 PPT 17장 |
+| `ChurnRadar_Detailed_Presentation.pptx` | 데이터 사용/제외/수정, 전처리, 논문 비교, 실험, 튜닝, 컬럼별 해석을 확장한 상세 PPT 36장 |
 
 ## 8. n8n 자동화 구성
 
@@ -136,7 +143,8 @@
 - n8n 2.12.3 임시 컨테이너 CLI import 통과
 - 기존 `edurisk-n8n` 컨테이너 workflow import 통과
 - `churnradar-runner` build 및 `/health` 통과
-- runner의 `POST /run/ppt` 통과, PPT 17장 확인
+- runner의 `POST /run/ppt` 통과, 요약 PPT 17장 확인
+- `make_detailed_ppt.py` 실행 통과, 상세 PPT 36장 확인
 - workflow는 중복 실행을 줄이기 위해 `Health -> Full Reproduction -> Summary` 구조로 정리
 - runner의 `GET /summary`는 `.venv`를 순회하지 않도록 최적화했고 파일 카운트 반환을 확인
 
@@ -186,12 +194,18 @@
 .\.venv\Scripts\python.exe -u make_final_ppt.py
 ```
 
+상세 발표본은 별도 생성 스크립트로 추가 생성했다.
+
+```powershell
+.\.venv\Scripts\python.exe -u make_detailed_ppt.py
+```
+
 검증 메모:
 
-- Python 문법 검사: 16개 `.py` 파일 통과
+- Python 문법 검사: 기존 핵심 재현 스크립트 16개와 `make_detailed_ppt.py` 통과
 - 데이터 무결성 테스트: `python -m pytest -q tests/test_data_integrity.py` 4개 통과
 - 주요 dependency import: 통과
-- PPT slide count: 17장 확인
+- PPT slide count: 요약본 17장, 상세본 36장 확인
 - `phase_5b_business_impact.py`에서 matplotlib `tight_layout` warning이 한 번 출력되었지만 산출물 생성에는 실패가 없었다.
 
 ## 12. 최종 발표/보고서에서 쓰면 좋은 핵심 문장

@@ -13,7 +13,7 @@
 - 1시간 발표용 추가 케이스: top-k 예산, 비용 threshold, calibration, segment ROI, 모델 합의도 분석 완료
 - 추가 진행 후보 점검 결과: tuned BalancedBagging과 paper-ablation variant는 최종 결론을 바꿀 정도는 아님
 - 통계 검정 보강: bootstrap CI와 McNemar paired test로 모델별 trade-off 신뢰도 확인
-- 최종 PPT 생성 완료: `ChurnRadar_Final_Presentation.pptx`
+- 발표 PPT 2종 생성 완료: `ChurnRadar_Final_Presentation.pptx`(요약 17장), `ChurnRadar_Detailed_Presentation.pptx`(상세 36장)
 - n8n Docker 자동화 추가: `ChurnRadar Docker Reproduction Pipeline` workflow로 재현 실행 가능
 - 데이터 무결성 테스트 및 MLOps 로드맵 추가: `tests/test_data_integrity.py`, `MLOPS_ROADMAP.md`
 - 현재 진행 현황과 다음 작업 분리 문서 추가: `PROJECT_STATUS_CURRENT.md`, `NEXT_ACTIONS.md`
@@ -33,7 +33,7 @@
 
 1. `.\.venv\Scripts\python.exe -m pip install -r requirements.txt`로 가상환경 의존성 동기화
 2. `.\.venv\Scripts\python.exe -m pytest -q tests\test_data_integrity.py`로 원본 데이터 스키마 확인
-3. `ChurnRadar_Final_Presentation.pptx`를 열어서 학교 양식/이름/제출 형식만 최종 확인
+3. `ChurnRadar_Final_Presentation.pptx`와 `ChurnRadar_Detailed_Presentation.pptx`를 열어서 학교 양식/이름/제출 형식만 최종 확인
 4. n8n UI에서 `ChurnRadar Docker Reproduction Pipeline`을 한 번 수동 실행해 Docker 재현 결과를 확인
 5. 교수님 질문 대비용으로 `CHURN_DATA_MODEL_DEFENSE.md`와 Phase 4/5/6/8 문서 확인
 6. 제출 폴더를 만들 경우 `archive/`, `n8n_automation/`, 대량 `processed/` 산출물을 포함할지 결정
@@ -60,7 +60,7 @@ n8n import와 Docker 실행 명령어는 `N8N_DOCKER_WORKFLOW_GUIDE.md`에 정�
 | `PHASE_7_NEXT_EXPERIMENTS.md` | 추가 진행 후보 실험 점검 및 결론 유지 근거 |
 | `PHASE_8_STATISTICAL_VALIDATION.md` | bootstrap CI와 McNemar paired test |
 | `PROJECT_FILE_SUMMARY.md` | 전체 파일과 산출물 역할 요약 |
-| `PROJECT_STATUS_CURRENT.md` | 2026-05-30 기준 완료 범위와 이번 점검 수정 내역 |
+| `PROJECT_STATUS_CURRENT.md` | 2026-06-01 기준 완료 범위와 이번 점검 수정 내역 |
 | `NEXT_ACTIONS.md` | 제출 전 필수 확인과 향후 보강 작업 |
 | `N8N_DOCKER_WORKFLOW_GUIDE.md` | n8n Docker workflow import와 실행 명령어 |
 | `MLOPS_ROADMAP.md` | 실제 운영 배포를 가정한 모니터링/재학습/보안/DVC 로드맵 |
