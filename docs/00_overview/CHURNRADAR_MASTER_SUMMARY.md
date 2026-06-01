@@ -1,8 +1,10 @@
-# ChurnRadar 통합 정리 문서
+﻿# ChurnRadar 통합 정리 문서
 
 생성일: 2026-06-01
 
 이 문서는 작업 폴더 안의 Markdown 문서를 중복 없이 통합한 마스터 요약이다. 루트 문서, `archive/`, `processed/`의 보조 문서, `submission_package_20260531/`의 제출 패키지 안내를 함께 반영했다. `submission_package_20260531/docs/` 안의 문서들은 루트 문서와 내용이 동일한 제출용 복사본이므로, 본문에는 한 번만 병합했다.
+
+현재 파일 위치는 2026-06-01 정리 이후 `README.md`와 `docs/README.md`를 기준으로 본다. 최종 발표 파일은 `deliverables/presentations/ChurnRadar_Detailed_Presentation_Polished.pptx`이고, 발표 대본은 `docs/03_presentation/PRESENTATION_SCRIPT_POLISHED.md`이다.
 
 ## 1. 전체 결론
 
@@ -239,8 +241,8 @@ McNemar paired test는 주요 모델들의 error pattern이 서로 다름을 보
 
 | 파일 | 용도 |
 | --- | --- |
-| `ChurnRadar_Final_Presentation.pptx` | 요약 발표본 17장 |
-| `ChurnRadar_Detailed_Presentation.pptx` | 상세 발표본 36장 |
+| `deliverables/presentations/ChurnRadar_Final_Presentation.pptx` | 요약 발표본 17장 |
+| `deliverables/presentations/ChurnRadar_Detailed_Presentation.pptx` | 상세 발표본 36장 |
 
 | 구간 | 슬라이드 | 핵심 |
 | --- | --- | --- |
@@ -288,11 +290,11 @@ McNemar paired test는 주요 모델들의 error pattern이 서로 다름을 보
 | 파일 | 역할 |
 | --- | --- |
 | `README.md` | 프로젝트 현재 결론과 주요 문서 안내 |
-| `FINAL_REPORT.md` | 제출용 최종 보고서 본문 |
-| `PRESENTATION_SLIDES.md` | 요약 17장 발표 흐름과 멘트 |
-| `ChurnRadar_Final_Presentation.pptx` | 요약 발표 PowerPoint 17장 |
-| `ChurnRadar_Detailed_Presentation.pptx` | 상세 발표 PowerPoint 36장 |
-| `CHURN_DATA_MODEL_DEFENSE.md` | 교수님 예상 질문 방어 자료 |
+| `docs/01_reports/FINAL_REPORT.md` | 제출용 최종 보고서 본문 |
+| `docs/03_presentation/PRESENTATION_SLIDES.md` | 요약 17장 발표 흐름과 멘트 |
+| `deliverables/presentations/ChurnRadar_Final_Presentation.pptx` | 요약 발표 PowerPoint 17장 |
+| `deliverables/presentations/ChurnRadar_Detailed_Presentation.pptx` | 상세 발표 PowerPoint 36장 |
+| `docs/01_reports/CHURN_DATA_MODEL_DEFENSE.md` | 교수님 예상 질문 방어 자료 |
 | `PROJECT_STATUS_CURRENT.md` | 최신 진행 상태 |
 | `NEXT_ACTIONS.md` | 제출 전 필수 확인과 향후 보강 |
 | `PROJECT_FILE_SUMMARY.md` | 전체 파일과 산출물 역할 요약 |
@@ -361,13 +363,13 @@ PowerPoint를 열어둔 상태에서는 `~$ChurnRadar_Detailed_Presentation.pptx
 
 1. `.\.venv\Scripts\python.exe -m pip install -r requirements.txt`
 2. `.\.venv\Scripts\python.exe -m pytest -q tests\test_data_integrity.py`
-3. `ChurnRadar_Final_Presentation.pptx`와 `ChurnRadar_Detailed_Presentation.pptx`를 열어 학교 양식, 팀원 이름, 제목, 표/그래프 잘림 여부 확인
+3. `deliverables/presentations/ChurnRadar_Final_Presentation.pptx`와 `deliverables/presentations/ChurnRadar_Detailed_Presentation.pptx`를 열어 학교 양식, 팀원 이름, 제목, 표/그래프 잘림 여부 확인
 4. n8n UI에서 `ChurnRadar Docker Reproduction Pipeline` 수동 실행 확인
 5. 원본 CSV 제출 가능 여부를 교수님/제출 지침에 맞춰 결정
 
 하면 좋은 보강:
 
-- `CHURN_DATA_MODEL_DEFENSE.md` 기준으로 예상 질문 10분 리허설
+- `docs/01_reports/CHURN_DATA_MODEL_DEFENSE.md` 기준으로 예상 질문 10분 리허설
 - 보고서 결론과 PPT 결론 문장 일치 확인
 - n8n API key를 기본값이 아닌 긴 랜덤 문자열로 교체
 - 새 데이터가 생기면 `monitor_drift.py --current 새파일.csv` 실행
@@ -386,11 +388,11 @@ PowerPoint를 열어둔 상태에서는 `~$ChurnRadar_Detailed_Presentation.pptx
 | 문서 | 반영 내용 |
 | --- | --- |
 | `README.md` | 현재 결론, 핵심 모델, 주요 문서/산출물 |
-| `FINAL_REPORT.md` | 최종 보고서 구조와 핵심 수치 |
+| `docs/01_reports/FINAL_REPORT.md` | 최종 보고서 구조와 핵심 수치 |
 | `PROJECT_STATUS_CURRENT.md` | 최신 진행 현황 |
 | `PROJECT_FILE_SUMMARY.md` | 파일 역할과 산출물 구조 |
 | `PROJECT_PROGRESS.md` | 날짜별 진행 흐름과 검증 기록 |
-| `CHURN_DATA_MODEL_DEFENSE.md` | 데이터/모델 방어 논리 |
+| `docs/01_reports/CHURN_DATA_MODEL_DEFENSE.md` | 데이터/모델 방어 논리 |
 | `PHASE_3A_REPRODUCTION_EXPERIMENTS.md` | 논문 재현 |
 | `PHASE_3B_DIFFERENTIATION_EXPERIMENTS.md` | ZIP/feature/segment/cost 실험 |
 | `PHASE_4_PAPER_COMPARISON_FRAMEWORK.md` | 논문 비교 원칙과 CV |
@@ -402,13 +404,13 @@ PowerPoint를 열어둔 상태에서는 `~$ChurnRadar_Detailed_Presentation.pptx
 | `PAPER_ABLATION_DESIGN.md` | paper-core/KA/ZIP variant 설계 |
 | `TODAY_COLUMN_SPLIT_AND_PAPER_CHECK_KIM_SIHWAN.md` | 컬럼 분리와 논문 확인 |
 | `RESEARCH_PRESENTATION_MATERIAL_KIM_SIHWAN.md` | 초기 연구 발표 흐름 |
-| `PRESENTATION_SLIDES.md` | 17장 요약 발표 구성 |
+| `docs/03_presentation/PRESENTATION_SLIDES.md` | 17장 요약 발표 구성 |
 | `PRESENTATION_REHEARSAL.md` | 발표 리허설 노트 |
 | `PRESENTATION_REHEARSAL_RUN_20260531.md` | 리허설 1회차 기록 |
 | `PRESENTATION_CUE_CARD.md` | 발표 직전 큐카드 |
 | `NEXT_ACTIONS.md` | 제출 전/후 액션 |
-| `MLOPS_ROADMAP.md` | 운영 배포 로드맵 |
-| `N8N_DOCKER_WORKFLOW_GUIDE.md` | n8n Docker 실행 가이드 |
+| `docs/04_operations/MLOPS_ROADMAP.md` | 운영 배포 로드맵 |
+| `docs/04_operations/N8N_DOCKER_WORKFLOW_GUIDE.md` | n8n Docker 실행 가이드 |
 | `archive/*.md` | 프로젝트 유지 결정, 팀 보고, 추가 실험 기록 |
 | `processed/column_split_datasets/*.md` | 컬럼 사전과 단일 컬럼 분석 |
 | `processed/research_presentation/slide_outline.md` | 초기 슬라이드 흐름 |

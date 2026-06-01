@@ -16,7 +16,7 @@
 | 논문 재현 | 참고 논문 EasyEnsemble F1 0.129를 우리 EasyEnsemble F1 0.128 수준으로 재현 |
 | 추가 실험 | ZIP ablation, feature group ablation, segment 분석, threshold/cost/top-k/calibration/model agreement 완료 |
 | 통계 검정 | bootstrap confidence interval, McNemar paired test 완료 |
-| 발표 자료 | `ChurnRadar_Final_Presentation.pptx` 요약 17장, `ChurnRadar_Detailed_Presentation.pptx` 상세 36장 생성 완료 |
+| 발표 자료 | `deliverables/presentations/ChurnRadar_Final_Presentation.pptx` 요약 17장, `deliverables/presentations/ChurnRadar_Detailed_Presentation_Polished.pptx` 최종 발표용 상세 36장 생성 완료 |
 | 자동화 | n8n workflow JSON, Docker runner, runner API, 로그, API 키 인증 구성 완료 |
 | 품질 점검 | 데이터 무결성 테스트와 드리프트 점검 스크립트 추가 |
 
@@ -37,7 +37,7 @@
 - Docker compose에 `CHURN_RUNNER_API_KEY` 환경 변수 연결
 - `monitor_drift.py`의 JSON 중복 출력과 취약한 PSI 계산 로직 정리
 - 문서의 드리프트 스크립트 경로를 실제 위치인 `monitor_drift.py` 기준으로 정리
-- 상세 발표본 `ChurnRadar_Detailed_Presentation.pptx` 36장을 추가 생성하고 제출 패키지에도 포함
+- 상세 발표본 `deliverables/presentations/ChurnRadar_Detailed_Presentation_Polished.pptx` 36장을 추가 생성하고 제출 패키지에도 포함
 - Markdown 전체 내용을 합친 `CHURNRADAR_MASTER_SUMMARY.md` 생성
 
 ## 방금 통과한 검증
@@ -59,7 +59,7 @@ docker compose -f .\n8n_automation\docker-compose.yml config
 .\.venv\Scripts\python.exe -u make_detailed_ppt.py
 ```
 
-`ChurnRadar_Detailed_Presentation.pptx`는 PowerPoint COM export 기준 36장으로 확인했다.
+`deliverables/presentations/ChurnRadar_Detailed_Presentation_Polished.pptx`는 PowerPoint COM export 기준 36장으로 확인했다.
 
 ## 남아 있는 확인 사항
 

@@ -6,6 +6,8 @@
 
 | 위치 | 내용 |
 | --- | --- |
+| `ChurnRadar_Detailed_Presentation_Polished.pptx` | 최종 발표용 상세 PPT, 어색한 문구 정리 및 발표자 노트 포함 |
+| `PRESENTATION_SCRIPT_POLISHED.md` | 슬라이드별 최종 발표 대본 |
 | `ChurnRadar_Final_Presentation.pptx` | 요약 발표 PPT, 17장 |
 | `ChurnRadar_Detailed_Presentation.pptx` | 상세 발표 PPT, 36장 |
 | `final_model_summary.csv` | 최종 운영점 요약표 |
@@ -23,7 +25,7 @@
 - 전체 `processed/`: 대량 중간 산출물과 train/test split 전체는 제외하고 핵심 요약만 포함
 - `.venv`, Docker volume, cache, log 파일
 
-상세 발표본은 프로젝트 루트의 `make_detailed_ppt.py`로 생성한 산출물이며, 이 제출 패키지에는 완성된 PPT 파일을 포함했다.
+상세 발표본은 프로젝트 루트의 `make_detailed_ppt.py`로 생성한 산출물이며, 최종 발표용 polished 파일은 `tools/presentation/polish_churnradar_presentation.py`로 문구와 발표자 노트를 정리했다.
 
 원본 데이터 제출이 허용된 경우에만 `Baza customer Telecom v2.csv`를 별도로 추가한다.
 
@@ -36,4 +38,4 @@
 
 ## 발표 핵심 문장
 
-본 프로젝트는 Makokha et al. (2026)의 EasyEnsemble baseline을 재현한 뒤, ZIP ablation, feature group ablation, segment analysis, cost threshold, top-k budget, calibration, bootstrap CI를 통해 불균형 churn 데이터에서 운영 목적별 모델 선택 프레임워크를 제시했다.
+본 프로젝트는 시계열 데이터를 찾을 수 없어 정적 CRM 스냅샷 기준으로 진행했으며, Makokha et al. (2026)의 EasyEnsemble baseline을 재현한 뒤 ZIP ablation, feature group ablation, segment analysis, cost threshold, top-k budget, calibration, bootstrap CI를 통해 불균형 churn 데이터에서 운영 목적별 모델 선택 프레임워크를 제시했다.

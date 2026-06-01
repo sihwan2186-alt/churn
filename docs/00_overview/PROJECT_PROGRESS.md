@@ -1,4 +1,4 @@
-# ChurnRadar 프로젝트 진행 기록
+﻿# ChurnRadar 프로젝트 진행 기록
 
 마지막 업데이트: 2026-06-01
 
@@ -10,14 +10,14 @@
 
 추천 순서:
 
-1. `ChurnRadar_Final_Presentation.pptx` 17장 요약본과 `ChurnRadar_Detailed_Presentation.pptx` 36장 상세본을 열어 학교 양식/이름/표 잘림 여부 확인
+1. `deliverables/presentations/ChurnRadar_Final_Presentation.pptx` 17장 요약본과 `deliverables/presentations/ChurnRadar_Detailed_Presentation.pptx` 36장 상세본을 열어 학교 양식/이름/표 잘림 여부 확인
 2. 제출 지침에 따라 요약본만 낼지, 상세본을 보조 발표 자료로 함께 낼지 결정
 3. `submission_package_20260531/` 안의 제출 패키지 구성을 최종 확인
-4. `CHURN_DATA_MODEL_DEFENSE.md`로 교수님 예상 질문 답변 준비하기
+4. `docs/01_reports/CHURN_DATA_MODEL_DEFENSE.md`로 교수님 예상 질문 답변 준비하기
 5. n8n UI에서 `ChurnRadar Docker Reproduction Pipeline`을 한 번 수동 실행해 재현 자동화 확인
 6. 원본 CSV 제출 가능 여부를 교수님/제출 지침에 맞춰 결정
 7. **(완료)** 주요 전처리 로직에 대한 데이터 무결성 테스트(`tests/test_data_integrity.py`) 추가
-8. **(완료)** 실제 운영을 가정하여 MLOps 로드맵(`MLOPS_ROADMAP.md`) 작성 및 Docker 리눅스 호환 가이드 추가
+8. **(완료)** 실제 운영을 가정하여 MLOps 로드맵(`docs/04_operations/MLOPS_ROADMAP.md`) 작성 및 Docker 리눅스 호환 가이드 추가
 
 ## 2026-06-01 상세 발표본과 통합 문서 추가
 
@@ -30,7 +30,7 @@
 생성/수정 파일:
 
 - `make_detailed_ppt.py`
-- `ChurnRadar_Detailed_Presentation.pptx`
+- `deliverables/presentations/ChurnRadar_Detailed_Presentation.pptx`
 - `submission_package_20260531/ChurnRadar_Detailed_Presentation.pptx`
 - `CHURNRADAR_MASTER_SUMMARY.md`
 - README, 상태 문서, 파일 요약, 발표 리허설/큐카드, 제출 패키지 안내 문서
@@ -401,10 +401,10 @@
 
 생성한 파일:
 
-- `FINAL_REPORT.md`
+- `docs/01_reports/FINAL_REPORT.md`
 - `final_model_summary.csv`
 
-`FINAL_REPORT.md`에 정리한 내용:
+`docs/01_reports/FINAL_REPORT.md`에 정리한 내용:
 
 - 프로젝트 개요
 - 데이터 요약
@@ -440,7 +440,7 @@
 생성한 파일:
 
 - `make_presentation_assets.py`
-- `PRESENTATION_SLIDES.md`
+- `docs/03_presentation/PRESENTATION_SLIDES.md`
 - `presentation_assets/01_model_metric_comparison.png`
 - `presentation_assets/02_confusion_counts.png`
 - `presentation_assets/03_precision_recall_tradeoff.png`
@@ -455,7 +455,7 @@
 - `processed/feature_importance_top.csv`를 이용해 최종 모델의 주요 변수를 막대그래프로 만들었다.
 - 논문 표의 EasyEnsemble 결과와 우리 최종 모델 결과를 비교하는 그래프를 만들었다.
 
-`PRESENTATION_SLIDES.md`에서 정리한 내용:
+`docs/03_presentation/PRESENTATION_SLIDES.md`에서 정리한 내용:
 
 - 총 8장 기준의 발표 흐름을 만들었다.
 - 각 슬라이드마다 넣을 핵심 메시지, 사용할 표나 그래프, 발표 멘트를 같이 적었다.
@@ -470,7 +470,7 @@
 
 주석:
 
-- 발표 자료를 새로 만들 때는 `PRESENTATION_SLIDES.md`를 뼈대로 삼고, `presentation_assets/`의 PNG 파일을 슬라이드에 넣으면 된다.
+- 발표 자료를 새로 만들 때는 `docs/03_presentation/PRESENTATION_SLIDES.md`를 뼈대로 삼고, `presentation_assets/`의 PNG 파일을 슬라이드에 넣으면 된다.
 - 실제 PPT 파일이 필요하면 다음 단계에서 이 Markdown 구성안을 PowerPoint 형식으로 옮기면 된다.
 
 ## 2026-05-22 프로젝트 변경 검토 문서 작성
@@ -523,9 +523,9 @@
 
 생성한 파일:
 
-- `CHURN_DATA_MODEL_DEFENSE.md`
+- `docs/01_reports/CHURN_DATA_MODEL_DEFENSE.md`
 
-`CHURN_DATA_MODEL_DEFENSE.md`에 정리한 내용:
+`docs/01_reports/CHURN_DATA_MODEL_DEFENSE.md`에 정리한 내용:
 
 - `Baza customer Telecom v2.csv` 데이터 개요
 - 원본 14개 컬럼의 의미와 처리 방식
@@ -543,7 +543,7 @@
 
 주석:
 
-- 교수님이 “기존 churn 데이터에 대해 충분히 이해했는가?”라고 질문하면 `CHURN_DATA_MODEL_DEFENSE.md`를 기준으로 답하면 된다.
+- 교수님이 “기존 churn 데이터에 대해 충분히 이해했는가?”라고 질문하면 `docs/01_reports/CHURN_DATA_MODEL_DEFENSE.md`를 기준으로 답하면 된다.
 - 핵심 답변은 “여러 모델을 실험했지만, 이 데이터는 정적인 CRM snapshot이라 이탈 예측에 중요한 시간 기반 행동 feature가 부족하다”는 것이다.
 - 추가 핵심 답변은 “현재 접근 가능한 데이터만으로는 시간 기반 행동 feature를 추가하기 어렵기 때문에, 최종 보고서에서는 모델별 trade-off와 데이터 한계를 명확히 설명한다”는 것이다.
 
@@ -559,9 +559,9 @@
 - `PROJECT_CHANGE_PROPOSAL.md`
 - `TEAM_PROJECT_SWITCH_REPORT.md`
 - `PROJECT_PROGRESS.md`
-- `CHURN_DATA_MODEL_DEFENSE.md`
-- `FINAL_REPORT.md`
-- `PRESENTATION_SLIDES.md`
+- `docs/01_reports/CHURN_DATA_MODEL_DEFENSE.md`
+- `docs/01_reports/FINAL_REPORT.md`
+- `docs/03_presentation/PRESENTATION_SLIDES.md`
 
 정리한 방향:
 
@@ -656,7 +656,7 @@
 
 다음 작업:
 
-- `FINAL_REPORT.md`와 `PRESENTATION_SLIDES.md`에 추가 실험 best와 운영 해석을 반영한다.
+- `docs/01_reports/FINAL_REPORT.md`와 `docs/03_presentation/PRESENTATION_SLIDES.md`에 추가 실험 best와 운영 해석을 반영한다.
 - 다음 사람이 이어서 볼 때 어떤 판단을 하면 되는지
 
 ## 2026-05-27 Phase 3A-5B 통합 및 제출물 갱신
@@ -668,8 +668,8 @@
 
 완료한 작업:
 
-- `FINAL_REPORT.md`를 최신 Phase 3A-5B 결과 기준으로 다시 작성했다.
-- `PRESENTATION_SLIDES.md`를 실제 PPT 제작용 11장 흐름으로 다시 구성했다.
+- `docs/01_reports/FINAL_REPORT.md`를 최신 Phase 3A-5B 결과 기준으로 다시 작성했다.
+- `docs/03_presentation/PRESENTATION_SLIDES.md`를 실제 PPT 제작용 11장 흐름으로 다시 구성했다.
 - `README.md`를 최신 모델/문서/산출물 안내 기준으로 갱신했다.
 - `final_model_summary.csv`에 LR, BalancedBagging, CatBoost, XGBoost, 비용 최적 운영점, 논문 기준, 논문 재현 행을 통합했다.
 
@@ -695,7 +695,7 @@
 
 - 실제 PPT 파일 제작
 - `processed/phase_5b_business_impact/business_impact_dashboard.png`를 핵심 슬라이드에 삽입
-- 발표 전 `CHURN_DATA_MODEL_DEFENSE.md`, `PHASE_4_PAPER_COMPARISON_FRAMEWORK.md`, `PHASE_5B_BUSINESS_IMPACT_ANALYSIS.md`의 예상 질문 문장 확인
+- 발표 전 `docs/01_reports/CHURN_DATA_MODEL_DEFENSE.md`, `PHASE_4_PAPER_COMPARISON_FRAMEWORK.md`, `PHASE_5B_BUSINESS_IMPACT_ANALYSIS.md`의 예상 질문 문장 확인
 
 ## 2026-05-27 Phase 6 추가 비교 실험
 
@@ -738,7 +738,7 @@
 발표 활용:
 
 - 기존 11장 슬라이드 뒤에 Slide 12-16으로 추가 케이스를 붙이면 1시간 발표 분량을 만들 수 있다.
-- `PRESENTATION_SLIDES.md`에 Phase 6 케이스를 이미 반영했다.
+- `docs/03_presentation/PRESENTATION_SLIDES.md`에 Phase 6 케이스를 이미 반영했다.
 
 ## 2026-05-28 Phase 7 추가 진행 후보 실험 점검
 
@@ -797,7 +797,7 @@
 - `phase_8_statistical_validation.py`
 - `PHASE_8_STATISTICAL_VALIDATION.md`
 - `PROJECT_FILE_SUMMARY.md`
-- `ChurnRadar_Final_Presentation.pptx`
+- `deliverables/presentations/ChurnRadar_Final_Presentation.pptx`
 - `processed/phase_8_statistical_validation/`
 - `archive/PROJECT_CHANGE_PROPOSAL.md`
 - `archive/TEAM_PROJECT_SWITCH_REPORT.md`
@@ -840,7 +840,7 @@
 주의:
 
 - `phase_5b_business_impact.py` 실행 중 `tight_layout` 관련 matplotlib warning이 한 번 출력되었지만, 파일 생성은 정상 완료되었다.
-- `ChurnRadar_Final_Presentation.pptx`는 17장으로 생성되었고 `python-pptx`로 열어 slide count 검증을 통과했다.
+- `deliverables/presentations/ChurnRadar_Final_Presentation.pptx`는 17장으로 생성되었고 `python-pptx`로 열어 slide count 검증을 통과했다.
 
 ## 2026-05-28 n8n Docker 자동화 추가
 
@@ -858,7 +858,7 @@
 - `n8n_automation/docker-compose.yml`
 - `n8n_automation/requirements.runner.txt`
 - `.dockerignore`
-- `N8N_DOCKER_WORKFLOW_GUIDE.md`
+- `docs/04_operations/N8N_DOCKER_WORKFLOW_GUIDE.md`
 - `README.md`
 - `PROJECT_FILE_SUMMARY.md`
 

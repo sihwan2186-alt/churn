@@ -33,7 +33,7 @@ from make_final_ppt import (
 )
 
 
-OUTPUT = ROOT / "ChurnRadar_Detailed_Presentation.pptx"
+OUTPUT = ROOT / "deliverables" / "presentations" / "ChurnRadar_Detailed_Presentation.pptx"
 SUBMISSION_OUTPUT = ROOT / "submission_package_20260531" / "ChurnRadar_Detailed_Presentation.pptx"
 
 PHASE3B = ROOT / "processed" / "phase_3b_differentiation"
@@ -137,6 +137,7 @@ def add_small_table(
         rest = max(width - first_col_width, 0.1) / max(col_count - 1, 1)
         for idx in range(1, col_count):
             table.columns[idx].width = Inches(rest)
+    effective_font_size = max(font_size, 8.5)
     for r, row in enumerate(rows):
         for c, value in enumerate(row):
             cell = table.cell(r, c)
@@ -151,7 +152,7 @@ def add_small_table(
                 for run in paragraph.runs:
                     set_run(
                         run,
-                        size=font_size,
+                        size=effective_font_size,
                         bold=(r == 0),
                         color=WHITE if r == 0 else TEXT,
                     )
@@ -256,7 +257,7 @@ def build_detailed_presentation() -> Presentation:
             ["전처리", "7-9", "leakage 없이 어떤 feature를 만들었나?"],
             ["논문 비교", "10-14", "논문과 비교 가능한 값은 무엇인가?"],
             ["모델/튜닝", "15-23", "어떤 실험과 하이퍼파라미터 튜닝을 했나?"],
-            ["컬럼별 분석", "19-21", "각 컬럼만 넣으면 무엇이 좋고 안 좋은가?"],
+            ["컬럼별 분석", "19-21", "각 컬럼만 넣으면 어떤 정보가 드러나는가?"],
             ["운영 해석", "24-31", "비용, segment, top-k, calibration에서 무엇을 배웠나?"],
             ["검증/결론", "32-35", "통계적으로 얼마나 믿을 수 있고 한계는 무엇인가?"],
         ],
@@ -270,8 +271,8 @@ def build_detailed_presentation() -> Presentation:
     add_bullets(
         slide,
         [
-            "17장 요약본보다 방어 자료 성격이 강한 상세본이다.",
-            "발표 시간이 짧으면 1-18장을 본문, 19장 이후를 백업으로 사용할 수 있다.",
+            "요약본보다 근거와 검증 과정을 더 자세히 담았다.",
+            "발표 시간이 짧으면 1-18장을 중심으로 진행하고, 19장 이후는 질의응답 자료로 활용한다.",
         ],
         1.05,
         5.0,
@@ -342,7 +343,7 @@ def build_detailed_presentation() -> Presentation:
         font_size=8,
         first_col_width=2.05,
     )
-    add_text(slide, "핵심: 무엇을 뺐는지보다 왜 뺐는지를 설명해야 방어가 된다.", 0.75, 6.0, 12.0, 0.35, size=14, bold=True, color=ACCENT)
+    add_text(slide, "제외/수정 기준은 정보 누수 방지, 재현성, 운영 투입 가능성이다.", 0.75, 6.0, 12.0, 0.35, size=14, bold=True, color=TEXT)
     add_footer(slide, page)
     page += 1
 
@@ -353,7 +354,7 @@ def build_detailed_presentation() -> Presentation:
         [
             ["항목", "처리", "이유"],
             ["PID", "중복 제거 키로만 사용 후 제거", "동일 고객이 train/test에 섞이는 위험 방지"],
-            ["KA_name", "기본 모델 제외", "담당자명은 운영 민감 변수이며 일반화 취약"],
+            ["KA_name", "기본 모델에서 분리", "담당자명은 운영 민감 변수이며 일반화 취약"],
             ["KA_name 연구용", "code type / premium interaction 추상화", "실명 제거 후 signal 가능성만 점검"],
             ["Sliver", "Silver로 통합", "명백한 오타 정정"],
             ["Billing_ZIP", "포함/제외/top-50 variant", "고카디널리티 지역 변수의 효과 검증"],
@@ -370,7 +371,7 @@ def build_detailed_presentation() -> Presentation:
     add_bullets(
         slide,
         [
-            "모델 성능을 높이기 위한 임의 삭제보다 leakage와 운영 가능성을 우선했다.",
+            "정보 누수 방지와 운영 가능성을 우선했다.",
             "원본 CSV는 수정하지 않고, 전처리 산출물만 별도 폴더에 생성했다.",
         ],
         1.0,
@@ -448,7 +449,7 @@ def build_detailed_presentation() -> Presentation:
         3.4,
         12.0,
     )
-    add_text(slide, "중요: resampling과 threshold 선택은 test set을 보지 않고 수행했다.", 0.85, 5.9, 11.5, 0.35, size=14, bold=True, color=ACCENT)
+    add_text(slide, "재표본화와 임계값 선택은 테스트셋을 보지 않고 수행했다.", 0.85, 5.9, 11.5, 0.35, size=14, bold=True, color=TEXT)
     add_footer(slide, page)
     page += 1
 
@@ -509,8 +510,8 @@ def build_detailed_presentation() -> Presentation:
         font_size=9,
         first_col_width=2.0,
     )
-    add_picture_fit(slide, ASSETS / "04_feature_importance_main.png", 1.0, 4.85, 5.5, 1.5)
-    add_text(slide, "결론: 단일 컬럼보다 파생/교차 feature가 있어야 모델이 churn 신호를 더 잘 읽는다.", 6.8, 5.15, 5.4, 0.55, size=14, bold=True, color=ACCENT_2)
+    add_picture_fit(slide, ASSETS / "04_feature_importance_main.png", 0.85, 4.65, 5.95, 1.85)
+    add_text(slide, "단일 컬럼보다 파생/교차 feature가 있어야 모델이 churn 신호를 더 잘 읽는다.", 7.0, 5.0, 5.25, 0.65, size=14, bold=True, color=TEXT)
     add_footer(slide, page)
     page += 1
 
@@ -548,7 +549,7 @@ def build_detailed_presentation() -> Presentation:
         font_size=8,
         first_col_width=2.0,
     )
-    add_text(slide, "비교 원칙: EasyEnsemble끼리는 재현 비교, LR/ZIP/cost 분석은 추가 기여로 분리한다.", 0.8, 5.55, 11.7, 0.38, size=13, bold=True, color=ACCENT)
+    add_text(slide, "EasyEnsemble끼리는 재현 비교, LR/ZIP/cost 분석은 추가 기여로 분리한다.", 0.8, 5.55, 11.7, 0.38, size=13, bold=True, color=TEXT)
     add_footer(slide, page)
     page += 1
 
@@ -598,7 +599,7 @@ def build_detailed_presentation() -> Presentation:
         font_size=9,
         first_col_width=2.2,
     )
-    add_text(slide, "주의: test set에서 사후적으로 threshold를 고른 값을 최종 성능으로 쓰지 않았다.", 0.85, 5.35, 11.8, 0.35, size=13, bold=True, color=ACCENT_3)
+    add_text(slide, "임계값은 검증 기준으로 선택하고 테스트셋에는 한 번만 적용했다.", 0.85, 5.35, 11.8, 0.35, size=13, bold=True, color=TEXT)
     add_footer(slide, page)
     page += 1
 
@@ -618,8 +619,8 @@ def build_detailed_presentation() -> Presentation:
                 str(row["comment"])[:28],
             ]
         )
-    add_small_table(slide, rows, 0.45, 1.1, 12.45, 2.5, font_size=7, first_col_width=1.65)
-    add_picture_fit(slide, ASSETS / "05_paper_comparison.png", 0.9, 4.25, 5.0, 2.0)
+    add_small_table(slide, rows, 0.35, 1.05, 12.65, 2.75, font_size=7, first_col_width=1.65)
+    add_picture_fit(slide, ASSETS / "05_paper_comparison.png", 0.8, 4.1, 5.85, 2.35)
     add_bullets(
         slide,
         [
@@ -653,9 +654,9 @@ def build_detailed_presentation() -> Presentation:
                 fmt(row["fn"], 0),
             ]
         )
-    add_small_table(slide, rows, 0.35, 1.05, 12.65, 2.65, font_size=7, first_col_width=1.55)
-    add_picture_fit(slide, ASSETS / "02_confusion_counts.png", 0.7, 4.15, 5.7, 2.35)
-    add_picture_fit(slide, ASSETS / "03_precision_recall_tradeoff.png", 6.8, 4.15, 5.7, 2.35)
+    add_small_table(slide, rows, 0.25, 1.0, 12.85, 2.85, font_size=7, first_col_width=1.55)
+    add_picture_fit(slide, ASSETS / "02_confusion_counts.png", 0.55, 4.05, 5.95, 2.55)
+    add_picture_fit(slide, ASSETS / "03_precision_recall_tradeoff.png", 6.8, 4.05, 5.95, 2.55)
     add_footer(slide, page)
     page += 1
 
@@ -763,8 +764,8 @@ def build_detailed_presentation() -> Presentation:
     add_section_slide(
         prs,
         page,
-        "컬럼별 데이터 분리와 단일 컬럼 실험",
-        "각 컬럼만 넣었을 때 무엇이 좋고 나쁜지 확인해 최종 feature 설계를 방어",
+        "컬럼별 데이터 분리와 단일 컬럼 검증",
+        "각 컬럼만 넣었을 때의 정보량을 확인해 최종 feature 설계를 설명",
         [
             "원본 CSV는 수정하지 않고 컬럼별 `feature + CHURN` CSV를 생성했다.",
             "범주형 값별 하위 데이터와 Yes/No 이탈률 summary를 만들었다.",
@@ -783,7 +784,7 @@ def build_detailed_presentation() -> Presentation:
             ["02_category_value_subsets", "Bronze, SOHO, ZIP별 하위 CSV", "범주 값별 이탈률 확인"],
             ["03_profiles", "전체/범주/수치 요약", "EDA와 보고서 표 근거"],
             ["05_single_column_model_screening.csv", "단일 컬럼 모델 전체 결과", "컬럼별 성능 한계 확인"],
-            ["05_single_column_best_models.csv", "컬럼별 best model", "좋은/나쁜 컬럼 순위"],
+            ["05_single_column_best_models.csv", "컬럼별 best model", "변수별 기여 가능성 순위"],
             ["00_data_dictionary_korean.md", "한글 컬럼 사전", "발표 이해도 보강"],
         ],
         0.75,
@@ -823,8 +824,8 @@ def build_detailed_presentation() -> Presentation:
                 fmt(row["pr_auc"], 4),
             ]
         )
-    add_small_table(slide, rows, 0.5, 1.05, 12.35, 4.3, font_size=7, first_col_width=2.0)
-    add_text(slide, "해석: 가입자 수와 매출 규모가 상대적으로 강하지만, 단일 변수만으로는 충분하지 않다.", 0.8, 5.95, 11.8, 0.35, size=13, bold=True, color=ACCENT)
+    add_small_table(slide, rows, 0.35, 1.0, 12.65, 4.65, font_size=7, first_col_width=2.0)
+    add_text(slide, "가입자 수와 매출 규모가 상대적으로 강하지만, 단일 변수만으로는 충분하지 않다.", 0.8, 5.95, 11.8, 0.35, size=13, bold=True, color=TEXT)
     add_footer(slide, page)
     page += 1
 
@@ -868,7 +869,7 @@ def build_detailed_presentation() -> Presentation:
                 fmt(row["pr_auc"], 4),
             ]
         )
-    add_small_table(slide, rows, 0.35, 1.05, 12.65, 2.75, font_size=6, first_col_width=3.1)
+    add_small_table(slide, rows, 0.25, 1.0, 12.85, 3.05, font_size=7, first_col_width=3.1)
     add_bullets(
         slide,
         [
@@ -901,7 +902,7 @@ def build_detailed_presentation() -> Presentation:
                 fmt(row["test_fp"], 0),
             ]
         )
-    add_small_table(slide, rows, 0.45, 1.05, 12.45, 3.15, font_size=7, first_col_width=1.8)
+    add_small_table(slide, rows, 0.35, 1.0, 12.65, 3.45, font_size=7, first_col_width=1.8)
     add_bullets(
         slide,
         [
@@ -934,7 +935,7 @@ def build_detailed_presentation() -> Presentation:
             ]
         )
     add_small_table(slide, rows, 0.75, 1.15, 11.85, 1.7, font_size=9, first_col_width=2.1)
-    add_picture_fit(slide, PHASE6 / "phase6_segment_recall_heatmap.png", 0.85, 3.35, 6.1, 2.6)
+    add_picture_fit(slide, PHASE6 / "phase6_segment_recall_heatmap.png", 0.75, 3.2, 6.65, 2.95)
     add_bullets(
         slide,
         [
@@ -1000,7 +1001,7 @@ def build_detailed_presentation() -> Presentation:
             ]
         )
     add_small_table(slide, rows, 0.55, 1.12, 12.25, 2.65, font_size=8, first_col_width=2.3)
-    add_picture_fit(slide, PHASE6 / "phase6_cost_best_paper_baseline.png", 1.0, 4.25, 5.2, 1.9)
+    add_picture_fit(slide, PHASE6 / "phase6_cost_best_paper_baseline.png", 0.8, 4.05, 5.9, 2.3)
     add_bullets(
         slide,
         [
@@ -1044,7 +1045,7 @@ def build_detailed_presentation() -> Presentation:
             ]
         )
     add_small_table(slide, rows, 0.55, 1.12, 12.25, 2.15, font_size=8, first_col_width=1.2)
-    add_picture_fit(slide, PHASE6 / "phase6_topk_budget_curves.png", 1.1, 3.65, 5.8, 2.6)
+    add_picture_fit(slide, PHASE6 / "phase6_topk_budget_curves.png", 0.85, 3.5, 6.45, 2.9)
     add_bullets(
         slide,
         [
@@ -1079,15 +1080,15 @@ def build_detailed_presentation() -> Presentation:
             ]
         )
     add_small_table(slide, cal_rows, 0.55, 1.1, 12.25, 3.0, font_size=7, first_col_width=2.4)
-    add_picture_fit(slide, PHASE6 / "phase6_calibration_comparison.png", 1.0, 4.55, 5.5, 1.7)
-    add_text(slide, "발표 문장: score 0.4를 이탈 확률 40%라고 말하면 안 된다.", 6.9, 5.05, 5.6, 0.45, size=13, bold=True, color=ACCENT_3)
+    add_picture_fit(slide, PHASE6 / "phase6_calibration_comparison.png", 0.8, 4.35, 6.1, 2.15)
+    add_text(slide, "점수 0.4는 이탈 확률 40%가 아니라 운영 순위 판단용 점수다.", 7.05, 4.95, 5.35, 0.55, size=13, bold=True, color=TEXT)
     add_footer(slide, page)
     page += 1
 
     slide = blank_slide(prs)
     add_title(slide, "Feature Importance와 해석 가능성", "논문 SHAP과 우리 LR 해석은 순위는 달라도 결론은 수렴")
-    add_picture_fit(slide, ROOT / "processed" / "phase_5a_interpretability" / "lr_coefficient_importance.png", 0.65, 1.2, 5.7, 3.2)
-    add_picture_fit(slide, ROOT / "processed" / "phase_5a_interpretability" / "lr_linear_contribution_importance.png", 6.85, 1.2, 5.7, 3.2)
+    add_picture_fit(slide, ROOT / "processed" / "phase_5a_interpretability" / "lr_coefficient_importance.png", 0.45, 1.15, 6.05, 3.35)
+    add_picture_fit(slide, ROOT / "processed" / "phase_5a_interpretability" / "lr_linear_contribution_importance.png", 6.85, 1.15, 6.05, 3.35)
     add_small_table(
         slide,
         [
@@ -1262,7 +1263,7 @@ def build_detailed_presentation() -> Presentation:
         3.5,
         size=16,
     )
-    add_text(slide, "마지막 발표 문장: 높은 점수 하나보다, 어떤 조건에서 어떤 모델을 써야 하는지 설명하는 것이 이 프로젝트의 핵심입니다.", 1.0, 6.35, 11.3, 0.45, size=13, bold=True, color=ACCENT)
+    add_text(slide, "시계열 데이터 부재 조건에서는 운영 목적별 모델 선택이 가장 현실적인 결론이다.", 1.0, 6.35, 11.3, 0.45, size=13, bold=True, color=TEXT)
     add_footer(slide, page)
 
     return prs
@@ -1270,6 +1271,7 @@ def build_detailed_presentation() -> Presentation:
 
 def main() -> None:
     prs = build_detailed_presentation()
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     prs.save(OUTPUT)
     if SUBMISSION_OUTPUT.parent.exists():
         prs.save(SUBMISSION_OUTPUT)

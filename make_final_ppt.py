@@ -10,7 +10,8 @@ from pptx.util import Inches, Pt
 
 
 ROOT = Path(__file__).resolve().parent
-OUTPUT = ROOT / "ChurnRadar_Final_Presentation.pptx"
+PRESENTATION_DIR = ROOT / "deliverables" / "presentations"
+OUTPUT = PRESENTATION_DIR / "ChurnRadar_Final_Presentation.pptx"
 ASSETS = ROOT / "presentation_assets"
 PHASE5B = ROOT / "processed" / "phase_5b_business_impact"
 PHASE6 = ROOT / "processed" / "phase_6_extended_case_studies"
@@ -18,8 +19,8 @@ PHASE8 = ROOT / "processed" / "phase_8_statistical_validation"
 
 FONT = "Malgun Gothic"
 TITLE = RGBColor(22, 38, 58)
-TEXT = RGBColor(44, 52, 64)
-MUTED = RGBColor(97, 108, 121)
+TEXT = RGBColor(0, 0, 0)
+MUTED = RGBColor(0, 0, 0)
 ACCENT = RGBColor(31, 119, 180)
 ACCENT_2 = RGBColor(46, 160, 120)
 ACCENT_3 = RGBColor(222, 125, 44)
@@ -89,7 +90,7 @@ def add_callout(slide, text: str, left: float, top: float, width: float, height:
         Inches(height),
     )
     shape.fill.solid()
-    shape.fill.fore_color.rgb = color
+    shape.fill.fore_color.rgb = RGBColor(235, 242, 248)
     shape.line.color.rgb = color
     frame = shape.text_frame
     frame.clear()
@@ -101,7 +102,7 @@ def add_callout(slide, text: str, left: float, top: float, width: float, height:
     p.alignment = PP_ALIGN.CENTER
     run = p.add_run()
     run.text = text
-    set_run(run, size=15, bold=True, color=WHITE)
+    set_run(run, size=15, bold=True, color=TEXT)
 
 
 def add_bullets(
@@ -160,7 +161,7 @@ def add_table(slide, rows: list[list[str]], left: float, top: float, width: floa
                 for run in paragraph.runs:
                     set_run(
                         run,
-                        size=9 if r else 9,
+                        size=10,
                         bold=(r == 0),
                         color=WHITE if r == 0 else TEXT,
                     )
@@ -232,7 +233,7 @@ def build_presentation() -> Presentation:
         2.1,
         size=15,
     )
-    add_callout(slide, "핵심: 적은 이탈자를 놓치지 않되, FP 비용도 같이 관리", 1.0, 4.65, 11.2, 0.65, ACCENT_2)
+    add_callout(slide, "이탈자 탐지와 FP 비용을 함께 관리", 1.0, 4.65, 11.2, 0.65, ACCENT_2)
     add_footer(slide, 2)
 
     slide = blank_slide(prs)
@@ -592,6 +593,7 @@ def build_presentation() -> Presentation:
 
 def main() -> None:
     prs = build_presentation()
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     prs.save(OUTPUT)
     print(f"Saved: {OUTPUT}")
 

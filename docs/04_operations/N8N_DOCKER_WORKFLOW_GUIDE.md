@@ -215,7 +215,7 @@ docker compose -f .\n8n_automation\docker-compose.yml down
         - churn-net
   ```
 
-- runner는 프로젝트 루트를 `/workspace`로 마운트한다. 따라서 실행 결과는 현재 프로젝트 폴더의 `processed/`, `presentation_assets/`, `ChurnRadar_Final_Presentation.pptx`에 바로 반영된다. `ChurnRadar_Detailed_Presentation.pptx`는 별도 상세 발표 생성 스크립트 산출물이다.
+- runner는 프로젝트 루트를 `/workspace`로 마운트한다. 따라서 실행 결과는 현재 프로젝트 폴더의 `processed/`, `presentation_assets/`, `deliverables/presentations/ChurnRadar_Final_Presentation.pptx`에 바로 반영된다. 상세 발표본은 `make_detailed_ppt.py`와 `tools/presentation/polish_churnradar_presentation.py`로 생성한다.
 - **데이터 검증:** 실행 전 `python -m pytest -q tests/test_data_integrity.py`를 수행하여 입력 데이터의 스키마가 일치하는지 반드시 확인해야 한다.
 - **API 키:** runner의 `/health`는 상태 확인용으로 열어두었고, `/summary` 및 `/run/*` endpoint는 `X-API-KEY` 헤더가 필요하다.
 - 전체 재현은 시간이 걸릴 수 있다. workflow의 HTTP timeout은 긴 실행을 고려해 최대 1시간으로 설정했다.

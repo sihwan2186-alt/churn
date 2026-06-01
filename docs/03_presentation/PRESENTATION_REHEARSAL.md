@@ -1,6 +1,6 @@
 # ChurnRadar 발표 리허설 노트
 
-이 리허설은 `ChurnRadar_Final_Presentation.pptx` 요약 17장 발표본 기준이다. `ChurnRadar_Detailed_Presentation.pptx` 36장 상세본은 Q&A, 방어 자료, 긴 발표용으로 사용한다.
+이 리허설은 `deliverables/presentations/ChurnRadar_Final_Presentation.pptx` 요약 17장 발표본 기준이다. 실제 최종 발표와 Q&A에는 `deliverables/presentations/ChurnRadar_Detailed_Presentation_Polished.pptx` 36장 상세본을 우선 사용한다.
 
 ## 60분 진행안
 
