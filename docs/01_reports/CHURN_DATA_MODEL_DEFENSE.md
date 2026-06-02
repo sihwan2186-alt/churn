@@ -242,7 +242,30 @@ SMOTE 계열은 test set에는 절대 적용하지 않았습니다. test set은 
 | 매출 구조 flag | `mobile_only`, `fixed_only`, `revenue_zero` | 서비스 이용 형태 |
 | 분포 보정 | `AvgMobileRevenue_log`, `TotalRevenue_sqrt`, `ARPU_sqrt` | 매출 변수의 왜도 완화 |
 
-### 7.2 Feature importance와 coefficient
+### 7.2 총 feature 개수와 도출 과정
+
+메인 파이프라인에서 `Billing_ZIP`을 포함하면 최종 feature는 55개이고, `Billing_ZIP`을 제외하면 52개입니다. 3개 차이는 `Billing_ZIP`, `Billing_ZIP_missing`, `Billing_ZIP_frequency`가 빠지기 때문입니다.
+
+feature를 55개까지 늘린 이유는 단순히 변수 수를 늘리기 위해서가 아니라, 원본 CRM snapshot이 이탈 원인을 직접 보여주지 못하기 때문에 고객 상태, 매출 구조, 활동성, 결측 여부, 범주 대표성을 모델이 더 잘 볼 수 있도록 변환했기 때문입니다.
+
+| feature 묶음 | 개수 | 예시 | 도출 이유 |
+| --- | ---: | --- | --- |
+| 기본 입력 feature | 11 | `CRM_PID_Value_Segment`, `EffectiveSegment`, `Billing_ZIP`, 가입자 수, 매출, `ARPU` | 원본 데이터의 고객 속성과 매출 규모를 보존하기 위해 사용했습니다. |
+| 결측 flag | 4 | `Not_Active_subscribers_missing`, `Suspended_subscribers_missing`, `ARPU_missing`, `Billing_ZIP_missing` | 값이 비어 있다는 사실 자체가 고객 상태 정보일 수 있어 보존했습니다. |
+| 가입자 상태/비율 feature | 5 | `dormant_subscribers`, `active_rate`, `inactive_rate`, `suspended_rate`, `dormant_rate` | 단순 가입자 수보다 전체 가입자 대비 활성/비활성 비율이 이탈 신호를 더 잘 보여줄 수 있습니다. |
+| 매출 비율/가입자당 매출 | 8 | `mobile_revenue_ratio`, `fixed_to_mobile_ratio`, `revenue_per_subscriber` | 고객 규모가 달라도 매출 구조와 가입자당 수익성을 비교할 수 있게 만들었습니다. |
+| 위험도/상호작용/균형 feature | 6 | `risk_score`, `revenue_engagement_interaction`, `arpu_risk_interaction`, `revenue_balance` | 매출과 활동성이 따로가 아니라 결합될 때 이탈 위험을 설명할 수 있어 추가했습니다. |
+| binary flag | 10 | `has_inactive`, `has_suspended`, `multi_subscriber`, `large_account`, `mobile_only`, `revenue_zero` | 고객을 명확한 유형으로 나누어 모델이 조건을 쉽게 학습하도록 했습니다. |
+| log/sqrt 변환 feature | 8 | `AvgMobileRevenue_log`, `TotalRevenue_sqrt`, `ARPU_sqrt` | 매출 변수의 큰 값과 왜도 영향을 줄이고 안정적인 패턴을 학습하기 위해 만들었습니다. |
+| frequency encoding feature | 3 | `CRM_PID_Value_Segment_frequency`, `EffectiveSegment_frequency`, `Billing_ZIP_frequency` | 범주의 등장 빈도 자체가 고객군의 대표성 정보를 담을 수 있어 추가했습니다. |
+
+따라서 총 feature 수는 `11 + 4 + 5 + 8 + 6 + 10 + 8 + 3 = 55개`입니다. 최종 메인 모델에서는 `Billing_ZIP` 관련 3개를 제외한 52개 feature를 사용했습니다.
+
+교수님께 설명할 때는 다음처럼 말하면 됩니다.
+
+> 원본 14개 컬럼에서 target과 식별성 변수를 제외한 뒤, 고객 상태 비율, 매출 구조, 가입자당 매출, 결측 flag, log/sqrt 변환, 범주 빈도 인코딩을 추가해 ZIP 포함 기준 55개 feature를 만들었습니다. 이탈 예측에 필요한 시간 기반 행동 데이터가 부족했기 때문에, 현재 snapshot 안에서 고객 활동성과 수익 구조를 최대한 명시적으로 펼친 것입니다.
+
+### 7.3 Feature importance와 coefficient
 
 feature importance는 모델 성능에 각 feature가 얼마나 중요한 역할을 했는지 보는 지표입니다. 이 프로젝트에서는 특히 permutation feature importance를 사용했습니다. 이는 특정 feature 값을 섞어서 정보가 사라지게 만든 뒤, 모델 성능이 얼마나 떨어지는지 확인하는 방식입니다. 어떤 feature를 섞었을 때 성능이 많이 떨어지면, 그 feature가 예측에 중요하다고 해석할 수 있습니다.
 
@@ -295,6 +318,24 @@ coefficient가 양수이면 해당 feature 값이 커질수록 이탈 가능성�
 
 정리하면, Logistic Regression은 설명 가능성과 F1 균형이 좋아 최종 메인 모델로 선택했고, BalancedBagging과 CatBoost는 이탈 고객을 더 많이 찾는 recall 중심 운영 후보로 해석했습니다. 반면 tree/boosting 계열 모델들은 복잡한 패턴을 잡을 수 있다는 장점이 있었지만, 이 데이터에서는 precision과 F1이 충분히 개선되지 않았습니다.
 
+### 8.2 실험 A~G의 목적
+
+실험 A~G는 단순히 모델을 많이 돌린 것이 아니라, 최종 결론을 방어하기 위해 서로 다른 질문을 검증한 실험입니다. 핵심은 “왜 이 모델을 선택했는가”, “어떤 feature가 실제로 의미 있었는가”, “운영에서는 어떤 기준으로 써야 하는가”를 확인하는 것입니다.
+
+| 실험 | 무엇을 확인하려 했는가 | 결과 해석 |
+| --- | --- | --- |
+| 실험 A: Billing ZIP Ablation | `Billing_ZIP`을 포함하는 것이 도움이 되는지, 아니면 noise가 되는지 확인 | Tree ensemble에서는 ZIP이 recall/F1을 높였지만, Logistic Regression에서는 ZIP 제거 버전이 더 좋았습니다. 즉 ZIP 효과는 모델 계열에 따라 달랐습니다. |
+| 실험 B: Feature Group Ablation | 어떤 feature group이 성능에 가장 크게 기여하는지 확인 | LR은 categorical group 제거 시 F1이 크게 하락했고, BalancedBagging은 interaction group 제거 시 하락이 컸습니다. feature 중요도는 모델 구조와 함께 해석해야 합니다. |
+| 실험 C: CRM Segment Error Analysis | Bronze/Silver/Gold/Platinum/SME 등 고객 세그먼트별 오류 패턴이 다른지 확인 | 전체 성능 하나만 보면 세그먼트별 리스크를 놓칠 수 있습니다. 고가치 고객은 FP/precision 문제가 크고, 일부 저가치 고객군은 recall 문제가 나타났습니다. |
+| 실험 D: Cost Threshold Sweep | FP 비용과 TP 이익이 달라질 때 최적 threshold와 모델이 바뀌는지 확인 | 캠페인 비용이 낮으면 recall-heavy 전략이 유리하고, 비용이 높아지면 precision 높은 모델이나 보수적 threshold가 유리합니다. |
+| 실험 E: Paper Ablation Variants | 논문형 core feature와 확장 feature 조합을 비교 | 논문 재현용 feature만 보는 것이 아니라, ZIP grouping, log/sqrt, interaction, KA 추상화 등 feature 설계의 효과를 비교했습니다. |
+| 실험 F: 추가 모델 & Soft Ensemble | 추가 모델이나 soft ensemble이 단일 모델보다 나은지 확인 | 복잡한 모델과 앙상블이 항상 F1을 올리지는 않았습니다. F1 목적에서는 단일 모델이 더 단순하고 안정적인 경우가 있었습니다. |
+| 실험 G: 통계 검증 | hold-out 점수 차이가 우연인지, 모델 오류 패턴이 실제로 다른지 확인 | Bootstrap CI와 McNemar test로 모델별 trade-off가 단순 점수 차이가 아니라 서로 다른 오류 패턴임을 보조 검증했습니다. |
+
+발표에서는 이렇게 정리할 수 있습니다.
+
+> 실험 A~G는 모델 점수표를 늘리기 위한 실험이 아니라, ZIP 정보의 효과, feature group의 기여, 세그먼트별 오류, 비용 구조별 threshold, 논문형 feature 재현, 앙상블 효과, 통계적 안정성을 각각 확인하기 위한 검증 실험입니다. 이를 통해 최종 모델 선택이 단일 F1 점수만이 아니라 데이터 구조와 운영 목적을 함께 고려한 결정임을 설명할 수 있습니다.
+
 ## 9. 최종 주요 성능
 
 | 기준 | Variant | Model | F1 | Recall | Precision | 해석 |
@@ -332,6 +373,29 @@ threshold는 모델이 예측한 이탈 확률을 실제 class로 바꾸는 기�
 | FN | False Negative | 실제 이탈 고객을 비이탈이라고 잘못 예측한 경우입니다. 미탐이며, 실제 이탈 고객을 놓치는 문제입니다. |
 
 따라서 recall은 `TP / (TP + FN)`으로 실제 이탈 고객을 얼마나 놓치지 않았는지 보고, precision은 `TP / (TP + FP)`로 이탈이라고 예측한 고객 중 실제 이탈 고객이 얼마나 되는지 봅니다.
+
+### 9.3 Top-k 캠페인 전략
+
+Top-k 캠페인은 모델이 예측한 이탈 위험 점수 순서대로 고객을 정렬한 뒤, 상위 k% 고객만 캠페인 대상으로 선택하는 방식입니다. 예를 들어 test 고객 1,688명 중 top 10% 캠페인을 한다면, 이탈 위험 점수가 가장 높은 약 169명만 상담, 할인, 유지 캠페인 대상으로 잡습니다.
+
+threshold 방식은 “이탈 확률이 0.35 이상이면 연락한다”처럼 확률 기준을 정하는 방식입니다. 반면 Top-k 방식은 “예산상 상위 10% 고객에게만 연락한다”처럼 운영 가능한 접촉 수를 기준으로 대상을 정하는 방식입니다.
+
+| 방식 | 의미 | 장점 | 주의점 |
+| --- | --- | --- | --- |
+| Threshold | 예측 확률이 특정 기준 이상인 고객을 선택 | 모델 기준이 명확하고 재현하기 쉽습니다. | 모델 score가 실제 확률로 잘 보정되어 있지 않으면 기준값 해석이 어려울 수 있습니다. |
+| Top-k | 위험 점수 상위 k% 고객을 선택 | 예산, 상담 인력, 캠페인 가능 인원에 맞춰 운영하기 쉽습니다. | k를 너무 크게 잡으면 정상 고객까지 많이 접촉해 FP 비용과 고객 피로도가 커질 수 있습니다. |
+
+Top-k 실험에서는 각 모델의 score로 고객을 정렬한 뒤, top 5%, 10%, 20%, 40%처럼 접촉 비율을 바꾸어 TP, FP, Recall@k, Precision@k, 순이익을 비교했습니다. 이 방식은 실제 현업에서 “몇 명에게 연락할 수 있는가”라는 예산 제약과 직접 연결되기 때문에, 단순 threshold보다 운영팀이 이해하기 쉽습니다.
+
+예시 해석:
+
+- 예산이 작으면 top 10%처럼 소수 고객만 선별해야 하므로 precision이 상대적으로 중요한 모델이 유리합니다.
+- 예산이 넓어지면 top 30~40%까지 접촉할 수 있어 recall이 높은 BalancedBagging/CatBoost 계열이 더 많은 이탈 고객을 잡을 수 있습니다.
+- top 100%는 모든 고객에게 연락하는 것과 같으므로 실제 운영 전략으로는 부적절합니다.
+
+교수님께 설명할 문장:
+
+> Top-k 캠페인은 모델이 위험하다고 본 고객을 순위화한 뒤, 예산에 맞춰 상위 k%만 관리하는 방식입니다. 실제 운영에서는 확률 threshold보다 “이번 달에 상위 10% 고객만 연락하자” 같은 방식이 더 직관적이기 때문에, top-k 실험을 통해 예산 규모별로 어떤 모델이 유리한지 확인했습니다.
 
 ## 10. 왜 F1과 recall이 낮은가
 
@@ -448,67 +512,79 @@ label encoding은 범주를 숫자로 구분하기 위한 방식이고, frequenc
 
 매출 변수는 고객마다 차이가 크고 우측으로 긴 분포를 가질 수 있습니다. log와 sqrt 변환은 큰 값을 압축해 이상치 영향을 줄이고, 원본값이 가진 규모 정보와 변환값이 가진 안정적인 패턴을 함께 학습하게 해줍니다.
 
+#### Q9. 총 feature 55개는 어떻게 나온 건가요?
+
+원본 14개 컬럼에서 target인 `CHURN`, 식별자인 `PID`, 기본 모델에서 제외한 `KA_name`을 제외한 뒤, 고객 상태 비율, 매출 비율, 가입자당 매출, 상호작용 feature, binary flag, 결측 flag, log/sqrt 변환, frequency encoding을 추가했습니다. `Billing_ZIP` 포함 기준으로 55개이고, 최종 메인 모델처럼 ZIP을 제외하면 `Billing_ZIP`, `Billing_ZIP_missing`, `Billing_ZIP_frequency`가 빠져 52개가 됩니다.
+
 ### 13.2 모델과 성능지표 질문
 
-#### Q9. 왜 accuracy가 높은 모델을 선택하지 않았나요?
+#### Q10. 왜 accuracy가 높은 모델을 선택하지 않았나요?
 
 이 데이터는 이탈 고객이 약 6.5%뿐이라, 대부분을 비이탈로 예측해도 accuracy가 높게 나올 수 있습니다. 따라서 accuracy보다 이탈 고객을 얼마나 잘 찾는지 보는 recall, precision, F1, PR-AUC와 전체 confusion matrix 균형을 보는 MCC가 더 중요합니다.
 
-#### Q10. 왜 SVMSMOTE를 사용했나요?
+#### Q11. 왜 SVMSMOTE를 사용했나요?
 
 이탈 고객이 너무 적어 모델이 비이탈 class 위주로 학습할 수 있기 때문입니다. SVMSMOTE는 단순 복사가 아니라 SVM 결정 경계 주변의 minority class 샘플을 기준으로 합성 데이터를 만들어, 이탈/비이탈 구분이 어려운 영역을 더 학습하게 합니다.
 
-#### Q11. SMOTE 계열을 test set에도 적용했나요?
+#### Q12. SMOTE 계열을 test set에도 적용했나요?
 
 아닙니다. resampling은 train set에만 적용했습니다. test set까지 resampling하면 실제 운영 환경의 데이터 분포가 왜곡되어 평가가 과장될 수 있습니다. test set은 현실 분포를 유지한 상태로 평가해야 합니다.
 
-#### Q12. 왜 Logistic Regression을 최종 모델로 선택했나요?
+#### Q13. 왜 Logistic Regression을 최종 모델로 선택했나요?
 
 최종 F1이 가장 높았고, recall-heavy 모델보다 precision이 상대적으로 안정적이었습니다. 또한 coefficient를 통해 어떤 feature가 이탈 가능성을 높이거나 낮추는지 설명할 수 있어 방어와 해석에 유리했습니다.
 
-#### Q13. 왜 recall이 높은 CatBoost를 최종 모델로 선택하지 않았나요?
+#### Q14. 왜 recall이 높은 CatBoost를 최종 모델로 선택하지 않았나요?
 
 CatBoost threshold 0.35는 recall이 0.8349로 높지만 precision이 0.0711입니다. 이탈 고객은 많이 잡지만 정상 고객도 매우 많이 이탈로 잘못 예측합니다. 그래서 메인 모델은 F1이 더 높은 Logistic Regression으로 두고, CatBoost는 recall 극대화 운영 후보로만 제시했습니다.
 
-#### Q14. BalancedBagging은 왜 최종 모델이 아니라 후보인가요?
+#### Q15. BalancedBagging은 왜 최종 모델이 아니라 후보인가요?
 
 BalancedBagging은 recall 0.5872로 이탈 고객을 더 많이 잡지만 precision이 0.0877로 낮습니다. 캠페인 대상자를 넓게 잡는 운영 목적에는 쓸 수 있지만, 보고서의 대표 모델로는 오탐 부담이 커서 보조 후보로 두었습니다.
 
-#### Q15. recall을 올리면 왜 precision이 떨어지나요?
+#### Q16. recall을 올리면 왜 precision이 떨어지나요?
 
 threshold를 낮추면 더 많은 고객을 이탈로 예측합니다. 이때 실제 이탈 고객을 더 많이 잡아 recall은 올라가지만, 정상 고객까지 이탈로 잘못 예측하는 FP도 늘어 precision이 떨어집니다. 이 프로젝트에서도 이 trade-off가 뚜렷하게 나타났습니다.
 
-#### Q16. threshold tuning은 왜 했나요?
+#### Q17. threshold tuning은 왜 했나요?
 
 기본 threshold 0.5만 사용하면 불균형 데이터에서 이탈 고객을 거의 못 잡을 수 있습니다. threshold를 조정하면 recall과 precision의 균형을 바꿀 수 있으므로, 운영 목적에 맞는 의사결정 기준을 찾기 위해 threshold tuning을 수행했습니다.
 
-#### Q17. feature importance와 coefficient는 어떻게 다르게 해석하나요?
+#### Q18. feature importance와 coefficient는 어떻게 다르게 해석하나요?
 
 feature importance는 어떤 feature가 모델 성능에 많이 기여했는지를 보여줍니다. coefficient는 Logistic Regression에서 해당 feature가 이탈 가능성을 높이는 방향인지 낮추는 방향인지를 보여줍니다. 즉, feature importance는 “무엇이 중요한가”, coefficient는 “어떤 방향으로 영향을 주는가”를 보는 데 사용했습니다.
 
+#### Q19. 실험 A~G는 각각 무엇을 검증한 건가요?
+
+실험 A~G는 단순한 추가 실험이 아니라 최종 결론을 방어하기 위한 검증입니다. A는 ZIP 포함 여부, B는 feature group 기여도, C는 세그먼트별 오류, D는 비용별 threshold, E는 논문형/확장 feature variant, F는 추가 모델과 soft ensemble, G는 bootstrap과 McNemar 기반 통계 검증을 확인했습니다.
+
+#### Q20. Top-k 캠페인은 무엇인가요?
+
+Top-k 캠페인은 모델 점수가 높은 고객부터 순위를 매긴 뒤, 예산에 맞춰 상위 k% 고객만 캠페인 대상으로 고르는 방식입니다. 예를 들어 top 10%는 위험 점수가 가장 높은 10% 고객에게만 연락하는 전략입니다. 실제 운영에서는 “확률 0.35 이상”보다 “이번 달 상위 10%만 관리”가 더 직관적이기 때문에 top-k 분석을 추가했습니다.
+
 ### 13.3 한계와 방어 질문
 
-#### Q18. F1이 낮은데 모델이 의미 있다고 볼 수 있나요?
+#### Q21. F1이 낮은데 모델이 의미 있다고 볼 수 있나요?
 
 절대적인 성능은 높지 않지만, 이 프로젝트의 의미는 높은 점수 자체보다 불균형 churn 데이터에서 어떤 지표로 평가하고 어떤 trade-off가 발생하는지 분석한 데 있습니다. 여러 모델과 전처리, feature engineering, threshold tuning을 수행했음에도 성능이 제한적이었기 때문에, 원인이 모델 부족보다 데이터 feature 한계에 있다는 결론을 제시할 수 있습니다.
 
-#### Q19. 성능 한계의 가장 큰 원인은 무엇인가요?
+#### Q22. 성능 한계의 가장 큰 원인은 무엇인가요?
 
 현재 데이터가 정적 CRM snapshot에 가깝기 때문입니다. 고객 이탈은 최근 사용량 감소, 결제 실패, 불만 증가, 약정 종료 같은 시간 기반 행동 변화와 관련이 큰데, 현재 데이터에는 이런 시계열 행동 feature가 없습니다.
 
-#### Q20. 성능을 올리려면 어떤 데이터가 추가로 필요하나요?
+#### Q23. 성능을 올리려면 어떤 데이터가 추가로 필요하나요?
 
 월별 사용량 변화, 최근 매출 감소 추세, 납부 지연 이력, 고객센터 문의/불만 기록, 약정 만료 시점, 상품 변경 또는 해지 이력 같은 시간 기반 행동 데이터가 필요합니다. 이런 feature가 있어야 이탈 직전의 행동 패턴을 더 직접적으로 학습할 수 있습니다.
 
-#### Q21. 왜 복잡한 모델보다 Logistic Regression이 더 좋았나요?
+#### Q24. 왜 복잡한 모델보다 Logistic Regression이 더 좋았나요?
 
 현재 feature가 이탈 원인을 직접적으로 설명하지 못하는 상황에서는 복잡한 모델이 추가 패턴을 찾기보다 noise를 학습할 수 있습니다. Logistic Regression은 파생변수로 펼친 신호를 단순하고 안정적으로 반영했고, 이 데이터에서는 그 균형이 F1 기준으로 가장 좋았습니다.
 
-#### Q22. 이 프로젝트를 유지하는 이유는 무엇인가요?
+#### Q25. 이 프로젝트를 유지하는 이유는 무엇인가요?
 
 이 프로젝트는 단순히 높은 성능만 보여주는 프로젝트가 아니라, 불균형 데이터에서 모델을 어떻게 평가하고 해석하는지 보여주는 프로젝트입니다. 성능 한계를 숨기지 않고 class imbalance, feature 한계, threshold trade-off를 근거로 설명하는 것이 오히려 더 설득력 있는 분석 방향입니다.
 
-#### Q23. 이 프로젝트에서 배운 점은 무엇인가요?
+#### Q26. 이 프로젝트에서 배운 점은 무엇인가요?
 
 불균형 데이터에서는 accuracy가 의미 없을 수 있고, recall을 높이면 precision이 급격히 낮아지는 trade-off가 발생한다는 점을 확인했습니다. 또한 고객 이탈 예측에는 단순한 정적 정보보다 시간 기반 행동 데이터가 중요하다는 결론을 얻었습니다.
 
