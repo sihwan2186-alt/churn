@@ -13,6 +13,20 @@
 - F1, recall, precision이 낮은 이유가 단순한 실험 부족이 아니라 데이터 구조적 한계라는 점을 정리한다.
 - 성능이 낮아도 프로젝트를 유지할 때 어떤 분석 포인트를 강조해야 하는지 정리한다.
 
+### 1.1 한눈에 보는 방어 포인트
+
+| 질문 방향 | 핵심 답변 |
+| --- | --- |
+| 왜 accuracy를 기준으로 안 봤는가 | 이탈 고객이 약 6.5%뿐인 불균형 데이터라 accuracy는 다수 class인 비이탈 예측에 의해 과대평가될 수 있습니다. |
+| 왜 Logistic Regression을 최종 모델로 선택했는가 | F1이 가장 높고, precision/recall 균형이 상대적으로 안정적이며, coefficient 기반 설명이 가능합니다. |
+| 왜 recall이 높은 모델을 메인으로 쓰지 않았는가 | recall을 높이면 이탈 고객은 더 많이 잡지만 FP가 늘어 precision이 크게 낮아졌기 때문입니다. |
+| 왜 성능이 낮은가 | 모델 부족보다 정적 CRM snapshot 데이터의 한계가 큽니다. 사용량 변화, 결제 실패, 불만 기록 같은 시간 기반 행동 feature가 없습니다. |
+| 프로젝트의 의의는 무엇인가 | 불균형 데이터에서 지표 선택, threshold trade-off, feature engineering, 모델별 운영 목적 구분을 보여주는 분석입니다. |
+
+### 1.2 읽는 순서
+
+시간이 부족하면 `2. 데이터 개요`, `6. 전처리 방식`, `8. 사용한 모델과 사용 이유`, `9. 최종 주요 성능`, `13. 교수님 예상 질문과 답변`, `14. 교수님께 말할 최종 요약` 순서로 보면 됩니다.
+
 ## 2. 데이터 개요
 
 사용한 데이터는 `Baza customer Telecom v2.csv`입니다. 통신사 B2B 고객 단위의 이탈 여부를 예측하는 데이터입니다.
@@ -28,7 +42,25 @@
 | 이탈 비율 | 약 6.5% |
 | 문제 유형 | binary classification |
 
+binary classification은 정답 class가 두 개인 분류 문제를 의미합니다. 이 프로젝트에서는 고객을 `CHURN=1` 이탈 고객 또는 `CHURN=0` 비이탈 고객 중 하나로 예측하므로 binary classification입니다.
+
+| class | 의미 | 모델의 판단 |
+| --- | --- | --- |
+| `CHURN=1` | 이탈 고객 | 이탈 가능성이 있다고 예측한 고객 |
+| `CHURN=0` | 비이탈 고객 | 이탈 가능성이 낮다고 예측한 고객 |
+
+이 데이터는 tabular data입니다. tabular data는 엑셀이나 CSV처럼 행과 열로 이루어진 표 형태의 데이터를 말합니다. 여기서는 한 행이 한 고객을 나타내고, 각 열은 고객 세그먼트, 가입자 수, 매출, 이탈 여부 같은 고객 속성을 나타냅니다.
+
 중요한 점은 target이 매우 불균형하다는 것입니다. 전체 고객 중 이탈 고객이 약 6.5%뿐이므로, 모델이 대부분을 비이탈로 예측해도 accuracy는 높게 나올 수 있습니다. 그래서 accuracy만 보면 안 되고, F1, recall, precision, PR-AUC, MCC를 함께 봐야 합니다.
+
+minority class는 데이터에서 표본 수가 상대적으로 적은 class를 의미합니다. 반대로 표본 수가 많은 class는 majority class라고 합니다.
+
+| 구분 | 이 프로젝트의 class | 건수 | 의미 |
+| --- | --- | ---: | --- |
+| minority class | `CHURN=1` | 549명 | 실제 이탈 고객입니다. 수가 적지만 예측에서 가장 중요하게 찾아야 하는 대상입니다. |
+| majority class | `CHURN=0` | 7,904명 | 비이탈 고객입니다. 수가 많아 모델이 이 class 위주로 학습하기 쉽습니다. |
+
+이 프로젝트에서는 이탈 고객이 전체의 약 6.5%뿐이므로 모델이 아무 생각 없이 대부분을 비이탈로 예측해도 accuracy가 높아 보일 수 있습니다. 하지만 실제 목적은 “이탈할 고객을 미리 찾는 것”이기 때문에 minority class인 이탈 고객을 얼마나 잘 탐지하는지가 핵심입니다. 그래서 SVMSMOTE로 minority class를 보강했고, 평가에서도 recall, precision, F1, PR-AUC, MCC를 함께 확인했습니다.
 
 ## 3. 원본 컬럼 설명
 
@@ -43,10 +75,10 @@
 | `Not_Active_subscribers` | 비활성 가입자 수 | 결측 flag 생성 후 0으로 대체 | 결측이 “없음”에 가까울 가능성이 있고, 결측 여부 자체도 정보일 수 있음 |
 | `Suspended_subscribers` | 정지 가입자 수 | 결측 flag 생성 후 0으로 대체 | 결측률이 매우 높아 flag로 보존 |
 | `Total_SUBs` | 전체 가입자 수 | 수치형 feature로 사용 | 고객 규모를 나타냄 |
-| `AvgMobileRevenue` | 평균 모바일 매출 | 원본, log, sqrt 파생변수 생성 | 매출 규모와 분포 왜도를 반영 |
-| `AvgFIXRevenue` | 평균 유선 매출 | 원본, log, sqrt 파생변수 생성 | 유선/모바일 매출 구조 반영 |
-| `TotalRevenue` | 총 매출 | 원본, log, sqrt 파생변수 생성 | 고객 가치와 이탈 위험의 핵심 변수 |
-| `ARPU` | 가입자당 평균 매출 | `TotalRevenue / Total_SUBs`로 일부 보정 후 중앙값 대체 | 고객 수익성을 나타냄 |
+| `AvgMobileRevenue` | 평균 모바일 매출 | 원본값 유지 + log/sqrt 파생변수 생성 | 매출 규모와 분포 왜도를 반영 |
+| `AvgFIXRevenue` | 평균 유선 매출 | 원본값 유지 + log/sqrt 파생변수 생성 | 유선/모바일 매출 구조 반영 |
+| `TotalRevenue` | 총 매출 | 원본값 유지 + log/sqrt 파생변수 생성 | 고객 가치와 이탈 위험의 핵심 변수 |
+| `ARPU` | 가입자당 평균 매출 | `TotalRevenue / Total_SUBs`로 일부 보정 후 중앙값 대체, log/sqrt 파생변수 생성 | 고객 수익성을 나타냄 |
 | `CHURN` | 이탈 여부 | `No=0`, `Yes=1`로 변환 | 예측 target |
 
 ## 4. 범주형 변수 분포
@@ -79,9 +111,21 @@
 | Other | 29 |
 | LE | 2 |
 
+`EffectiveSegment`는 고객의 사업 규모나 유형을 나타내는 세그먼트입니다.
+
+| 세그먼트 | 의미 | 해석 |
+| --- | --- | --- |
+| SOHO | Small Office / Home Office | 개인사업자 또는 아주 작은 사무실 규모의 고객군으로 해석할 수 있습니다. |
+| VSE | Very Small Enterprise | 매우 작은 기업 고객군을 의미합니다. SOHO보다는 조직 형태가 있지만 규모는 작은 고객입니다. |
+| SME | Small and Medium-sized Enterprise | 중소기업 고객군을 의미합니다. SOHO/VSE보다 상대적으로 사업 규모가 큰 고객입니다. |
+| SE | Small Enterprise | 소기업 고객군으로 해석할 수 있습니다. |
+| LE | Large Enterprise | 대기업 고객군으로 해석할 수 있습니다. |
+
 SOHO와 VSE에 데이터가 많이 몰려 있어, 세그먼트만으로 이탈을 강하게 구분하기는 어렵습니다.
 
 ## 5. 결측치와 데이터 품질
+
+결측률은 전체 행 중 특정 컬럼의 값이 비어 있는 비율입니다. 예를 들어 결측률이 50%라면 해당 컬럼의 절반 정도가 비어 있다는 뜻입니다. 결측률이 높다고 해서 무조건 컬럼을 삭제하는 것은 아니며, 값이 비어 있다는 사실 자체가 의미를 가질 수 있는지 먼저 판단해야 합니다.
 
 | 컬럼 | 결측률 | 처리 |
 | --- | ---: | --- |
@@ -91,7 +135,7 @@ SOHO와 VSE에 데이터가 많이 몰려 있어, 세그먼트만으로 이탈�
 | `Billing_ZIP` | 약 0.02% | 포함 버전에서는 중앙값 대체 |
 | `ARPU` | 약 0.01% | `TotalRevenue / Total_SUBs`로 보정 후 중앙값 대체 |
 
-결측치를 단순 삭제하지 않은 이유는 이탈 고객이 549명뿐이라 행을 삭제하면 minority class가 더 줄어들기 때문입니다. 특히 `Suspended_subscribers`와 `Not_Active_subscribers`는 결측률이 높지만, 값이 없다는 사실 자체가 “해당 상태의 가입자가 없다”는 의미일 가능성이 있어 0으로 대체하고 missing flag를 함께 만들었습니다.
+결측치를 단순 삭제하지 않은 이유는 이탈 고객이 549명뿐이라 행을 삭제하면 minority class인 이탈 고객 표본이 더 줄어들기 때문입니다. 특히 `Suspended_subscribers`와 `Not_Active_subscribers`는 결측률이 높지만, 값이 없다는 사실 자체가 “해당 상태의 가입자가 없다”는 의미일 가능성이 있어 0으로 대체하고 missing flag를 함께 만들었습니다.
 
 ## 6. 전처리 방식
 
@@ -117,7 +161,9 @@ Yes -> 1
 | train | 6,312 | 436 |
 | test | 1,579 | 109 |
 
-stratify를 사용한 이유는 이탈 고객 비율이 낮기 때문에 random split만 하면 train/test의 이탈 비율이 흔들릴 수 있기 때문입니다.
+80:20으로 나눈 이유는 학습에 사용할 데이터를 충분히 확보하면서도, 학습에 쓰지 않은 별도 test set으로 일반화 성능을 확인하기 위해서입니다. 특히 이 데이터는 전체 표본 수가 크지 않고 이탈 고객 수가 549명뿐이므로 test set을 너무 크게 잡으면 학습할 minority class가 더 줄어들 수 있습니다.
+
+`stratify=y`를 사용한 이유는 이탈 고객 비율이 낮기 때문에 random split만 하면 train/test의 이탈 비율이 흔들릴 수 있기 때문입니다. stratify를 적용하면 train과 test 모두에서 이탈 고객 비율이 원본 데이터와 비슷하게 유지되어, 모델이 학습한 분포와 평가하는 분포가 크게 달라지는 문제를 줄일 수 있습니다. 따라서 이 방식은 불균형 데이터에서 더 공정하고 안정적인 성능 평가를 하기 위한 절차입니다.
 
 ### 6.4 `Billing_ZIP` 포함/제외 버전
 
@@ -134,11 +180,16 @@ stratify를 사용한 이유는 이탈 고객 비율이 낮기 때문에 random 
 
 `CRM_PID_Value_Segment`, `EffectiveSegment`, `Billing_ZIP`은 label encoding과 frequency encoding을 함께 적용했습니다.
 
-이유:
+범주형 변수는 `SOHO`, `Bronze`, `Silver`처럼 문자나 그룹 이름으로 된 변수입니다. 대부분의 머신러닝 모델은 숫자 입력을 사용하므로, 이런 값을 숫자 feature로 변환해야 합니다.
 
-- label encoding은 tree 계열 모델이 사용할 수 있는 숫자 형태로 바꾸기 위해 사용했습니다.
-- frequency encoding은 각 범주의 등장 빈도 자체가 고객군의 대표성을 나타낼 수 있기 때문에 추가했습니다.
-- encoding 기준은 train set에서만 만들고 test에는 train 기준을 적용했습니다.
+| 인코딩 방식 | 의미 | 예시 | 사용 이유 |
+| --- | --- | --- | --- |
+| Label encoding | 각 범주에 정수 번호를 붙이는 방식 | `Bronze=0`, `Silver=1`, `Gold=2`처럼 변환 | 문자형 범주를 모델이 사용할 수 있는 숫자 형태로 바꾸기 위해 사용했습니다. |
+| Frequency encoding | 각 범주가 train set에서 얼마나 자주 등장했는지를 값으로 넣는 방식 | `SOHO`가 70% 등장하면 `0.70`처럼 변환 | 범주의 등장 빈도 자체가 고객군의 대표성이나 규모 정보를 담을 수 있어 추가했습니다. |
+
+두 방식을 함께 쓴 이유는 label encoding이 범주의 구분 정보를 제공하고, frequency encoding이 범주의 빈도 정보를 제공하기 때문입니다. 예를 들어 `EffectiveSegment=SOHO`라는 사실뿐 아니라 SOHO가 데이터에서 매우 자주 등장하는 대표 고객군이라는 정보도 모델에 전달할 수 있습니다.
+
+encoding 기준은 train set에서만 만들고 test에는 train 기준을 적용했습니다. test set까지 보고 encoding 기준을 만들면 평가 데이터 정보가 학습 과정에 섞이는 data leakage가 발생할 수 있기 때문입니다.
 
 ### 6.6 스케일링
 
@@ -146,7 +197,15 @@ Logistic Regression과 거리/선형 기반 모델의 안정성을 위해 수치
 
 ### 6.7 불균형 처리
 
-이탈 고객이 약 6.5%뿐이므로 SVMSMOTE를 사용해 train set의 minority class를 보강했습니다.
+이탈 고객이 약 6.5%뿐이므로 SVMSMOTE를 사용해 train set의 minority class를 보강했습니다. 즉, 학습 데이터에서 수가 적은 `CHURN=1` 이탈 고객 class의 학습 신호를 늘려 모델이 비이탈 고객만 예측하는 방향으로 치우치지 않도록 했습니다.
+
+SVMSMOTE를 사용한 이유는 단순히 이탈 고객 데이터를 복사하는 것이 아니라, SVM이 찾은 결정 경계 주변의 minority class 샘플을 기준으로 합성 데이터를 만들기 때문입니다. 이탈/비이탈이 애매하게 갈리는 경계 근처의 이탈 고객 패턴을 더 학습하게 하여, 모델이 희소한 이탈 class를 조금 더 잘 인식하도록 만드는 목적이 있습니다.
+
+| 방법 | 의미 | 사용 이유 |
+| --- | --- | --- |
+| 단순 oversampling | 기존 이탈 고객 행을 그대로 복사 | 데이터 수는 늘지만 같은 표본이 반복되어 overfitting 위험이 있음 |
+| SMOTE | 가까운 minority class 샘플 사이를 보간해 합성 표본 생성 | 단순 복사보다 낫지만, 경계와 상관없는 합성 표본도 생길 수 있음 |
+| SVMSMOTE | SVM 기반으로 class 경계 주변의 minority class를 중심으로 합성 표본 생성 | 이탈/비이탈 구분이 어려운 영역을 보강해 불균형 데이터에서 이탈 탐지 학습을 돕기 위해 사용 |
 
 | 구분 | 비이탈 0 | 이탈 1 |
 | --- | ---: | ---: |
@@ -159,6 +218,20 @@ SMOTE 계열은 test set에는 절대 적용하지 않았습니다. test set은 
 
 원본 변수만으로는 신호가 약하다고 판단하여, 도메인 의미가 있는 파생변수를 만들었습니다.
 
+### 7.1 수치형 feature와 log/sqrt 파생변수
+
+수치형 feature는 고객의 가입자 수, 매출, ARPU처럼 숫자로 크기와 양을 표현하는 변수입니다. 이 프로젝트에서는 `Active_subscribers`, `Not_Active_subscribers`, `Suspended_subscribers`, `Total_SUBs`, `AvgMobileRevenue`, `AvgFIXRevenue`, `TotalRevenue`, `ARPU` 등이 핵심 수치형 feature입니다.
+
+매출 계열 변수는 고객마다 값 차이가 크고 일부 큰 값이 평균을 끌어올리는 우측으로 긴 분포를 가질 수 있습니다. 그래서 원본값만 사용하지 않고 아래처럼 원본, log, sqrt 형태를 함께 만들었습니다.
+
+| 형태 | 생성 방식 | 의미 |
+| --- | --- | --- |
+| 원본 feature | 기존 값을 그대로 사용 | 실제 매출/가입자 규모 자체를 보존합니다. |
+| log 파생변수 | `log1p(x) = log(1 + x)` 적용 | 큰 값을 압축해 이상치 영향을 줄이고, 0 값도 안전하게 변환합니다. |
+| sqrt 파생변수 | `sqrt(x)` 적용 | 원본보다 완만하게 값을 줄여 왜도를 낮추되, log보다 원래 크기 정보를 더 남깁니다. |
+
+예를 들어 `TotalRevenue`에 대해 `TotalRevenue`, `TotalRevenue_log`, `TotalRevenue_sqrt`를 함께 사용하면 모델이 “총매출의 절대 규모”와 “큰 매출값을 완화한 패턴”을 동시에 학습할 수 있습니다. 실제 구현에서는 `AvgMobileRevenue`, `AvgFIXRevenue`, `TotalRevenue`, `ARPU` 네 개 매출 계열 변수에 log/sqrt 파생변수를 생성했습니다.
+
 | feature 그룹 | 예시 | 의미 |
 | --- | --- | --- |
 | 가입자 상태 비율 | `active_rate`, `inactive_rate`, `suspended_rate`, `dormant_rate` | 전체 가입자 중 활성/비활성/정지 비중 |
@@ -168,6 +241,25 @@ SMOTE 계열은 test set에는 절대 적용하지 않았습니다. test set은 
 | 계정 규모 flag | `multi_subscriber`, `large_account` | 소형/대형 고객 구분 |
 | 매출 구조 flag | `mobile_only`, `fixed_only`, `revenue_zero` | 서비스 이용 형태 |
 | 분포 보정 | `AvgMobileRevenue_log`, `TotalRevenue_sqrt`, `ARPU_sqrt` | 매출 변수의 왜도 완화 |
+
+### 7.2 Feature importance와 coefficient
+
+feature importance는 모델 성능에 각 feature가 얼마나 중요한 역할을 했는지 보는 지표입니다. 이 프로젝트에서는 특히 permutation feature importance를 사용했습니다. 이는 특정 feature 값을 섞어서 정보가 사라지게 만든 뒤, 모델 성능이 얼마나 떨어지는지 확인하는 방식입니다. 어떤 feature를 섞었을 때 성능이 많이 떨어지면, 그 feature가 예측에 중요하다고 해석할 수 있습니다.
+
+coefficient는 Logistic Regression 같은 선형 모델에서 각 feature에 붙는 가중치입니다. Logistic Regression은 아래처럼 feature들의 가중합으로 이탈 확률을 계산합니다.
+
+```text
+logit(P(churn)) = intercept + coefficient_1 * feature_1 + coefficient_2 * feature_2 + ...
+```
+
+coefficient가 양수이면 해당 feature 값이 커질수록 이탈 가능성을 높이는 방향으로 작용하고, 음수이면 이탈 가능성을 낮추는 방향으로 작용합니다. coefficient의 절댓값이 클수록 모델이 그 feature를 더 강하게 반영한다고 볼 수 있습니다. 이 프로젝트에서는 수치형 feature를 `StandardScaler`로 표준화했기 때문에, coefficient는 “해당 feature가 1 표준편차 증가할 때 이탈 log-odds가 얼마나 변하는지”로 해석할 수 있습니다.
+
+| 구분 | 무엇을 보는가 | 해석할 때 주의점 |
+| --- | --- | --- |
+| Feature importance | 해당 feature가 모델 성능에 얼마나 기여했는지 | 방향성은 알려주지 않습니다. 중요한 feature라도 이탈을 높이는지 낮추는지는 별도로 봐야 합니다. |
+| Coefficient | feature가 이탈 확률을 높이는 방향인지 낮추는 방향인지 | 상관관계가 강한 feature들이 함께 있으면 계수 부호가 직관과 다를 수 있습니다. 인과관계로 해석하면 안 됩니다. |
+
+따라서 feature importance는 “무엇이 중요한가”를 보는 데 사용했고, coefficient는 “그 feature가 이탈 가능성을 높이는 방향인지 낮추는 방향인지”를 설명하는 데 사용했습니다.
 
 중요 feature 분석 결과, 최종 모델에서는 `AvgMobileRevenue_sqrt`, `TotalRevenue_sqrt`, `revenue_engagement_interaction`, `revenue_per_subscriber`, `AvgMobileRevenue` 등이 중요했습니다. 즉, 이 데이터에서는 고객의 수익 규모와 이용 상태가 가장 강한 신호였습니다.
 
@@ -185,6 +277,24 @@ SMOTE 계열은 test set에는 절대 적용하지 않았습니다. test set은 
 | CatBoost original balanced | 범주형/수치형 tabular data에 강하고 class weight를 자동 반영할 수 있어 사용 | recall은 개선되지만 F1이 최종 모델보다 낮음 |
 | CatBoost native categorical | CatBoost의 장점인 categorical 직접 처리를 확인하기 위해 사용 | recall-heavy 목적에는 가능하지만 precision이 너무 낮음 |
 
+### 8.1 모델별 역할과 장단점
+
+아래 내용은 각 모델을 왜 실험했는지, 어떤 상황에서 쓰면 좋은지, 그리고 이번 프로젝트에서 어떤 기능을 확인했는지를 정리한 것입니다.
+
+| 모델 | 언제 쓰면 좋은가 | 장점 | 단점/주의점 | 이번 프로젝트에서 확인한 기능 |
+| --- | --- | --- | --- | --- |
+| Logistic Regression + SVMSMOTE | 설명 가능한 baseline이 필요하고, 변수와 이탈 사이의 관계를 비교적 단순한 선형 경계로 확인하고 싶을 때 | 빠르고 안정적이며 coefficient로 어떤 feature가 이탈 확률을 높이거나 낮추는지 설명하기 쉽습니다. | feature 관계가 복잡한 비선형 구조이면 한계가 있습니다. 파생변수와 스케일링 품질에 영향을 많이 받습니다. | SVMSMOTE로 이탈 class를 보강한 뒤, 표준화된 feature의 선형 결합으로 이탈 확률을 계산했습니다. 최종 F1 기준 가장 안정적인 메인 모델 역할을 했습니다. |
+| Random Forest + SVMSMOTE | 여러 feature 사이의 비선형 관계와 상호작용을 자동으로 잡고 싶을 때 | 여러 decision tree를 묶어 예측하므로 단일 tree보다 과적합을 줄이고, feature importance를 확인할 수 있습니다. | minority class가 매우 적으면 다수 class 위주로 판단할 수 있고, 확률 보정이 약할 수 있습니다. | 여러 tree의 voting으로 이탈을 예측해 보았지만, 이 데이터에서는 recall과 F1이 낮아 최종 모델로는 부적합했습니다. |
+| Gradient Boosting + SVMSMOTE | tabular data에서 순차적으로 오차를 줄이는 boosting 모델을 비교하고 싶을 때 | 이전 tree가 틀린 부분을 다음 tree가 보완하므로 복잡한 패턴을 학습할 수 있습니다. | hyperparameter에 민감하고, 불균형 데이터에서는 minority class보다 majority class 오차를 줄이는 방향으로 치우칠 수 있습니다. | boosting 방식이 이탈 탐지 성능을 개선하는지 확인했지만, F1이 낮아 제외했습니다. |
+| HistGradientBoosting + SVMSMOTE | gradient boosting을 더 빠르게 학습시키고 싶거나 데이터가 클 때 | feature 값을 구간으로 나누는 histogram 방식이라 일반 gradient boosting보다 빠르게 학습할 수 있습니다. | accuracy는 높아도 minority class를 거의 못 잡는 경우가 생길 수 있습니다. | 빠른 boosting 대안으로 실험했지만, churn을 거의 잡지 못해 제외했습니다. |
+| EasyEnsemble | class imbalance가 심하고, 이탈 고객을 더 많이 잡는 recall 중심 후보가 필요할 때 | majority class를 여러 번 나누어 balanced subset을 만들고 ensemble하므로 minority class 탐지에 유리합니다. | 정상 고객을 이탈로 잘못 예측하는 FP가 늘어 precision이 낮아질 수 있습니다. | 참고 논문 모델과 비교하고, 불균형 특화 ensemble이 recall을 높이는지 확인했습니다. |
+| RUSBoost | undersampling과 boosting을 함께 사용해 불균형 데이터에 대응하고 싶을 때 | 학습 과정에서 majority class를 줄이면서 boosting을 수행해 minority class에 더 집중할 수 있습니다. | majority class 정보를 일부 버리므로 데이터 손실이 있고, noise에 민감할 수 있습니다. | imbalance-aware boosting 후보로 실험했지만 F1과 recall 모두 낮아 제외했습니다. |
+| BalancedBagging | 이탈 고객을 많이 잡는 캠페인 운영 후보가 필요하고, precision보다 recall을 더 중시할 때 | 각 base model이 balanced sample로 학습해 minority class 탐지율을 높일 수 있습니다. | recall은 높아질 수 있지만 FP가 늘어 precision이 낮아지고, 설명력은 Logistic Regression보다 약합니다. | recall 0.5872로 이탈 고객을 많이 잡는 후보가 되었지만, precision이 낮아 메인 모델이 아니라 캠페인용 후보로 남겼습니다. |
+| CatBoost original balanced | 범주형/수치형이 섞인 tabular data에서 강한 boosting 모델을 쓰고 싶을 때 | categorical feature와 비선형 관계에 강하고, class weight를 통해 불균형을 반영할 수 있습니다. | 모델이 복잡해 설명이 어렵고, threshold를 낮추면 FP가 급격히 늘 수 있습니다. | class imbalance를 반영한 CatBoost가 recall을 개선하는지 확인했지만, F1 기준으로 Logistic Regression을 넘지 못했습니다. |
+| CatBoost native categorical | label/frequency encoding 없이 CatBoost가 범주형 변수를 직접 처리하는 효과를 확인하고 싶을 때 | 범주형 변수를 직접 다룰 수 있어 encoding 과정에서 정보 손실을 줄일 수 있고, 범주형 상호작용을 잘 잡을 수 있습니다. | recall-heavy 설정에서는 이탈 고객을 많이 잡지만 정상 고객도 많이 이탈로 예측해 precision이 낮아질 수 있습니다. | `CRM_PID_Value_Segment`, `EffectiveSegment` 같은 categorical feature를 CatBoost 방식으로 직접 처리했을 때의 성능을 확인했습니다. recall 극대화 후보로는 가능했지만 메인 모델로는 부적합했습니다. |
+
+정리하면, Logistic Regression은 설명 가능성과 F1 균형이 좋아 최종 메인 모델로 선택했고, BalancedBagging과 CatBoost는 이탈 고객을 더 많이 찾는 recall 중심 운영 후보로 해석했습니다. 반면 tree/boosting 계열 모델들은 복잡한 패턴을 잡을 수 있다는 장점이 있었지만, 이 데이터에서는 precision과 F1이 충분히 개선되지 않았습니다.
+
 ## 9. 최종 주요 성능
 
 | 기준 | Variant | Model | F1 | Recall | Precision | 해석 |
@@ -195,6 +305,33 @@ SMOTE 계열은 test set에는 절대 적용하지 않았습니다. test set은 
 | 논문 참고 | 외부 논문 | EasyEnsemble | 0.1290 | 0.3820 | 0.0770 | 논문에서도 F1이 높지 않음 |
 
 정리하면, 최종 모델은 F1 기준으로는 Logistic Regression이 가장 낫고, recall을 많이 올리고 싶으면 BalancedBagging이나 CatBoost를 사용할 수 있습니다. 하지만 recall을 높일수록 precision이 크게 떨어지는 문제가 있었습니다.
+
+### 9.1 주요 성능지표 해석
+
+이 프로젝트에서는 이탈 고객이 전체의 약 6.5%뿐이기 때문에 accuracy만으로 모델을 판단하기 어렵습니다. 그래서 아래 지표들을 함께 사용해 “이탈 고객을 얼마나 잘 찾는지”와 “오탐이 얼마나 많은지”를 같이 확인했습니다.
+
+| 지표 | 의미 | 이 프로젝트에서 보는 이유 |
+| --- | --- | --- |
+| F1 | precision과 recall의 조화평균입니다. 이탈 고객을 맞히는 능력과 오탐을 줄이는 능력 사이의 균형을 보여줍니다. | 이탈 고객을 어느 정도 잡으면서도 정상 고객을 너무 많이 이탈로 잘못 예측하지 않는 모델을 고르기 위해 사용했습니다. |
+| Recall | 실제 이탈 고객 중 모델이 이탈이라고 맞힌 비율입니다. | 이탈 고객을 놓치지 않는 능력을 봅니다. recall이 높으면 더 많은 이탈 고객을 캠페인 대상으로 잡을 수 있습니다. |
+| Precision | 모델이 이탈이라고 예측한 고객 중 실제 이탈 고객의 비율입니다. 수식으로는 `TP / (TP + FP)`입니다. | 오탐을 얼마나 줄였는지 봅니다. 예를 들어 모델이 100명을 이탈 고객이라고 예측했는데 실제 이탈 고객이 10명이라면 precision은 10%입니다. precision이 낮으면 정상 고객에게도 불필요한 이탈 방지 캠페인을 많이 하게 됩니다. |
+| PR-AUC | threshold를 바꿨을 때 precision과 recall의 관계를 전체적으로 요약한 면적 지표입니다. | 이탈 고객처럼 positive class가 적은 불균형 데이터에서는 ROC-AUC보다 실제 탐지 품질을 더 잘 보여줄 수 있습니다. |
+| MCC | TP, TN, FP, FN을 모두 반영하는 상관계수형 지표입니다. 값은 -1부터 1까지이며, 1에 가까울수록 좋은 분류입니다. | class imbalance 상황에서도 한쪽 class만 잘 맞히는 모델을 과대평가하지 않고 전체 confusion matrix의 균형을 확인하기 위해 사용했습니다. |
+
+### 9.2 Threshold와 Confusion Matrix 용어
+
+threshold는 모델이 예측한 이탈 확률을 실제 class로 바꾸는 기준값입니다. 예를 들어 threshold가 0.5라면 모델이 어떤 고객의 이탈 확률을 0.5 이상으로 예측할 때 `CHURN=1`로 판단하고, 0.5 미만이면 `CHURN=0`으로 판단합니다. threshold를 낮추면 더 많은 고객을 이탈로 예측하므로 recall은 올라가기 쉽지만 FP가 늘어 precision이 낮아질 수 있습니다.
+
+이 프로젝트에서는 이탈 고객 `CHURN=1`을 positive, 비이탈 고객 `CHURN=0`을 negative로 두고 해석했습니다.
+
+| 용어 | 의미 | 이탈 예측에서의 해석 |
+| --- | --- | --- |
+| TP | True Positive | 실제 이탈 고객을 이탈이라고 맞힌 경우입니다. |
+| TN | True Negative | 실제 비이탈 고객을 비이탈이라고 맞힌 경우입니다. |
+| FP | False Positive | 실제 비이탈 고객을 이탈이라고 잘못 예측한 경우입니다. 오탐이며, 불필요한 이탈 방지 캠페인 비용으로 이어질 수 있습니다. |
+| FN | False Negative | 실제 이탈 고객을 비이탈이라고 잘못 예측한 경우입니다. 미탐이며, 실제 이탈 고객을 놓치는 문제입니다. |
+
+따라서 recall은 `TP / (TP + FN)`으로 실제 이탈 고객을 얼마나 놓치지 않았는지 보고, precision은 `TP / (TP + FP)`로 이탈이라고 예측한 고객 중 실제 이탈 고객이 얼마나 되는지 봅니다.
 
 ## 10. 왜 F1과 recall이 낮은가
 
@@ -275,33 +412,105 @@ F1 기준 최종 모델은 `without_billing_zip + LogisticRegression_SMOTE`입�
 
 ## 13. 교수님 예상 질문과 답변
 
-### Q1. 왜 accuracy가 높은 모델을 선택하지 않았나요?
+이 섹션은 발표 중 바로 답변할 수 있도록 질문을 주제별로 정리했습니다. 답변은 길게 외우기보다, 각 질문의 핵심 논리를 이해하고 말하는 방식으로 준비하면 됩니다.
 
-이 데이터는 이탈 고객이 약 6.5%뿐이라, 대부분을 비이탈로 예측해도 accuracy가 높게 나옵니다. 그래서 accuracy보다 이탈 고객을 얼마나 잘 잡는지 보는 recall, precision, F1, PR-AUC가 더 중요합니다.
+### 13.1 데이터와 전처리 질문
 
-### Q2. 왜 recall이 높은 CatBoost를 최종 모델로 선택하지 않았나요?
+#### Q1. 이 문제를 왜 binary classification이라고 하나요?
 
-CatBoost threshold 0.35는 recall이 0.8349로 높지만 precision이 0.0711입니다. 즉, 이탈 고객은 많이 잡지만 정상 고객도 매우 많이 이탈로 잘못 예측합니다. 그래서 최종 메인 모델로는 F1이 더 높은 Logistic Regression을 선택했고, CatBoost는 recall 극대화 운영 후보로만 제시했습니다.
+정답 class가 `CHURN=1` 이탈과 `CHURN=0` 비이탈 두 가지이기 때문입니다. 모델은 각 고객이 이탈할지, 이탈하지 않을지를 두 class 중 하나로 예측합니다.
 
-### Q3. 왜 `Billing_ZIP`을 빼기도 했나요?
+#### Q2. minority class가 무엇이고, 왜 중요한가요?
 
-`Billing_ZIP`은 지역 정보를 담을 수 있지만 우편번호는 고유값이 많고, 특정 지역 패턴에 과적합될 수 있습니다. 그래서 포함/제외를 모두 실험했습니다. 최종 F1 기준으로는 제외 버전이 더 좋아서 메인 모델에서는 제외했습니다.
+minority class는 데이터에서 수가 적은 class입니다. 이 프로젝트에서는 이탈 고객 `CHURN=1`이 549명, 약 6.5%뿐이므로 minority class입니다. 실제 목적은 이탈 고객을 찾는 것이기 때문에, 수가 적더라도 이 class를 얼마나 잘 탐지하는지가 핵심입니다.
 
-### Q4. 결측치가 많은 `Suspended_subscribers`를 왜 삭제하지 않았나요?
+#### Q3. 왜 train/test를 80:20으로 나누었나요?
 
-결측률은 높지만, 이 컬럼은 “정지 가입자가 없음”을 의미하는 빈칸일 가능성이 있습니다. 또한 이탈 고객 수가 적어 행을 삭제하면 minority class가 더 줄어듭니다. 그래서 결측 여부 flag를 만들고 값은 0으로 대체했습니다.
+학습에 사용할 데이터를 충분히 확보하면서도, 학습에 쓰지 않은 별도 test set으로 일반화 성능을 확인하기 위해서입니다. 이탈 고객 수가 적기 때문에 test set을 너무 크게 잡으면 train set의 minority class가 더 줄어들 수 있어 80:20 비율을 사용했습니다.
 
-### Q5. SMOTE를 test에도 적용했나요?
+#### Q4. 왜 `stratify=y`를 사용했나요?
 
-아닙니다. SMOTE는 train set에만 적용했습니다. test set은 실제 데이터 분포를 유지해야 하므로 resampling하지 않았습니다.
+이탈 고객 비율이 낮기 때문에 random split만 하면 train/test의 이탈 비율이 달라질 수 있습니다. `stratify=y`를 사용하면 train과 test 모두 원본과 비슷한 이탈 비율을 유지하므로, 불균형 데이터에서 더 안정적인 평가가 가능합니다.
 
-### Q6. 성능이 낮은데도 이 프로젝트를 유지하는 이유는 무엇인가요?
+#### Q5. 결측치가 많은 `Suspended_subscribers`를 왜 삭제하지 않았나요?
 
-이 프로젝트는 단순히 높은 점수만 목표로 하는 것이 아니라, 불균형 데이터에서 모델을 어떻게 평가하고 해석하는지 보여주는 프로젝트입니다. Logistic Regression, Random Forest, Gradient Boosting, HistGradientBoosting, EasyEnsemble, RUSBoost, BalancedBagging, CatBoost, threshold tuning, feature engineering까지 수행했습니다. 그럼에도 성능이 제한적이었고, 원인은 모델보다 데이터 feature의 한계라고 판단했습니다. 따라서 이 한계를 숨기지 않고, class imbalance와 정적 CRM snapshot의 한계로 설명하는 방향이 더 설득력 있습니다.
+결측률은 높지만, 이 컬럼의 빈칸은 “정지 가입자가 없음”을 의미할 가능성이 있습니다. 또한 행을 삭제하면 이미 적은 이탈 고객 표본이 더 줄어듭니다. 그래서 값을 0으로 대체하고, 결측 여부를 나타내는 flag를 추가했습니다.
 
-### Q7. 그래도 기존 프로젝트에서 배운 점은 무엇인가요?
+#### Q6. label encoding과 frequency encoding을 왜 같이 사용했나요?
 
-불균형 데이터에서는 accuracy가 의미 없을 수 있고, recall을 높이면 precision이 급격히 낮아지는 trade-off가 발생한다는 것을 확인했습니다. 또한 고객 이탈 예측에는 단순한 정적 정보보다 시간 기반 행동 데이터가 매우 중요하다는 결론을 얻었습니다.
+label encoding은 범주를 숫자로 구분하기 위한 방식이고, frequency encoding은 해당 범주가 얼마나 자주 등장하는지를 반영하는 방식입니다. 두 방식을 함께 사용하면 `SOHO`라는 범주 자체의 정보와, SOHO가 데이터에서 많이 등장하는 대표 고객군이라는 정보를 모두 전달할 수 있습니다.
+
+#### Q7. `Billing_ZIP`은 왜 포함/제외를 모두 실험했나요?
+
+우편번호는 지역 정보를 담을 수 있지만 고유값이 많고, 특정 지역 패턴에 과적합될 위험도 있습니다. 그래서 포함 버전과 제외 버전을 모두 실험했습니다. 최종 F1 기준으로는 제외 버전이 더 좋아서 메인 모델에서는 제외했습니다.
+
+#### Q8. log/sqrt 파생변수는 왜 만들었나요?
+
+매출 변수는 고객마다 차이가 크고 우측으로 긴 분포를 가질 수 있습니다. log와 sqrt 변환은 큰 값을 압축해 이상치 영향을 줄이고, 원본값이 가진 규모 정보와 변환값이 가진 안정적인 패턴을 함께 학습하게 해줍니다.
+
+### 13.2 모델과 성능지표 질문
+
+#### Q9. 왜 accuracy가 높은 모델을 선택하지 않았나요?
+
+이 데이터는 이탈 고객이 약 6.5%뿐이라, 대부분을 비이탈로 예측해도 accuracy가 높게 나올 수 있습니다. 따라서 accuracy보다 이탈 고객을 얼마나 잘 찾는지 보는 recall, precision, F1, PR-AUC와 전체 confusion matrix 균형을 보는 MCC가 더 중요합니다.
+
+#### Q10. 왜 SVMSMOTE를 사용했나요?
+
+이탈 고객이 너무 적어 모델이 비이탈 class 위주로 학습할 수 있기 때문입니다. SVMSMOTE는 단순 복사가 아니라 SVM 결정 경계 주변의 minority class 샘플을 기준으로 합성 데이터를 만들어, 이탈/비이탈 구분이 어려운 영역을 더 학습하게 합니다.
+
+#### Q11. SMOTE 계열을 test set에도 적용했나요?
+
+아닙니다. resampling은 train set에만 적용했습니다. test set까지 resampling하면 실제 운영 환경의 데이터 분포가 왜곡되어 평가가 과장될 수 있습니다. test set은 현실 분포를 유지한 상태로 평가해야 합니다.
+
+#### Q12. 왜 Logistic Regression을 최종 모델로 선택했나요?
+
+최종 F1이 가장 높았고, recall-heavy 모델보다 precision이 상대적으로 안정적이었습니다. 또한 coefficient를 통해 어떤 feature가 이탈 가능성을 높이거나 낮추는지 설명할 수 있어 방어와 해석에 유리했습니다.
+
+#### Q13. 왜 recall이 높은 CatBoost를 최종 모델로 선택하지 않았나요?
+
+CatBoost threshold 0.35는 recall이 0.8349로 높지만 precision이 0.0711입니다. 이탈 고객은 많이 잡지만 정상 고객도 매우 많이 이탈로 잘못 예측합니다. 그래서 메인 모델은 F1이 더 높은 Logistic Regression으로 두고, CatBoost는 recall 극대화 운영 후보로만 제시했습니다.
+
+#### Q14. BalancedBagging은 왜 최종 모델이 아니라 후보인가요?
+
+BalancedBagging은 recall 0.5872로 이탈 고객을 더 많이 잡지만 precision이 0.0877로 낮습니다. 캠페인 대상자를 넓게 잡는 운영 목적에는 쓸 수 있지만, 보고서의 대표 모델로는 오탐 부담이 커서 보조 후보로 두었습니다.
+
+#### Q15. recall을 올리면 왜 precision이 떨어지나요?
+
+threshold를 낮추면 더 많은 고객을 이탈로 예측합니다. 이때 실제 이탈 고객을 더 많이 잡아 recall은 올라가지만, 정상 고객까지 이탈로 잘못 예측하는 FP도 늘어 precision이 떨어집니다. 이 프로젝트에서도 이 trade-off가 뚜렷하게 나타났습니다.
+
+#### Q16. threshold tuning은 왜 했나요?
+
+기본 threshold 0.5만 사용하면 불균형 데이터에서 이탈 고객을 거의 못 잡을 수 있습니다. threshold를 조정하면 recall과 precision의 균형을 바꿀 수 있으므로, 운영 목적에 맞는 의사결정 기준을 찾기 위해 threshold tuning을 수행했습니다.
+
+#### Q17. feature importance와 coefficient는 어떻게 다르게 해석하나요?
+
+feature importance는 어떤 feature가 모델 성능에 많이 기여했는지를 보여줍니다. coefficient는 Logistic Regression에서 해당 feature가 이탈 가능성을 높이는 방향인지 낮추는 방향인지를 보여줍니다. 즉, feature importance는 “무엇이 중요한가”, coefficient는 “어떤 방향으로 영향을 주는가”를 보는 데 사용했습니다.
+
+### 13.3 한계와 방어 질문
+
+#### Q18. F1이 낮은데 모델이 의미 있다고 볼 수 있나요?
+
+절대적인 성능은 높지 않지만, 이 프로젝트의 의미는 높은 점수 자체보다 불균형 churn 데이터에서 어떤 지표로 평가하고 어떤 trade-off가 발생하는지 분석한 데 있습니다. 여러 모델과 전처리, feature engineering, threshold tuning을 수행했음에도 성능이 제한적이었기 때문에, 원인이 모델 부족보다 데이터 feature 한계에 있다는 결론을 제시할 수 있습니다.
+
+#### Q19. 성능 한계의 가장 큰 원인은 무엇인가요?
+
+현재 데이터가 정적 CRM snapshot에 가깝기 때문입니다. 고객 이탈은 최근 사용량 감소, 결제 실패, 불만 증가, 약정 종료 같은 시간 기반 행동 변화와 관련이 큰데, 현재 데이터에는 이런 시계열 행동 feature가 없습니다.
+
+#### Q20. 성능을 올리려면 어떤 데이터가 추가로 필요하나요?
+
+월별 사용량 변화, 최근 매출 감소 추세, 납부 지연 이력, 고객센터 문의/불만 기록, 약정 만료 시점, 상품 변경 또는 해지 이력 같은 시간 기반 행동 데이터가 필요합니다. 이런 feature가 있어야 이탈 직전의 행동 패턴을 더 직접적으로 학습할 수 있습니다.
+
+#### Q21. 왜 복잡한 모델보다 Logistic Regression이 더 좋았나요?
+
+현재 feature가 이탈 원인을 직접적으로 설명하지 못하는 상황에서는 복잡한 모델이 추가 패턴을 찾기보다 noise를 학습할 수 있습니다. Logistic Regression은 파생변수로 펼친 신호를 단순하고 안정적으로 반영했고, 이 데이터에서는 그 균형이 F1 기준으로 가장 좋았습니다.
+
+#### Q22. 이 프로젝트를 유지하는 이유는 무엇인가요?
+
+이 프로젝트는 단순히 높은 성능만 보여주는 프로젝트가 아니라, 불균형 데이터에서 모델을 어떻게 평가하고 해석하는지 보여주는 프로젝트입니다. 성능 한계를 숨기지 않고 class imbalance, feature 한계, threshold trade-off를 근거로 설명하는 것이 오히려 더 설득력 있는 분석 방향입니다.
+
+#### Q23. 이 프로젝트에서 배운 점은 무엇인가요?
+
+불균형 데이터에서는 accuracy가 의미 없을 수 있고, recall을 높이면 precision이 급격히 낮아지는 trade-off가 발생한다는 점을 확인했습니다. 또한 고객 이탈 예측에는 단순한 정적 정보보다 시간 기반 행동 데이터가 중요하다는 결론을 얻었습니다.
 
 ## 14. 교수님께 말할 최종 요약
 
