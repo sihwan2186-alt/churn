@@ -1,0 +1,14 @@
+{
+  "cv_rows": 40,
+  "holdout_prediction_rows": 13504,
+  "global_topk_rows": 48,
+  "region_topk_rows": 288,
+  "region_threshold_oracle_rows": 96,
+  "outputs": [
+    "priority_champion_cv_summary.csv",
+    "priority_global_topk_budget.csv",
+    "priority_zip_prefix2_topk.csv",
+    "priority_zip_prefix2_threshold_oracle.csv",
+    "PRIORITY_DEEP_DIVE_EXPERIMENTS.md"
+  ]
+}

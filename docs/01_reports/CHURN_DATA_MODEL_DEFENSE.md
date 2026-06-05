@@ -18,7 +18,7 @@
 | 질문 방향 | 핵심 답변 |
 | --- | --- |
 | 왜 accuracy를 기준으로 안 봤는가 | 이탈 고객이 약 6.5%뿐인 불균형 데이터라 accuracy는 다수 class인 비이탈 예측에 의해 과대평가될 수 있습니다. |
-| 왜 Logistic Regression을 최종 모델로 선택했는가 | F1이 가장 높고, precision/recall 균형이 상대적으로 안정적이며, coefficient 기반 설명이 가능합니다. |
+| 왜 Logistic Regression을 최종 모델로 선택했는가 | 초기 baseline hold-out에서는 LR이 F1 최고였지만, 최종 보고서에서는 단일 모델이 아니라 목적별 운영 후보를 제시합니다. |
 | 왜 recall이 높은 모델을 메인으로 쓰지 않았는가 | recall을 높이면 이탈 고객은 더 많이 잡지만 FP가 늘어 precision이 크게 낮아졌기 때문입니다. |
 | 왜 성능이 낮은가 | 모델 부족보다 정적 CRM snapshot 데이터의 한계가 큽니다. 사용량 변화, 결제 실패, 불만 기록 같은 시간 기반 행동 feature가 없습니다. |
 | 프로젝트의 의의는 무엇인가 | 불균형 데이터에서 지표 선택, threshold trade-off, feature engineering, 모델별 운영 목적 구분을 보여주는 분석입니다. |
@@ -174,7 +174,7 @@ Yes -> 1
 | `with_billing_zip` | `Billing_ZIP` 포함 |
 | `without_billing_zip` | `Billing_ZIP` 제외 |
 
-최종 F1 기준으로는 `without_billing_zip + LogisticRegression_SMOTE`가 가장 좋았습니다. 즉, 지역 정보가 일부 모델에서는 도움을 주지만, 전체적으로는 noise로 작동하는 경우도 있다고 해석했습니다.
+초기 baseline hold-out F1 기준으로는 `without_billing_zip + LogisticRegression_SMOTE`가 가장 좋았습니다. 반면 추가 후보 통합 비교에서는 ZIP 포함 BalancedBagging이 F1/MCC 최고가 되었습니다. 즉, 지역 정보는 모델 계열과 학습 목적에 따라 signal이 되기도 하고 noise가 되기도 합니다.
 
 ### 6.5 범주형 인코딩
 
@@ -284,21 +284,21 @@ coefficient가 양수이면 해당 feature 값이 커질수록 이탈 가능성�
 
 따라서 feature importance는 “무엇이 중요한가”를 보는 데 사용했고, coefficient는 “그 feature가 이탈 가능성을 높이는 방향인지 낮추는 방향인지”를 설명하는 데 사용했습니다.
 
-중요 feature 분석 결과, 최종 모델에서는 `AvgMobileRevenue_sqrt`, `TotalRevenue_sqrt`, `revenue_engagement_interaction`, `revenue_per_subscriber`, `AvgMobileRevenue` 등이 중요했습니다. 즉, 이 데이터에서는 고객의 수익 규모와 이용 상태가 가장 강한 신호였습니다.
+중요 feature 분석 결과, LR 해석 모델과 주요 tree ensemble에서는 `AvgMobileRevenue_sqrt`, `TotalRevenue_sqrt`, `revenue_engagement_interaction`, `revenue_per_subscriber`, `AvgMobileRevenue` 등이 중요했습니다. 즉, 이 데이터에서는 고객의 수익 규모와 이용 상태가 가장 강한 신호였습니다.
 
 ## 8. 사용한 모델과 사용 이유
 
 | 모델 | 사용 이유 | 최종 판단 |
 | --- | --- | --- |
-| Logistic Regression + SVMSMOTE | 설명 가능한 baseline이 필요하고, 불균형 데이터를 보정한 뒤 선형 경계가 어느 정도 작동하는지 확인하기 위해 사용 | F1 0.1681로 최종 F1 기준 1등 |
+| Logistic Regression + SVMSMOTE | 설명 가능한 baseline이 필요하고, 불균형 데이터를 보정한 뒤 선형 경계가 어느 정도 작동하는지 확인하기 위해 사용 | 초기 baseline hold-out F1 0.1681로 1등, 소규모/설명형 후보 |
 | Random Forest + SVMSMOTE | 비선형 관계와 변수 상호작용을 잡기 위해 사용 | recall과 F1이 낮아 최종 제외 |
 | Gradient Boosting + SVMSMOTE | boosting 계열이 tabular data에서 강하므로 비교 | F1이 낮아 최종 제외 |
 | HistGradientBoosting + SVMSMOTE | 빠른 gradient boosting 방식으로 추가 비교 | accuracy는 높지만 churn을 거의 못 잡아 제외 |
 | EasyEnsemble | 불균형 데이터에 특화된 ensemble이고 참고 논문에서 사용했기 때문에 비교 | recall은 높지만 precision이 낮아 최종 제외 |
 | RUSBoost | undersampling과 boosting을 결합한 imbalance-aware 모델이라 비교 | F1과 recall 모두 낮아 제외 |
-| BalancedBagging | 불균형 데이터에서 minority class 탐지를 늘리기 위해 사용 | recall 0.5872로 캠페인용 후보, 하지만 precision 낮음 |
-| CatBoost original balanced | 범주형/수치형 tabular data에 강하고 class weight를 자동 반영할 수 있어 사용 | recall은 개선되지만 F1이 최종 모델보다 낮음 |
-| CatBoost native categorical | CatBoost의 장점인 categorical 직접 처리를 확인하기 위해 사용 | recall-heavy 목적에는 가능하지만 precision이 너무 낮음 |
+| BalancedBagging | 불균형 데이터에서 minority class 탐지를 늘리기 위해 사용 | 추가 후보 통합 F1/MCC 최고 및 CV 안정성 후보 |
+| CatBoost original balanced | 범주형/수치형 tabular data에 강하고 class weight를 자동 반영할 수 있어 사용 | recall 운영형 후보 |
+| CatBoost native categorical | CatBoost의 장점인 categorical 직접 처리를 확인하기 위해 사용 | 목적별 후보 중 비용 순이익 최고 |
 
 ### 8.1 모델별 역할과 장단점
 
@@ -306,17 +306,17 @@ coefficient가 양수이면 해당 feature 값이 커질수록 이탈 가능성�
 
 | 모델 | 언제 쓰면 좋은가 | 장점 | 단점/주의점 | 이번 프로젝트에서 확인한 기능 |
 | --- | --- | --- | --- | --- |
-| Logistic Regression + SVMSMOTE | 설명 가능한 baseline이 필요하고, 변수와 이탈 사이의 관계를 비교적 단순한 선형 경계로 확인하고 싶을 때 | 빠르고 안정적이며 coefficient로 어떤 feature가 이탈 확률을 높이거나 낮추는지 설명하기 쉽습니다. | feature 관계가 복잡한 비선형 구조이면 한계가 있습니다. 파생변수와 스케일링 품질에 영향을 많이 받습니다. | SVMSMOTE로 이탈 class를 보강한 뒤, 표준화된 feature의 선형 결합으로 이탈 확률을 계산했습니다. 최종 F1 기준 가장 안정적인 메인 모델 역할을 했습니다. |
+| Logistic Regression + SVMSMOTE | 설명 가능한 baseline이 필요하고, 변수와 이탈 사이의 관계를 비교적 단순한 선형 경계로 확인하고 싶을 때 | 빠르고 안정적이며 coefficient로 어떤 feature가 이탈 확률을 높이거나 낮추는지 설명하기 쉽습니다. | feature 관계가 복잡한 비선형 구조이면 한계가 있습니다. 파생변수와 스케일링 품질에 영향을 많이 받습니다. | SVMSMOTE로 이탈 class를 보강한 뒤, 표준화된 feature의 선형 결합으로 이탈 확률을 계산했습니다. 초기 baseline F1 최고였고, 소규모/설명형 후보 역할을 했습니다. |
 | Random Forest + SVMSMOTE | 여러 feature 사이의 비선형 관계와 상호작용을 자동으로 잡고 싶을 때 | 여러 decision tree를 묶어 예측하므로 단일 tree보다 과적합을 줄이고, feature importance를 확인할 수 있습니다. | minority class가 매우 적으면 다수 class 위주로 판단할 수 있고, 확률 보정이 약할 수 있습니다. | 여러 tree의 voting으로 이탈을 예측해 보았지만, 이 데이터에서는 recall과 F1이 낮아 최종 모델로는 부적합했습니다. |
 | Gradient Boosting + SVMSMOTE | tabular data에서 순차적으로 오차를 줄이는 boosting 모델을 비교하고 싶을 때 | 이전 tree가 틀린 부분을 다음 tree가 보완하므로 복잡한 패턴을 학습할 수 있습니다. | hyperparameter에 민감하고, 불균형 데이터에서는 minority class보다 majority class 오차를 줄이는 방향으로 치우칠 수 있습니다. | boosting 방식이 이탈 탐지 성능을 개선하는지 확인했지만, F1이 낮아 제외했습니다. |
 | HistGradientBoosting + SVMSMOTE | gradient boosting을 더 빠르게 학습시키고 싶거나 데이터가 클 때 | feature 값을 구간으로 나누는 histogram 방식이라 일반 gradient boosting보다 빠르게 학습할 수 있습니다. | accuracy는 높아도 minority class를 거의 못 잡는 경우가 생길 수 있습니다. | 빠른 boosting 대안으로 실험했지만, churn을 거의 잡지 못해 제외했습니다. |
 | EasyEnsemble | class imbalance가 심하고, 이탈 고객을 더 많이 잡는 recall 중심 후보가 필요할 때 | majority class를 여러 번 나누어 balanced subset을 만들고 ensemble하므로 minority class 탐지에 유리합니다. | 정상 고객을 이탈로 잘못 예측하는 FP가 늘어 precision이 낮아질 수 있습니다. | 참고 논문 모델과 비교하고, 불균형 특화 ensemble이 recall을 높이는지 확인했습니다. |
 | RUSBoost | undersampling과 boosting을 함께 사용해 불균형 데이터에 대응하고 싶을 때 | 학습 과정에서 majority class를 줄이면서 boosting을 수행해 minority class에 더 집중할 수 있습니다. | majority class 정보를 일부 버리므로 데이터 손실이 있고, noise에 민감할 수 있습니다. | imbalance-aware boosting 후보로 실험했지만 F1과 recall 모두 낮아 제외했습니다. |
-| BalancedBagging | 이탈 고객을 많이 잡는 캠페인 운영 후보가 필요하고, precision보다 recall을 더 중시할 때 | 각 base model이 balanced sample로 학습해 minority class 탐지율을 높일 수 있습니다. | recall은 높아질 수 있지만 FP가 늘어 precision이 낮아지고, 설명력은 Logistic Regression보다 약합니다. | recall 0.5872로 이탈 고객을 많이 잡는 후보가 되었지만, precision이 낮아 메인 모델이 아니라 캠페인용 후보로 남겼습니다. |
-| CatBoost original balanced | 범주형/수치형이 섞인 tabular data에서 강한 boosting 모델을 쓰고 싶을 때 | categorical feature와 비선형 관계에 강하고, class weight를 통해 불균형을 반영할 수 있습니다. | 모델이 복잡해 설명이 어렵고, threshold를 낮추면 FP가 급격히 늘 수 있습니다. | class imbalance를 반영한 CatBoost가 recall을 개선하는지 확인했지만, F1 기준으로 Logistic Regression을 넘지 못했습니다. |
-| CatBoost native categorical | label/frequency encoding 없이 CatBoost가 범주형 변수를 직접 처리하는 효과를 확인하고 싶을 때 | 범주형 변수를 직접 다룰 수 있어 encoding 과정에서 정보 손실을 줄일 수 있고, 범주형 상호작용을 잘 잡을 수 있습니다. | recall-heavy 설정에서는 이탈 고객을 많이 잡지만 정상 고객도 많이 이탈로 예측해 precision이 낮아질 수 있습니다. | `CRM_PID_Value_Segment`, `EffectiveSegment` 같은 categorical feature를 CatBoost 방식으로 직접 처리했을 때의 성능을 확인했습니다. recall 극대화 후보로는 가능했지만 메인 모델로는 부적합했습니다. |
+| BalancedBagging | 이탈 고객을 많이 잡는 캠페인 운영 후보가 필요하고, precision보다 recall을 더 중시할 때 | 각 base model이 balanced sample로 학습해 minority class 탐지율을 높일 수 있습니다. | recall은 높아질 수 있지만 FP가 늘어 precision이 낮아지고, 설명력은 Logistic Regression보다 약합니다. | tuned 후보는 F1/MCC 최고였고, original 후보는 5-fold CV에서 F1 평균 0.1455로 가장 안정적이었습니다. |
+| CatBoost original balanced | 범주형/수치형이 섞인 tabular data에서 강한 boosting 모델을 쓰고 싶을 때 | categorical feature와 비선형 관계에 강하고, class weight를 통해 불균형을 반영할 수 있습니다. | 모델이 복잡해 설명이 어렵고, threshold를 낮추면 FP가 급격히 늘 수 있습니다. | recall 운영형 후보로 사용했습니다. recall은 높지만 precision과 contact rate를 함께 제한해야 합니다. |
+| CatBoost native categorical | label/frequency encoding 없이 CatBoost가 범주형 변수를 직접 처리하는 효과를 확인하고 싶을 때 | 범주형 변수를 직접 다룰 수 있어 encoding 과정에서 정보 손실을 줄일 수 있고, 범주형 상호작용을 잘 잡을 수 있습니다. | recall-heavy 설정에서는 이탈 고객을 많이 잡지만 정상 고객도 많이 이탈로 예측해 precision이 낮아질 수 있습니다. | `CRM_PID_Value_Segment`, `EffectiveSegment` 같은 categorical feature를 CatBoost 방식으로 직접 처리했을 때의 성능을 확인했습니다. 목적별 후보 중 비용 순이익 최고였습니다. |
 
-정리하면, Logistic Regression은 설명 가능성과 F1 균형이 좋아 최종 메인 모델로 선택했고, BalancedBagging과 CatBoost는 이탈 고객을 더 많이 찾는 recall 중심 운영 후보로 해석했습니다. 반면 tree/boosting 계열 모델들은 복잡한 패턴을 잡을 수 있다는 장점이 있었지만, 이 데이터에서는 precision과 F1이 충분히 개선되지 않았습니다.
+정리하면, 초기 baseline에서는 Logistic Regression이 설명 가능성과 F1 균형이 좋아 가장 좋은 기준점이었습니다. 발표 피드백 이후 추가 후보까지 통합하면 F1/MCC는 BalancedBagging tuned, CV 안정성은 BalancedBagging original, recall은 HistGradientBoosting/CatBoost/XGBoost 계열, 비용 순이익은 CatBoost native categorical로 나누어 보는 것이 더 정확합니다.
 
 ### 8.2 실험 A~G의 목적
 
@@ -340,12 +340,13 @@ coefficient가 양수이면 해당 feature 값이 커질수록 이탈 가능성�
 
 | 기준 | Variant | Model | F1 | Recall | Precision | 해석 |
 | --- | --- | --- | ---: | ---: | ---: | --- |
-| F1 기준 최종 | `without_billing_zip` | `LogisticRegression_SMOTE` | 0.1681 | 0.2661 | 0.1229 | 최종 보고서용 메인 모델 |
+| 초기 baseline F1 최고 | `without_billing_zip` | `LogisticRegression_SMOTE` | 0.1681 | 0.2661 | 0.1229 | 설명형 baseline 최고 |
+| 추가 후보 통합 F1/MCC 최고 | `with_billing_zip` | `BalancedBagging_tree_depthnone_leaf25` | 0.1605 | 0.5138 | 0.0951 | 균형형 대표 후보 |
 | Recall 중심 운영 | `with_billing_zip` | `BalancedBagging_original` | 0.1526 | 0.5872 | 0.0877 | 이탈 고객을 더 많이 잡는 캠페인용 후보 |
 | Recall 극대화 | `with_billing_zip` | `CatBoost_native_categorical`, threshold 0.35 | 0.1310 | 0.8349 | 0.0711 | 놓치는 이탈 고객은 적지만 오탐이 너무 많음 |
 | 논문 참고 | 외부 논문 | EasyEnsemble | 0.1290 | 0.3820 | 0.0770 | 논문에서도 F1이 높지 않음 |
 
-정리하면, 최종 모델은 F1 기준으로는 Logistic Regression이 가장 낫고, recall을 많이 올리고 싶으면 BalancedBagging이나 CatBoost를 사용할 수 있습니다. 하지만 recall을 높일수록 precision이 크게 떨어지는 문제가 있었습니다.
+정리하면, 초기 baseline만 보면 Logistic Regression이 가장 좋은 기준점이었지만, 추가 학습 후보까지 포함하면 BalancedBagging tuned가 F1/MCC 대표 후보입니다. recall을 많이 올리고 싶으면 HistGradientBoosting, CatBoost, XGBoost 계열을 볼 수 있지만, recall을 높일수록 precision과 contact rate 문제가 커집니다.
 
 ### 9.1 주요 성능지표 해석
 
@@ -423,7 +424,7 @@ CatBoost threshold 0.35에서는 recall이 0.8349까지 올라갔지만 precisio
 
 ### 10.4 논문 결과도 높지 않음
 
-참고 논문에서도 EasyEnsemble의 F1은 0.129, recall은 0.382였습니다. 우리 최종 F1 0.1681은 논문보다 높지만, 절대적인 성능은 여전히 낮습니다. 이 점은 해당 유형의 telecom churn 데이터 자체가 높은 분류 성능을 내기 어렵다는 근거로 볼 수 있습니다.
+참고 논문에서도 EasyEnsemble의 F1은 0.129, recall은 0.382였습니다. 초기 baseline hold-out F1 0.1681과 추가 후보 통합 F1 0.1605는 논문 참고값보다 높지만, 절대적인 성능은 여전히 낮습니다. 이 점은 해당 유형의 telecom churn 데이터 자체가 높은 분류 성능을 내기 어렵다는 근거로 볼 수 있습니다.
 
 ### 10.5 시간 기반 고객 행동 데이터를 추가로 확보하기 어려움
 
@@ -439,35 +440,35 @@ CatBoost threshold 0.35에서는 recall이 0.8349까지 올라갔지만 precisio
 
 하지만 현재 접근 가능한 범위에서는 이런 데이터를 추가로 확보하기 어려웠습니다. 따라서 최종 보고서에서는 이 점을 프로젝트의 핵심 한계로 명확히 설명하고, 현재 데이터 안에서 가능한 전처리, 모델 비교, threshold tuning, 오류 분석을 충실히 수행했다는 점을 강조합니다.
 
-## 11. 최종 모델을 Logistic Regression으로 선택한 이유
+## 11. 최종 모델을 하나로 고정하지 않은 이유
 
-F1 기준 최종 모델은 `without_billing_zip + LogisticRegression_SMOTE`입니다.
+초기 baseline hold-out F1 최고 모델은 `without_billing_zip + LogisticRegression_SMOTE`였습니다. 하지만 발표 피드백 이후 추가 후보와 목적별 threshold를 통합 비교한 결과, 최종 보고서에서는 하나의 모델만 “최종 모델”이라고 고정하기보다 목적별 운영 후보를 제시하는 것이 더 타당합니다.
 
-선택 이유:
+구분해서 설명하면 다음과 같습니다.
 
-1. 전체 실험 중 F1이 가장 높았습니다.
-2. precision이 recall-heavy 모델보다 상대적으로 낫습니다.
-3. 설명 가능성이 좋습니다.
-4. feature importance와 coefficient 해석이 가능합니다.
-5. 복잡한 모델보다 오히려 generalization이 안정적이었습니다.
-6. `Billing_ZIP`을 제외해 지역 noise의 영향을 줄인 버전에서 성능이 더 좋았습니다.
+1. 초기 baseline F1 최고는 Logistic Regression + SVMSMOTE였습니다.
+2. 추가 후보 통합 F1/MCC 최고는 `BalancedBagging_tree_depthnone_leaf25`였습니다.
+3. 5-fold CV 안정성은 `BalancedBagging_original`이 가장 좋았습니다.
+4. 순수 recall 최고는 `HistGradientBoosting_balanced_lr0.03`이었습니다.
+5. 비용 순이익 최고는 `CatBoost_native_categorical`이었습니다.
+6. 실제 운영에서는 top-k 예산과 contact rate에 따라 모델을 선택해야 합니다.
 
 교수님께 설명할 문장:
 
-> 최종 모델은 가장 복잡한 모델이 아니라 F1 기준으로 가장 안정적인 Logistic Regression + SVMSMOTE를 선택했습니다. 이 데이터에서는 비선형 모델이나 ensemble 모델이 recall은 높였지만 precision이 크게 떨어져 실제 운영 관점에서는 오탐이 많았습니다. 따라서 보고서의 메인 모델은 F1이 가장 높은 Logistic Regression으로 두고, recall 중심 운영 후보로 BalancedBagging과 CatBoost를 별도로 제시했습니다.
+> 초기 baseline에서는 Logistic Regression + SVMSMOTE가 F1 기준으로 가장 좋은 기준점이었습니다. 하지만 최종 보고서에서는 추가 후보와 recall 최적화까지 반영해, 단일 모델 우승이 아니라 F1형, recall형, 비용형, top-k 운영형 후보를 나누어 제시했습니다. ChurnRadar처럼 불균형 이탈 탐지에서는 모델 하나보다 운영 목적별 선택 프레임이 더 중요합니다.
 
-## 12. 다른 모델을 최종으로 쓰지 않은 이유
+## 12. 다른 모델을 어떻게 해석했는가
 
-| 모델 | 쓰지 않은 이유 |
+| 모델 | 해석 |
 | --- | --- |
 | Random Forest | 비선형 관계를 잡을 수 있지만 이 데이터에서는 F1 0.0930 수준으로 낮았고, 이탈 고객 탐지가 약했습니다. |
 | Gradient Boosting | F1 0.0670 수준으로 낮았고, recall도 0.0550에 그쳐 최종 후보가 되기 어려웠습니다. |
-| HistGradientBoosting | accuracy는 높지만 recall이 매우 낮았습니다. 불균형 데이터에서 다수 클래스에 치우친 결과로 판단했습니다. |
+| HistGradientBoosting | 기본 설정에서는 churn을 거의 못 잡았지만, balanced 설정과 threshold 최적화 후에는 순수 recall 최고 후보가 되었습니다. |
 | RUSBoost | 불균형 데이터용 모델이지만 F1 0.0749, recall 0.0642로 성능이 낮았습니다. |
 | EasyEnsemble | 참고 논문과 비교하기 위해 사용했지만 precision이 낮아 최종 모델로는 부적합했습니다. |
-| BalancedBagging | recall은 높지만 false positive가 많아 precision이 0.0877에 그쳤습니다. 최종 메인 모델이 아니라 캠페인용 후보로만 남겼습니다. |
-| CatBoost | tabular data에 강하지만 이 데이터에서는 F1 기준으로 Logistic Regression을 넘지 못했습니다. threshold를 낮추면 recall은 높지만 precision이 크게 떨어졌습니다. |
-| XGBoost / LightGBM | 참고 논문 후보로 검토했지만, 이미 GradientBoosting, HistGradientBoosting, CatBoost 계열에서 비슷한 boosting 실험을 했고 성능 한계가 명확했습니다. 추가 실험을 해도 feature 자체가 부족해 큰 개선 가능성이 낮다고 판단했습니다. |
+| BalancedBagging | recall은 높고 FP도 많지만, 추가 후보 통합에서는 F1/MCC 최고 및 CV 안정성 최고 후보가 되었습니다. |
+| CatBoost | recall 운영형과 비용 순이익형 후보로 의미가 있습니다. 다만 precision이 낮아 contact rate 제한이 필요합니다. |
+| XGBoost / LightGBM | XGBoost는 recall 최적화 실험에서 이탈자 109명 중 91명을 잡았습니다. LightGBM은 직접 후보로 확장할 수 있지만, 동일 budget 검증은 향후 과제로 둡니다. |
 | SVM | minority class가 적고 feature engineering 후 차원이 늘어난 상태에서 계산 비용과 해석성이 좋지 않습니다. 또한 SVMSMOTE로 이미 SVM 기반 sampling을 사용했기 때문에 우선순위를 낮췄습니다. |
 | KNN | 고차원 feature와 스케일링된 매출/비율 변수에서 거리 기반 판단이 불안정할 수 있고, 불균형 데이터에 약해 우선순위를 낮췄습니다. |
 | Naive Bayes | feature 간 독립 가정이 강한데, 이 데이터는 `TotalRevenue`, `ARPU`, 가입자 수, 파생 매출 변수들이 강하게 연결되어 있어 가정이 맞지 않습니다. |
@@ -506,7 +507,13 @@ label encoding은 범주를 숫자로 구분하기 위한 방식이고, frequenc
 
 #### Q7. `Billing_ZIP`은 왜 포함/제외를 모두 실험했나요?
 
-우편번호는 지역 정보를 담을 수 있지만 고유값이 많고, 특정 지역 패턴에 과적합될 위험도 있습니다. 그래서 포함 버전과 제외 버전을 모두 실험했습니다. 최종 F1 기준으로는 제외 버전이 더 좋아서 메인 모델에서는 제외했습니다.
+우편번호는 지역 정보를 담을 수 있지만 고유값이 많고, 특정 지역 패턴에 과적합될 위험도 있습니다. 그래서 포함 버전과 제외 버전을 모두 실험했습니다. 초기 baseline F1 기준으로는 제외 버전이 좋았지만, 추가 후보 통합 F1/MCC 최고는 ZIP 포함 BalancedBagging이었습니다. 따라서 ZIP은 단순 포함/제외가 아니라 모델 계열과 지역별 성능을 함께 봐야 합니다.
+
+#### Q7-1. `Billing_ZIP`을 왜 처음부터 지역별로 나누어 보지 않았나요?
+
+초기 실험 A의 목적은 `Billing_ZIP`을 모델 피처로 넣는 것이 전체 성능에 도움이 되는지 확인하는 ablation이었습니다. 발표 피드백을 반영해 이후에는 ZIP 원값 456개, ZIP 앞 1자리, ZIP 앞 2자리 지역 그룹으로 다시 나누어 이탈률과 모델별 F1/recall 변화를 추가 산출했습니다.
+
+추가 분석 결과, ZIP 원값 중 427개는 표본 또는 이탈자 수가 작아 단독 결론으로 쓰기 어렵다는 점을 확인했습니다. 그래서 최종 보고서에서는 ZIP 원값의 극단값보다 `46xx`, `47xx`, `48xx`, `69xx` 같은 ZIP 앞 2자리 지역 그룹을 중심으로 설명합니다. 예를 들어 `69xx`는 이탈률 21.74%, `46xx`는 12.26%, `47xx`는 11.16%로 높게 나타났습니다.
 
 #### Q8. log/sqrt 파생변수는 왜 만들었나요?
 
@@ -514,7 +521,7 @@ label encoding은 범주를 숫자로 구분하기 위한 방식이고, frequenc
 
 #### Q9. 총 feature 55개는 어떻게 나온 건가요?
 
-원본 14개 컬럼에서 target인 `CHURN`, 식별자인 `PID`, 기본 모델에서 제외한 `KA_name`을 제외한 뒤, 고객 상태 비율, 매출 비율, 가입자당 매출, 상호작용 feature, binary flag, 결측 flag, log/sqrt 변환, frequency encoding을 추가했습니다. `Billing_ZIP` 포함 기준으로 55개이고, 최종 메인 모델처럼 ZIP을 제외하면 `Billing_ZIP`, `Billing_ZIP_missing`, `Billing_ZIP_frequency`가 빠져 52개가 됩니다.
+원본 14개 컬럼에서 target인 `CHURN`, 식별자인 `PID`, 기본 모델에서 제외한 `KA_name`을 제외한 뒤, 고객 상태 비율, 매출 비율, 가입자당 매출, 상호작용 feature, binary flag, 결측 flag, log/sqrt 변환, frequency encoding을 추가했습니다. `Billing_ZIP` 포함 기준으로 55개이고, ZIP 제외 variant에서는 `Billing_ZIP`, `Billing_ZIP_missing`, `Billing_ZIP_frequency`가 빠져 52개가 됩니다.
 
 ### 13.2 모델과 성능지표 질문
 
@@ -532,15 +539,15 @@ label encoding은 범주를 숫자로 구분하기 위한 방식이고, frequenc
 
 #### Q13. 왜 Logistic Regression을 최종 모델로 선택했나요?
 
-최종 F1이 가장 높았고, recall-heavy 모델보다 precision이 상대적으로 안정적이었습니다. 또한 coefficient를 통해 어떤 feature가 이탈 가능성을 높이거나 낮추는지 설명할 수 있어 방어와 해석에 유리했습니다.
+초기 baseline hold-out에서는 Logistic Regression이 F1 0.1681로 가장 좋았기 때문에 기준 모델로 선택했습니다. 다만 최종 보고서에서는 추가 후보까지 포함해 목적별 후보를 나누었습니다. F1/MCC 통합 최고는 BalancedBagging tuned이고, Logistic Regression은 설명 가능성과 소규모 캠페인 후보로 해석합니다.
 
 #### Q14. 왜 recall이 높은 CatBoost를 최종 모델로 선택하지 않았나요?
 
-CatBoost threshold 0.35는 recall이 0.8349로 높지만 precision이 0.0711입니다. 이탈 고객은 많이 잡지만 정상 고객도 매우 많이 이탈로 잘못 예측합니다. 그래서 메인 모델은 F1이 더 높은 Logistic Regression으로 두고, CatBoost는 recall 극대화 운영 후보로만 제시했습니다.
+CatBoost threshold 0.35는 recall이 0.8349로 높지만 precision이 0.0711입니다. 이탈 고객은 많이 잡지만 정상 고객도 매우 많이 이탈로 잘못 예측합니다. 그래서 CatBoost는 “비용 순이익/recall 운영형 후보”로 제시하고, contact rate 제한이나 top-k 예산과 함께 써야 한다고 설명합니다.
 
 #### Q15. BalancedBagging은 왜 최종 모델이 아니라 후보인가요?
 
-BalancedBagging은 recall 0.5872로 이탈 고객을 더 많이 잡지만 precision이 0.0877로 낮습니다. 캠페인 대상자를 넓게 잡는 운영 목적에는 쓸 수 있지만, 보고서의 대표 모델로는 오탐 부담이 커서 보조 후보로 두었습니다.
+BalancedBagging은 더 이상 단순 보조 후보가 아닙니다. tuned BalancedBagging은 추가 후보 통합 F1/MCC 최고이고, original BalancedBagging은 5-fold CV에서 F1 평균 0.1455로 가장 안정적이었습니다. 다만 precision은 여전히 낮기 때문에 실제 운영에서는 top-k 예산과 함께 적용해야 합니다.
 
 #### Q16. recall을 올리면 왜 precision이 떨어지나요?
 
@@ -557,6 +564,43 @@ feature importance는 어떤 feature가 모델 성능에 많이 기여했는지�
 #### Q19. 실험 A~G는 각각 무엇을 검증한 건가요?
 
 실험 A~G는 단순한 추가 실험이 아니라 최종 결론을 방어하기 위한 검증입니다. A는 ZIP 포함 여부, B는 feature group 기여도, C는 세그먼트별 오류, D는 비용별 threshold, E는 논문형/확장 feature variant, F는 추가 모델과 soft ensemble, G는 bootstrap과 McNemar 기반 통계 검증을 확인했습니다.
+
+#### Q19-1. 모델을 비교하려면 모든 모델을 다 학습했어야 하는 것 아닌가요?
+
+맞습니다. 그래서 최종 보고서에서는 단순히 3~4개 모델만 비교했다고 쓰지 않고, 동일한 train/test split과 leakage 방지 전처리 조건에서 11개 기본 모델 설정을 ZIP 포함/제외 variant로 비교한 결과를 제시했습니다. 이후 추가 실험에서는 46개 후보 조합을 더 확인했습니다.
+
+다만 모든 모델을 같은 깊이로 exhaustive tuning한 것은 아닙니다. 따라서 보고서의 주장을 “모든 가능한 모델 중 절대 최고 모델을 찾았다”로 쓰지 않고, “동일 조건 screening을 통해 목적별 운영 후보를 나누었다”로 제한했습니다. 이 점을 한계에도 명시했습니다.
+
+#### Q19-2. ChurnRadar에 맞게 모델을 학습했다는 근거는 무엇인가요?
+
+ChurnRadar의 목적은 일반 accuracy가 아니라 이탈 고객을 얼마나 잘 찾고, 실제 캠페인 비용에서 어떤 모델이 유리한지 보는 것입니다. 그래서 모델 학습과 평가는 다음 기준으로 맞췄습니다.
+
+- accuracy 중심 평가를 제외하고 F1, recall, precision, PR-AUC, MCC를 사용했습니다.
+- 이탈 고객이 6.5%뿐인 문제라 SVMSMOTE와 class imbalance 모델을 적용했습니다.
+- 기본 threshold 0.5뿐 아니라 validation 기반 threshold tuning과 비용 기준 threshold sweep을 수행했습니다.
+- 단일 모델 순위가 아니라 F1형, recall형, 비용형, top-k 캠페인형 후보를 나누었습니다.
+
+즉 모든 모델을 무한정 튜닝한 것은 아니지만, ChurnRadar 문제의 핵심인 불균형 이탈 탐지와 운영 캠페인 의사결정에 맞춰 학습과 평가 기준을 설계했습니다.
+
+#### Q19-3. CatBoost, XGBoost, Logistic Regression을 이탈 포착에 맞게 다시 최적화하면 어떻게 되나요?
+
+발표 이후 세 모델을 recall 중심으로 다시 최적화했습니다. validation set에서 최소 precision과 최대 접촉률 조건을 두고 recall을 최우선으로 선택했습니다. 그 결과 XGBoost는 recall 0.8349로 이탈자 109명 중 91명을 잡았고, CatBoost native categorical도 recall 0.8349로 91명을 잡았습니다. Logistic Regression balanced C0.03은 recall 0.7982로 87명을 잡았습니다.
+
+다만 세 모델 모두 FP가 1,100명 이상으로 크게 늘었습니다. 따라서 이 결과는 단일 대표 모델을 무조건 교체한다는 뜻이 아니라 “이탈 고객을 최대한 많이 잡아야 하는 대규모 retention 캠페인용 후보”로 해석해야 합니다.
+
+#### Q19-4. F1 중심, recall 중심 등 목적별 최고 모델은 각각 무엇인가요?
+
+전부 학습된 후보를 통합해 목적별 최고 모델을 다시 뽑았습니다. F1 중심과 MCC 중심은 `with_billing_zip + BalancedBagging_tree_depthnone_leaf25`가 가장 좋았습니다. 순수 recall 중심은 `with_billing_zip + HistGradientBoosting_balanced_lr0.03`이 recall 0.8716으로 가장 높았지만 precision은 0.0651이라 오탐이 많습니다. precision 중심은 `with_billing_zip + LogisticRegression_SMOTE_C0.1`이 가장 높았습니다. 비용 순이익 중심은 `with_billing_zip + CatBoost_native_categorical`이 가장 좋았습니다.
+
+따라서 최종 결론은 모델 하나가 모든 기준에서 최고라는 것이 아니라, F1형, recall형, precision형, 비용형 목적에 따라 다른 모델을 선택해야 한다는 것입니다.
+
+#### Q19-5. 보고서에서 가장 중요하게 볼 3개 실험은 무엇인가요?
+
+1순위는 목적별 전체 모델 비교입니다. 발표 피드백 중 “각 모델을 ChurnRadar 목적에 맞게 학습했는가”에 가장 직접적으로 답하기 때문입니다. 64개 성공 후보를 통합 비교했고, F1/MCC 최고는 BalancedBagging tuned, recall 최고는 HistGradientBoosting, 비용 순이익 최고는 CatBoost native categorical로 정리했습니다. 추가로 champion 모델만 5-fold CV로 재검증했습니다.
+
+2순위는 Billing_ZIP 지역별 분석입니다. ZIP 원값 456개 중 427개는 표본이 작아 원값 단독 해석은 위험했고, 그래서 ZIP 앞 2자리 그룹을 함께 봤습니다. 이탈률이 높은 지역과 모델이 잘 잡는 지역은 다를 수 있다는 점이 핵심입니다. 예를 들어 `40xx`는 top 30% 캠페인에서 XGBoost가 이탈자 50명 중 24명을 잡아 가장 큰 운영 기회로 나타났습니다.
+
+3순위는 비용/threshold/top-k 운영 실험입니다. 실제 현업 질문은 “모델 점수가 높은 사람 모두에게 연락할 것인가, 예산 안에서 누구에게 연락할 것인가”이기 때문입니다. top 10%는 CatBoost balanced, top 30%는 tuned BalancedBagging, top 40%는 BalancedBagging original이 유리했습니다. ARPU 기반 individualized net value proxy도 계산했지만, 실제 마진과 기대 유지기간이 없기 때문에 운영 공식이 아니라 추가 개선 방향으로 해석했습니다.
 
 #### Q20. Top-k 캠페인은 무엇인가요?
 
@@ -578,7 +622,7 @@ Top-k 캠페인은 모델 점수가 높은 고객부터 순위를 매긴 뒤, �
 
 #### Q24. 왜 복잡한 모델보다 Logistic Regression이 더 좋았나요?
 
-현재 feature가 이탈 원인을 직접적으로 설명하지 못하는 상황에서는 복잡한 모델이 추가 패턴을 찾기보다 noise를 학습할 수 있습니다. Logistic Regression은 파생변수로 펼친 신호를 단순하고 안정적으로 반영했고, 이 데이터에서는 그 균형이 F1 기준으로 가장 좋았습니다.
+초기 baseline에서는 현재 feature가 이탈 원인을 직접적으로 설명하지 못하는 상황이라 복잡한 모델이 추가 패턴을 찾기보다 noise를 학습할 수 있었습니다. Logistic Regression은 파생변수로 펼친 신호를 단순하고 안정적으로 반영해 baseline F1이 가장 좋았습니다. 다만 추가 후보까지 포함한 최종 비교에서는 BalancedBagging 계열도 함께 대표 후보로 봅니다.
 
 #### Q25. 이 프로젝트를 유지하는 이유는 무엇인가요?
 
@@ -590,7 +634,7 @@ Top-k 캠페인은 모델 점수가 높은 고객부터 순위를 매긴 뒤, �
 
 ## 14. 교수님께 말할 최종 요약
 
-> 저희는 최종 프로젝트를 통신사 고객 이탈 예측으로 유지하기로 했습니다. 원본 데이터 구조를 확인하고, 결측치 처리, 중복 제거, 파생변수 생성, SVMSMOTE, 여러 불균형 대응 모델, CatBoost native categorical 처리, threshold tuning까지 수행했습니다. 그 결과 F1 기준 최종 모델은 `without_billing_zip + LogisticRegression_SMOTE`였고 F1은 0.1681, recall은 0.2661이었습니다. recall을 높이는 모델도 있었지만 precision이 0.07~0.09 수준으로 낮아 false positive가 많이 증가했습니다. 분석 결과 이 데이터는 정적인 CRM snapshot 중심이라 이탈 예측에 중요한 사용량 변화, 결제 실패, 불만 기록, 약정 종료 같은 시간 기반 행동 feature가 부족합니다. 따라서 최종 보고서에서는 모델별 trade-off와 데이터 한계를 명확히 설명하고, 목적에 따라 F1 기준 모델과 recall 중심 운영 후보를 구분해 제시하겠습니다.
+> 저희는 최종 프로젝트를 통신사 고객 이탈 예측으로 유지하기로 했습니다. 원본 데이터 구조를 확인하고, 결측치 처리, 중복 제거, 파생변수 생성, SVMSMOTE, 여러 불균형 대응 모델, CatBoost/XGBoost/Logistic Regression recall 최적화, threshold tuning, top-k 운영 실험까지 수행했습니다. 초기 baseline에서는 `without_billing_zip + LogisticRegression_SMOTE`가 F1 0.1681로 가장 좋았지만, 추가 후보 통합 비교에서는 `with_billing_zip + BalancedBagging_tree_depthnone_leaf25`가 F1/MCC 대표 후보가 되었고, 비용 순이익은 CatBoost native categorical이 가장 좋았습니다. 또한 Billing_ZIP을 지역별로 나누어 이탈률과 지역별 top-k 효과를 확인했습니다. 최종 보고서에서는 단일 모델 우승보다 F1형, recall형, 비용형, 지역형 운영 후보를 나누어 제시하겠습니다.
 
 추가로 짧게 덧붙일 문장:
 

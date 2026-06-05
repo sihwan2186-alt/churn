@@ -1,6 +1,6 @@
 # Phase 3-B: Differentiation Experiments
 
-마지막 업데이트: 2026-05-27
+마지막 업데이트: 2026-06-05
 
 ## 실행 개요
 
@@ -13,6 +13,11 @@
 출력 위치:
 
 - `processed/phase_3b_differentiation/experiment_a_billing_zip_summary.csv`
+- `processed/phase_3b_differentiation/experiment_a_billing_zip_churn_by_value.csv`
+- `processed/phase_3b_differentiation/experiment_a_billing_zip_churn_by_group.csv`
+- `processed/phase_3b_differentiation/experiment_a_billing_zip_model_by_value.csv`
+- `processed/phase_3b_differentiation/experiment_a_billing_zip_model_by_group.csv`
+- `processed/phase_3b_differentiation/experiment_a_billing_zip_region_findings.md`
 - `processed/phase_3b_differentiation/experiment_b_feature_group_ablation.csv`
 - `processed/phase_3b_differentiation/experiment_c_segment_summary.csv`
 - `processed/phase_3b_differentiation/experiment_c_segment_bucket_summary.csv`
@@ -42,6 +47,14 @@
 보고서 문장:
 
 > 논문은 Billing_ZIP 포함 단일 설정만 제시했지만, 본 연구는 ZIP 포함/제외 ablation을 통해 ZIP 정보의 효과가 모델 계열에 의존함을 보였다. Tree ensemble에서는 지역 정보가 recall을 높였으나, 선형 모델에서는 고카디널리티 인코딩이 F1을 낮췄다.
+
+### Billing_ZIP 지역별 추가 분석
+
+추가 산출물은 `experiment_a_billing_zip_region_findings.md`에 정리했다. 전체 8,436행, 이탈 545건을 Billing_ZIP 원값 456개로 나누어 보면 427개 ZIP은 표본 또는 이탈자 수가 작아 탐색용으로만 해석해야 한다. 따라서 보고서 본문에서는 원값별 극단값보다 ZIP 앞 2자리 지역 그룹을 중심으로 설명한다.
+
+이탈률이 높은 안정 표본 ZIP 원값은 `6900` 21.74%, `4800` 18.18%, `4210` 12.77%, `4001` 12.50%, `4850` 12.50% 순이다. ZIP 앞 2자리 지역 그룹 기준으로는 `69xx` 21.74%, `46xx` 12.26%, `48xx` 11.46%, `47xx` 11.16%, `68xx` 10.34%가 높다.
+
+모델 성능을 test set에서 지역 그룹별로 보면, `with_billing_zip + BalancedBagging_original`은 전체 recall 0.5872 대비 `47xx`, `66xx`, `64xx`에서 recall 0.7500으로 높았다. 반면 이탈률이 높은 `46xx`는 recall 0.2500으로 낮아, 지역 이탈률이 높다고 모델이 항상 잘 잡는 것은 아니다. 이 결과는 Billing_ZIP을 단순 포함/제외 피처로만 보지 말고, 지역별 campaign 우선순위와 모델 오류 분석을 함께 봐야 한다는 근거가 된다.
 
 ## Experiment B: Feature Group Ablation
 
@@ -154,4 +167,3 @@
 | B: Feature Ablation | LR은 categorical group, BalancedBagging은 interaction group에 가장 민감하다. |
 | C: CRM Segment | high-value는 recall보다 precision/FP 문제가 크고, low-value는 recall 문제가 크다. |
 | D: Cost Threshold | 논문 비용 가정에서는 high-recall 전략이 유리하지만, 비용 구조가 보수적이면 campaign 가치가 음수다. |
-

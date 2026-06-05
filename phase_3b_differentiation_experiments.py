@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from imblearn.over_sampling import SVMSMOTE
-from imblearn.ensemble import BalancedBaggingClassifier
+from imblearn.ensemble import BalancedBaggingClassifier, EasyEnsembleClassifier
 from sklearn.base import clone
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
@@ -39,6 +39,18 @@ ABLATION_RUNS = [
     ("with_billing_zip", "BalancedBagging_original", "original"),
     ("without_billing_zip", "LogisticRegression_SMOTE", "resampled"),
 ]
+
+EXPERIMENT_A_REGION_RUNS = [
+    ("with_billing_zip", "BalancedBagging_original", "original"),
+    ("without_billing_zip", "BalancedBagging_original", "original"),
+    ("with_billing_zip", "LogisticRegression_SMOTE", "resampled"),
+    ("without_billing_zip", "LogisticRegression_SMOTE", "resampled"),
+    ("with_billing_zip", "EasyEnsemble_original", "original"),
+    ("without_billing_zip", "EasyEnsemble_original", "original"),
+]
+
+MIN_STABLE_ZIP_ROWS = 20
+MIN_STABLE_ZIP_POSITIVES = 2
 
 PRIMARY_SEGMENT_VARIANT = "with_billing_zip"
 PRIMARY_SEGMENT_MODEL = "BalancedBagging_original"
@@ -114,6 +126,12 @@ def build_model(model_name: str) -> Any:
         )
     if model_name == "LogisticRegression_SMOTE":
         return LogisticRegression(max_iter=3000, random_state=RANDOM_STATE)
+    if model_name == "EasyEnsemble_original":
+        return EasyEnsembleClassifier(
+            n_estimators=10,
+            random_state=RANDOM_STATE,
+            n_jobs=1,
+        )
     raise ValueError(f"Unsupported model: {model_name}")
 
 
@@ -666,11 +684,429 @@ def run_experiment_a_summary() -> pd.DataFrame:
     return pd.DataFrame(rows).sort_values(["model", "variant"])
 
 
+def format_billing_zip(value: Any, missing: bool = False) -> str:
+    if missing or pd.isna(value):
+        return "missing"
+    try:
+        numeric_value = float(value)
+        if np.isnan(numeric_value):
+            return "missing"
+        if numeric_value.is_integer():
+            return str(int(numeric_value)).zfill(4)
+    except (TypeError, ValueError):
+        pass
+    return str(value).strip() or "missing"
+
+
+def billing_zip_prefix(zip_value: str, digits: int) -> str:
+    if zip_value == "missing":
+        return "missing"
+    if len(zip_value) <= digits:
+        return zip_value
+    return f"{zip_value[:digits]}{'x' * (len(zip_value) - digits)}"
+
+
+def add_billing_zip_group_columns(frame: pd.DataFrame) -> pd.DataFrame:
+    if "Billing_ZIP" not in frame.columns:
+        raise ValueError("Billing_ZIP is required for ZIP-level analysis.")
+
+    enriched = frame.copy().reset_index(drop=True)
+    if "Billing_ZIP_missing" in enriched.columns:
+        missing_flags = enriched["Billing_ZIP_missing"].fillna(0).astype(int).eq(1)
+    else:
+        missing_flags = pd.Series(False, index=enriched.index)
+
+    zip_values = [
+        format_billing_zip(value, bool(missing))
+        for value, missing in zip(enriched["Billing_ZIP"], missing_flags)
+    ]
+    enriched["Billing_ZIP_value"] = zip_values
+    enriched["Billing_ZIP_prefix1"] = [
+        billing_zip_prefix(value, 1) for value in zip_values
+    ]
+    enriched["Billing_ZIP_prefix2"] = [
+        billing_zip_prefix(value, 2) for value in zip_values
+    ]
+    return enriched
+
+
+def support_flag(rows: int, positives: int) -> str:
+    if positives == 0:
+        return "no_positive"
+    if rows < MIN_STABLE_ZIP_ROWS or positives < MIN_STABLE_ZIP_POSITIVES:
+        return "small_support"
+    return "stable"
+
+
+def summarize_actual_churn_by_group(
+    frame: pd.DataFrame,
+    group_col: str,
+    group_level: str,
+) -> pd.DataFrame:
+    rows = []
+    for group_value, group in frame.groupby(group_col, dropna=False):
+        actual = group["actual"].astype(int)
+        positives = int(actual.sum())
+        total_rows = int(len(group))
+        churn_rate = float(actual.mean()) if total_rows else float("nan")
+        rows.append(
+            {
+                "group_level": group_level,
+                "billing_zip_group": group_value,
+                "rows": total_rows,
+                "train_rows": int(group["split"].eq("train").sum()),
+                "test_rows": int(group["split"].eq("test").sum()),
+                "churn_count": positives,
+                "non_churn_count": int(total_rows - positives),
+                "churn_rate": churn_rate,
+                "churn_rate_percent": churn_rate * 100,
+                "support_flag": support_flag(total_rows, positives),
+            }
+        )
+    return pd.DataFrame(rows).sort_values(
+        ["group_level", "rows", "churn_count", "billing_zip_group"],
+        ascending=[True, False, False, True],
+    )
+
+
+def summarize_prediction_by_group(
+    frame: pd.DataFrame,
+    group_col: str,
+    group_level: str,
+    *,
+    variant: str,
+    model_name: str,
+    train_kind: str,
+) -> pd.DataFrame:
+    overall_y = frame["actual"].astype(int)
+    overall_pred = frame["predicted"].astype(int)
+    overall_f1 = float(f1_score(overall_y, overall_pred, zero_division=0))
+    overall_recall = float(recall_score(overall_y, overall_pred, zero_division=0))
+
+    rows = []
+    for group_value, group in frame.groupby(group_col, dropna=False):
+        y_true = group["actual"].astype(int)
+        y_pred = group["predicted"].astype(int)
+        scores = group["score"].astype(float).to_numpy()
+        tn, fp, fn, tp = confusion_matrix(y_true, y_pred, labels=[0, 1]).ravel()
+        positives = int(y_true.sum())
+        predicted_positives = int(y_pred.sum())
+        total_rows = int(len(group))
+        churn_rate = float(y_true.mean()) if total_rows else float("nan")
+        predicted_positive_rate = float(y_pred.mean()) if total_rows else float("nan")
+        f1_value = (
+            float(f1_score(y_true, y_pred, zero_division=0))
+            if positives or predicted_positives
+            else float("nan")
+        )
+        recall_value = (
+            float(recall_score(y_true, y_pred, zero_division=0))
+            if positives
+            else float("nan")
+        )
+        precision_value = (
+            float(precision_score(y_true, y_pred, zero_division=0))
+            if predicted_positives
+            else float("nan")
+        )
+
+        rows.append(
+            {
+                "variant": variant,
+                "model": model_name,
+                "train_kind": train_kind,
+                "group_level": group_level,
+                "billing_zip_group": group_value,
+                "rows": total_rows,
+                "positives": positives,
+                "churn_rate": churn_rate,
+                "predicted_positives": predicted_positives,
+                "predicted_positive_rate": predicted_positive_rate,
+                "tp": int(tp),
+                "fp": int(fp),
+                "fn": int(fn),
+                "tn": int(tn),
+                "f1": f1_value,
+                "recall": recall_value,
+                "precision": precision_value,
+                "pr_auc": safe_average_precision(y_true, scores),
+                "avg_score": float(np.mean(scores)) if len(scores) else float("nan"),
+                "overall_test_f1": overall_f1,
+                "overall_test_recall": overall_recall,
+                "f1_delta_vs_model_overall": f1_value - overall_f1
+                if not np.isnan(f1_value)
+                else float("nan"),
+                "recall_delta_vs_model_overall": recall_value - overall_recall
+                if not np.isnan(recall_value)
+                else float("nan"),
+                "support_flag": support_flag(total_rows, positives),
+            }
+        )
+
+    return pd.DataFrame(rows).sort_values(
+        ["variant", "model", "group_level", "rows", "positives", "billing_zip_group"],
+        ascending=[True, True, True, False, False, True],
+    )
+
+
+def run_experiment_a_billing_zip_detail() -> tuple[
+    pd.DataFrame,
+    pd.DataFrame,
+    pd.DataFrame,
+    pd.DataFrame,
+]:
+    (
+        _,
+        _,
+        y_train_zip,
+        y_test_zip,
+        X_train_zip_analysis,
+        X_test_zip_analysis,
+    ) = load_split("with_billing_zip")
+
+    train_zip_frame = add_billing_zip_group_columns(X_train_zip_analysis)
+    train_zip_frame["split"] = "train"
+    train_zip_frame["actual"] = y_train_zip.to_numpy()
+    test_zip_frame = add_billing_zip_group_columns(X_test_zip_analysis)
+    test_zip_frame["split"] = "test"
+    test_zip_frame["actual"] = y_test_zip.to_numpy()
+    full_zip_frame = pd.concat(
+        [train_zip_frame, test_zip_frame],
+        ignore_index=True,
+    )
+
+    churn_by_value = summarize_actual_churn_by_group(
+        full_zip_frame,
+        "Billing_ZIP_value",
+        "zip_value",
+    )
+    churn_by_group = pd.concat(
+        [
+            summarize_actual_churn_by_group(
+                full_zip_frame,
+                "Billing_ZIP_prefix1",
+                "zip_prefix1",
+            ),
+            summarize_actual_churn_by_group(
+                full_zip_frame,
+                "Billing_ZIP_prefix2",
+                "zip_prefix2",
+            ),
+        ],
+        ignore_index=True,
+    )
+
+    model_value_tables = []
+    model_group_tables = []
+    y_test_zip_reset = y_test_zip.reset_index(drop=True)
+    zip_test_labels = test_zip_frame[
+        ["Billing_ZIP_value", "Billing_ZIP_prefix1", "Billing_ZIP_prefix2"]
+    ].reset_index(drop=True)
+
+    for variant, model_name, train_kind in EXPERIMENT_A_REGION_RUNS:
+        X_train, X_test, y_train, y_test, _, _ = load_split(variant)
+        if not y_test.reset_index(drop=True).equals(y_test_zip_reset):
+            raise ValueError(
+                f"Test target order differs between with_billing_zip and {variant}."
+            )
+
+        model = fit_model(model_name, train_kind, X_train, y_train)
+        scores = positive_scores(model, X_test)
+        predictions = np.asarray(model.predict(X_test)).astype(int)
+
+        prediction_frame = zip_test_labels.copy()
+        prediction_frame["actual"] = y_test.to_numpy()
+        prediction_frame["predicted"] = predictions
+        prediction_frame["score"] = scores
+
+        model_value_tables.append(
+            summarize_prediction_by_group(
+                prediction_frame,
+                "Billing_ZIP_value",
+                "zip_value",
+                variant=variant,
+                model_name=model_name,
+                train_kind=train_kind,
+            )
+        )
+        model_group_tables.extend(
+            [
+                summarize_prediction_by_group(
+                    prediction_frame,
+                    "Billing_ZIP_prefix1",
+                    "zip_prefix1",
+                    variant=variant,
+                    model_name=model_name,
+                    train_kind=train_kind,
+                ),
+                summarize_prediction_by_group(
+                    prediction_frame,
+                    "Billing_ZIP_prefix2",
+                    "zip_prefix2",
+                    variant=variant,
+                    model_name=model_name,
+                    train_kind=train_kind,
+                ),
+            ]
+        )
+
+    model_by_value = pd.concat(model_value_tables, ignore_index=True)
+    model_by_group = pd.concat(model_group_tables, ignore_index=True)
+    return churn_by_value, churn_by_group, model_by_value, model_by_group
+
+
+def format_markdown_value(value: Any) -> str:
+    if pd.isna(value):
+        return ""
+    if isinstance(value, (float, np.floating)):
+        return f"{float(value):.4f}"
+    return str(value)
+
+
+def to_markdown_table(frame: pd.DataFrame, columns: list[str]) -> str:
+    header = "| " + " | ".join(columns) + " |"
+    separator = "| " + " | ".join(["---"] * len(columns)) + " |"
+    lines = [header, separator]
+    for _, row in frame[columns].iterrows():
+        lines.append(
+            "| "
+            + " | ".join(format_markdown_value(row[column]) for column in columns)
+            + " |"
+        )
+    return "\n".join(lines)
+
+
+def write_experiment_a_billing_zip_findings(
+    churn_by_value: pd.DataFrame,
+    churn_by_group: pd.DataFrame,
+    model_by_value: pd.DataFrame,
+    model_by_group: pd.DataFrame,
+) -> None:
+    stable_exact = churn_by_value[churn_by_value["support_flag"].eq("stable")]
+    high_churn_exact = (
+        stable_exact.sort_values(
+            ["churn_rate", "churn_count", "rows"],
+            ascending=[False, False, False],
+        )
+        .head(10)
+        .copy()
+    )
+    prefix2_churn = (
+        churn_by_group[
+            churn_by_group["group_level"].eq("zip_prefix2")
+            & churn_by_group["support_flag"].eq("stable")
+        ]
+        .sort_values(["churn_rate", "churn_count", "rows"], ascending=[False, False, False])
+        .head(10)
+        .copy()
+    )
+    key_model_prefix2 = model_by_group[
+        model_by_group["group_level"].eq("zip_prefix2")
+        & model_by_group["support_flag"].eq("stable")
+        & (
+            (
+                model_by_group["variant"].eq("with_billing_zip")
+                & model_by_group["model"].eq("BalancedBagging_original")
+            )
+            | (
+                model_by_group["variant"].eq("without_billing_zip")
+                & model_by_group["model"].eq("LogisticRegression_SMOTE")
+            )
+        )
+    ].copy()
+    key_model_prefix2 = key_model_prefix2.sort_values(
+        ["model", "recall_delta_vs_model_overall", "f1_delta_vs_model_overall"],
+        ascending=[True, False, False],
+    ).head(16)
+
+    total_rows = int(churn_by_value["rows"].sum())
+    total_churn = int(churn_by_value["churn_count"].sum())
+    total_zip_values = int(len(churn_by_value))
+    small_support_count = int(churn_by_value["support_flag"].ne("stable").sum())
+
+    lines = [
+        "# Experiment A 추가: Billing_ZIP 지역별 이탈 및 모델 성능",
+        "",
+        "기준: 기존 Experiment A와 동일하게 train/test split을 유지하고, 모델은 전체 학습 데이터로 학습한 뒤 test set을 Billing_ZIP 단위로 나누어 평가했다.",
+        "ZIP 단일값은 표본이 작은 값이 많기 때문에 원값별 결과와 ZIP 앞 1자리/2자리 지역 그룹 결과를 함께 저장했다.",
+        "",
+        "## 산출 파일",
+        "",
+        "- `experiment_a_billing_zip_churn_by_value.csv`: 전체 데이터의 Billing_ZIP 원값별 이탈률",
+        "- `experiment_a_billing_zip_churn_by_group.csv`: 전체 데이터의 Billing_ZIP 앞 1자리/2자리 그룹별 이탈률",
+        "- `experiment_a_billing_zip_model_by_value.csv`: test set의 Billing_ZIP 원값별 F1/recall/precision",
+        "- `experiment_a_billing_zip_model_by_group.csv`: test set의 Billing_ZIP 앞 1자리/2자리 그룹별 F1/recall/precision",
+        "",
+        "## 핵심 요약",
+        "",
+        f"- 전체 분석 행은 {total_rows:,}건, 이탈 고객은 {total_churn:,}건이다.",
+        f"- Billing_ZIP 원값은 {total_zip_values:,}개이며, 이 중 {small_support_count:,}개는 표본 또는 이탈자 수가 작아 탐색용으로만 해석한다.",
+        "- 개별 ZIP별로 별도 모델을 학습하면 표본 부족 문제가 크므로, 전체 모델을 학습한 뒤 ZIP별 hold-out 성능을 비교했다.",
+        "- 보고서/발표에서는 원값별 극단값보다 `zip_prefix2` 지역 그룹 결과를 중심으로 해석하는 편이 안정적이다.",
+        "",
+        "## 이탈률이 높은 ZIP 원값 그룹",
+        "",
+        to_markdown_table(
+            high_churn_exact,
+            [
+                "billing_zip_group",
+                "rows",
+                "churn_count",
+                "churn_rate",
+                "support_flag",
+            ],
+        ),
+        "",
+        "## 이탈률이 높은 ZIP 앞 2자리 지역 그룹",
+        "",
+        to_markdown_table(
+            prefix2_churn,
+            [
+                "billing_zip_group",
+                "rows",
+                "churn_count",
+                "churn_rate",
+                "support_flag",
+            ],
+        ),
+        "",
+        "## 주요 모델의 ZIP 앞 2자리 그룹별 성능 변화",
+        "",
+        to_markdown_table(
+            key_model_prefix2,
+            [
+                "variant",
+                "model",
+                "billing_zip_group",
+                "rows",
+                "positives",
+                "churn_rate",
+                "f1",
+                "recall",
+                "f1_delta_vs_model_overall",
+                "recall_delta_vs_model_overall",
+            ],
+        ),
+        "",
+        "## 보고서용 해석 문장",
+        "",
+        "> Billing_ZIP 원값 456개를 모두 나누어 보면 일부 ZIP에서 이탈률이 높게 나타나지만, 다수 값은 표본이 작아 단독 결론으로 쓰기 어렵다. 따라서 본 연구는 전체 모델을 학습한 뒤 Billing_ZIP 원값과 ZIP 앞 1자리/2자리 지역 그룹별 hold-out 성능을 비교했다. 그 결과 지역 정보는 BalancedBagging 계열에서는 일부 지역 그룹의 recall을 끌어올리는 신호로 작동했지만, Logistic Regression에서는 고카디널리티 ZIP 정보가 전체 F1을 낮추는 방향으로 작동했다. 즉 Billing_ZIP은 제거/포함을 단순히 하나로 정할 피처가 아니라, 모델 계열과 지역 그룹 안정성을 함께 고려해야 하는 변수다.",
+        "",
+    ]
+
+    (EXPERIMENT_ROOT / "experiment_a_billing_zip_region_findings.md").write_text(
+        "\n".join(lines),
+        encoding="utf-8",
+    )
+
+
 def write_summary_json(
     ablation: pd.DataFrame,
     segment_summary: pd.DataFrame,
     bucket_summary: pd.DataFrame,
     cost_best: pd.DataFrame,
+    billing_zip_churn_by_value: pd.DataFrame | None = None,
+    billing_zip_model_by_group: pd.DataFrame | None = None,
 ) -> None:
     ok_ablation = ablation[ablation["status"].eq("ok")].copy()
     drop_rows = ok_ablation[ok_ablation["experiment"].eq("DROP_GROUP")]
@@ -686,6 +1122,31 @@ def write_summary_json(
         "bucket_summary": bucket_summary.to_dict(orient="records"),
         "cost_best": cost_best.to_dict(orient="records"),
     }
+    if billing_zip_churn_by_value is not None:
+        summary["billing_zip_high_churn_stable_values"] = (
+            billing_zip_churn_by_value[
+                billing_zip_churn_by_value["support_flag"].eq("stable")
+            ]
+            .sort_values(
+                ["churn_rate", "churn_count", "rows"],
+                ascending=[False, False, False],
+            )
+            .head(10)
+            .to_dict(orient="records")
+        )
+    if billing_zip_model_by_group is not None:
+        summary["billing_zip_prefix2_model_changes"] = (
+            billing_zip_model_by_group[
+                billing_zip_model_by_group["group_level"].eq("zip_prefix2")
+                & billing_zip_model_by_group["support_flag"].eq("stable")
+            ]
+            .sort_values(
+                ["variant", "model", "recall_delta_vs_model_overall"],
+                ascending=[True, True, False],
+            )
+            .head(30)
+            .to_dict(orient="records")
+        )
     (EXPERIMENT_ROOT / "phase_3b_summary.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=2),
         encoding="utf-8",
@@ -700,6 +1161,38 @@ def main() -> None:
         EXPERIMENT_ROOT / "experiment_a_billing_zip_summary.csv",
         index=False,
         encoding="utf-8-sig",
+    )
+    (
+        billing_zip_churn_by_value,
+        billing_zip_churn_by_group,
+        billing_zip_model_by_value,
+        billing_zip_model_by_group,
+    ) = run_experiment_a_billing_zip_detail()
+    billing_zip_churn_by_value.to_csv(
+        EXPERIMENT_ROOT / "experiment_a_billing_zip_churn_by_value.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
+    billing_zip_churn_by_group.to_csv(
+        EXPERIMENT_ROOT / "experiment_a_billing_zip_churn_by_group.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
+    billing_zip_model_by_value.to_csv(
+        EXPERIMENT_ROOT / "experiment_a_billing_zip_model_by_value.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
+    billing_zip_model_by_group.to_csv(
+        EXPERIMENT_ROOT / "experiment_a_billing_zip_model_by_group.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
+    write_experiment_a_billing_zip_findings(
+        billing_zip_churn_by_value,
+        billing_zip_churn_by_group,
+        billing_zip_model_by_value,
+        billing_zip_model_by_group,
     )
 
     ablation = run_feature_group_ablation()
@@ -746,9 +1239,39 @@ def main() -> None:
     )
     plot_cost_sensitivity(cost_best, cost_sweep)
 
-    write_summary_json(ablation, segment_summary, bucket_summary, cost_best)
+    write_summary_json(
+        ablation,
+        segment_summary,
+        bucket_summary,
+        cost_best,
+        billing_zip_churn_by_value,
+        billing_zip_model_by_group,
+    )
 
     print("Phase 3-B experiments complete")
+    print("\nExperiment A ZIP prefix2 model changes:")
+    print(
+        billing_zip_model_by_group[
+            billing_zip_model_by_group["group_level"].eq("zip_prefix2")
+            & billing_zip_model_by_group["support_flag"].eq("stable")
+        ]
+        .sort_values(["model", "recall_delta_vs_model_overall"], ascending=[True, False])
+        .head(12)[
+            [
+                "variant",
+                "model",
+                "billing_zip_group",
+                "rows",
+                "positives",
+                "churn_rate",
+                "f1",
+                "recall",
+                "f1_delta_vs_model_overall",
+                "recall_delta_vs_model_overall",
+            ]
+        ]
+        .to_string(index=False)
+    )
     print("\nExperiment B strongest drop impacts:")
     print(
         ablation[ablation["experiment"].eq("DROP_GROUP")]
